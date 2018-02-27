@@ -12,10 +12,24 @@ import {RouterModule, Routes} from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import {HttpModule} from '@angular/http';
 import { CookieService } from 'ng2-cookies';
+import {AuthGuard} from './utils/AuthGuard';
+import {AuthService} from './services/auth/auth.service';
+import { UpdateFormComponent } from './components/dashboard/update-form/update-form/update-form.component';
+import {
+  MatButtonModule, MatCheckboxModule, MatFormFieldControl, MatFormFieldModule, MatSelectModule,
+  MatToolbarModule,
+  MatProgressSpinnerModule, MatInputModule,
+} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: 'dashboard', component: DashboardComponent},
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
   { path: 'login', component: LoginComponent}
 ];
 
@@ -23,7 +37,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    UpdateFormComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +46,18 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     HttpModule,
+
+    MatButtonModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule
   ],
-  providers: [UserService, CookieService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 

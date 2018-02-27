@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../../models/User';
 import {UserService} from '../../../services/user.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { CookieService } from 'ng2-cookies';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,28 +14,36 @@ export class LoginComponent implements OnInit {
 
   user = new User();
   testUser = new User();
+  returnURL: string;
 
-  constructor(private userService: UserService, private router: Router, private cookieService: CookieService) { }
+  constructor(private authService: AuthService,
+              private userService: UserService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private cookieService: CookieService) {
+/*
+    this.userService.isAuthenticated();
+*/
+  }
 
   ngOnInit() {
+    this.returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login() {
-    this.userService.login(this.user).then(res => {
-      console.log(res);
-      this.router.navigateByUrl('/dashboard');
-      this.cookieService.set('principal', res);
-      console.log(this.cookieService.get("principal"));
-      this.cookieService.set('qqq', btoa(JSON.stringify(this.user)));
-      console.log(atob(this.cookieService.get('qqq')));
-      var tes = JSON.parse(atob(this.cookieService.get('qqq')));
-      console.log(tes.username);
-      console.log(tes.password);
-      this.testUser.username = tes.username;
-      this.testUser.password = tes.password;
-      console.log(this.testUser);
+    this.userService.login(this.user)
+      .then(data => {
+          this.cookieService.set('currentUser', btoa(JSON.stringify(data)));
+          this.router.navigateByUrl(this.returnURL);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 
-      })
-      .catch(err =>  this.router.navigateByUrl('/login'));
-   }
+  authenticated() {
+    return this.authService.getAuth();
+  }
+
+
 }

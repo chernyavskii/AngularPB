@@ -1,12 +1,27 @@
-<div class="container">
-  <ul class="nav nav-pills">
-    <li><a routerLinkActive="active" routerLink="/dashboard">Home</a></li>
-    <li><a routerLinkActive="active" routerLink="/login">Login</a></li>
-    <!--
-        <li><a (click)="logout()">Logout</a></li>
-    -->
-  </ul>
+<div class="container" [hidden]="authenticated()">
+  <nav>
+    <a routerLink="/login">Login</a>
+    <a routerLink="/registration">Registration</a>
+    <a routerLink="/logout">logout</a>
+  </nav>
 </div>
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="container" [hidden]="!authenticated()">
+  <h2>Vse horosho</h2>
+  <mat-toolbar>My App</mat-toolbar>
+  <!--<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Custom Toolbar</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <span>Second Line</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <span>Third Line</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar-row>
+  </mat-toolbar>-->
 </div>
+<router-outlet></router-outlet>

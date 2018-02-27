@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../services/auth/auth.service';
+import {User} from '../../../models/User';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,10 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  user = new User();
+  selected = false;
+  constructor(private authService: AuthService,
+              private userService: UserService) {
 
   }
 
+  ngOnInit() {
+    this.userService.findById(this.authService.getUserId()).then(res => {
+      this.user = res;
+    });
+  }
+
+
+ /* authenticated() {
+    return this.authService.getAuth();
+  }*/
+
+  onSelect() {
+    this.selected = true;
+    console.log(this.selected);
+  }
 }

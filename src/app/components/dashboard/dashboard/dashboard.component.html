@@ -1,3 +1,21 @@
-<p>
-  dashboard works!
-</p>
+
+Hello, <b style="color: red"> {{user.username}} </b> !!!
+<!--
+<button (click)="currentUser()">MISH</button>
+-->
+
+<ul>
+  <li>id: {{user.id}}</li>
+  <li>username: {{user.username}}</li>
+  <li>password: {{user.password}}</li>
+  <li>firstName: {{user.firstName}}</li>
+  <li>middleName: {{user.middleName}}</li>
+  <li>lastName: {{user.lastName}}</li>
+</ul>
+<div class="updateProfile" [hidden]="selected">
+  <button (click)="onSelect()" >Update Profile</button>
+</div>
+
+<div class="updateProfile" [hidden]="!selected">
+  <app-update-form></app-update-form>
+</div>

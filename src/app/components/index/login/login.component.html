@@ -1,3 +1,4 @@
+<div class="container" [hidden]="authenticated()">
 <div class="alert alert-danger" [hidden]="!error">
   There was a problem logging in. Please try again.
 </div>
@@ -15,4 +16,7 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
+</div>
+<div class="container" [hidden]="!authenticated()">
+  logOut
+</div>
