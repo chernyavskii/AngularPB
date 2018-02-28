@@ -1,0 +1,78 @@
+<h1><p>Update Profile: </p></h1>
+
+<form (submit)="updateProfile(user)">
+
+  <div class="form-group">
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.username" placeholder="Логин" name="username" (input)="user.username=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.password" placeholder="Пароль" name="password" (input)="user.password=$event.target.value"/>
+    </mat-form-field>
+
+  </div>
+
+  <div class="form-group">
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.lastName" placeholder="Фамилия" name="lastName" (input)="user.lastName=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.firstName" placeholder="Имя" name="firstName" (input)="user.firstName=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.middleName" placeholder="Отчество" name="middleName" (input)="user.middleName=$event.target.value"/>
+    </mat-form-field>
+
+  </div>
+
+  <div class="form-group">
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.unp" placeholder="Unp" name="middleName" (input)="user.unp=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.organization" placeholder="Organization" name="organization" (input)="user.organization=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.position" placeholder="Position" name="position" (input)="user.position=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.address" placeholder="Address" name="address" (input)="user.address=$event.target.value"/>
+    </mat-form-field>
+
+  </div>
+
+  <div class="form-group">
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.rs" placeholder="Rs" name="rs" (input)="user.rs=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.ks" placeholder="Ks" name="ks" (input)="user.ks=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.bank" placeholder="Bank" name="bank" (input)="user.bank=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.bik" placeholder="Bik" name="bik" (input)="user.bik=$event.target.value"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput [ngModel]="user.phone" placeholder="Phone" name="phone" (input)="user.phone=$event.target.value"/>
+    </mat-form-field>
+
+  </div>
+
+  <button mat-raised-button color="accent" type="submit">Обновить</button>
+</form>

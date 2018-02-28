@@ -24,7 +24,7 @@ export class XhrInterceptor implements HttpInterceptor {
         .set('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers,' +
           ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
           ' Access-Control-Request-Headers')
-        .set('Authorization', 'Basic a2tra2tra2tra2tra2trazpra2tra2tra2tra2tra2tr')
+        .set('Authorization', 'Basic SUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUE6SUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUE=')
         // .set('Authorization', 'Basic' + btoa(this.authService.getUsername() + ':' + this.authService.getPassword()))
     });
     return next.handle(xhr);

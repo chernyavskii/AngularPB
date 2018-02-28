@@ -17,5 +17,5 @@ Hello, <b style="color: red"> {{user.username}} </b> !!!
 </div>
 
 <div class="updateProfile" [hidden]="!selected">
-  <app-update-form></app-update-form>
+  <app-update-form [user]="user"></app-update-form>
 </div>

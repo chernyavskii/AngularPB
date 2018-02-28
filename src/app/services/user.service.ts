@@ -9,6 +9,8 @@ import {AuthService} from './auth/auth.service';
 export class UserService {
   private loginURL = 'http://localhost:8081/login';
   private usersURL = 'http://localhost:8081/users';
+  private resourceURL = 'http://localhost:8081/';
+
 
   isLoggedIn = false;
   redirectUrl: string;
@@ -50,6 +52,27 @@ export class UserService {
         .then(result => {
           resolve(result);
         })
+        .catch(error => reject(error));
+    });
+  }
+
+  updateById(id: number, user: User): Promise<any> {
+    id = this.authService.getUserId();
+    return new Promise((resolve, reject) => {
+      this.http
+        .put(`${this.usersURL}/${id}`, user)
+        .toPromise()
+        .then( result => resolve(result))
+        .catch(error => reject(error));
+    });
+  }
+
+  registration(user: User): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(this.resourceURL + 'registration', user)
+        .toPromise()
+        .then( result => resolve(result))
         .catch(error => reject(error));
     });
   }

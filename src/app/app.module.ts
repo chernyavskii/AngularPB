@@ -3,24 +3,25 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {XhrInterceptor} from './utils/xhr-interceptor';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {UserService} from './services/user.service';
+import { XhrInterceptor } from './utils/xhr-interceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UserService } from './services/user.service';
 import { LoginComponent } from './components/index/login/login.component';
-import {FormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
-import {HttpModule} from '@angular/http';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HttpModule } from '@angular/http';
 import { CookieService } from 'ng2-cookies';
-import {AuthGuard} from './utils/AuthGuard';
-import {AuthService} from './services/auth/auth.service';
-import { UpdateFormComponent } from './components/dashboard/update-form/update-form/update-form.component';
+import { AuthGuard } from './utils/AuthGuard';
+import { AuthService } from './services/auth/auth.service';
+import { UpdateFormComponent } from './components/dashboard/update-form/update-form.component';
 import {
   MatButtonModule, MatCheckboxModule, MatFormFieldControl, MatFormFieldModule, MatSelectModule,
   MatToolbarModule,
-  MatProgressSpinnerModule, MatInputModule,
+  MatProgressSpinnerModule, MatInputModule, MatSidenavModule,
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RegistrationComponent } from './components/index/registration/registration.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,8 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'registration', component: RegistrationComponent},
 ];
 
 @NgModule({
@@ -38,7 +40,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    UpdateFormComponent
+    UpdateFormComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     HttpModule,
+    ReactiveFormsModule,
 
     MatButtonModule,
     MatCheckboxModule,
@@ -55,7 +59,8 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule
   ],
   providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
