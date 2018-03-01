@@ -4,12 +4,15 @@ import {User} from '../models/User';
 import {Router} from '@angular/router';
 import { CookieService } from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
+import {RequestOptions} from '@angular/http';
 
 @Injectable()
 export class UserService {
   private loginURL = 'http://localhost:8081/login';
   private usersURL = 'http://localhost:8081/users';
   private resourceURL = 'http://localhost:8081/';
+  private agentsURL = 'http://localhost:8081/agents/';
+
 
 
   isLoggedIn = false;
@@ -18,7 +21,8 @@ export class UserService {
   constructor(private http: HttpClient,
               private router: Router,
               private cookie: CookieService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private cookieService: CookieService) { }
 
   findById(id): Promise<any> {
     id = this.authService.getUserId();
@@ -27,6 +31,7 @@ export class UserService {
         .get(`${this.usersURL}/${id}`)
         .toPromise()
         .then(result => {
+          console.log(result);
           resolve(result);
         })
         .catch(error => reject(error));
@@ -34,6 +39,7 @@ export class UserService {
   }
 
   login(user: User): Promise<any> {
+    console.log(user.username);
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
@@ -46,13 +52,20 @@ export class UserService {
         ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
         ' Access-Control-Request-Headers'
       });
+      console.log("misha" + btoa(user.username + ':' + user.password));
       this.http
-        .get(this.loginURL, {headers: headers})
+        .post(this.loginURL, user,  {headers: headers, withCredentials: true})
         .toPromise()
         .then(result => {
+          console.log("res " + JSON.stringify(result));
+/*
+          resolve(result);
+*/
+        this.cookieService.set('currentUser', btoa(JSON.stringify(result)));
+          this.cookieService.set('testToken','Basic ' + btoa(user.username + ':' + user.password))
           resolve(result);
         })
-        .catch(error => reject(error));
+        .catch(error => {console.log(JSON.stringify(error)); });
     });
   }
 
@@ -74,6 +87,30 @@ export class UserService {
         .toPromise()
         .then( result => resolve(result))
         .catch(error => reject(error));
+    });
+  }
+
+  testFindAll(): Promise<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+      'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
+      ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
+      ' Access-Control-Request-Headers'
+    });
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(this.agentsURL)
+        .toPromise()
+        .then(result => {
+          console.log(JSON.stringify(result));
+        })
+        .catch(err => {
+          console.log(JSON.stringify(err));
+        });
     });
   }
 }

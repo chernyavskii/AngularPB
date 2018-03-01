@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from './services/auth/auth.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,26 +14,15 @@ export class AppComponent implements OnInit {
 
   options: FormGroup;
 
-  /*constructor(fb: FormBuilder, private authService: AuthService) {
-    this.options = fb.group({
-      'fixed': false,
-      'top': 0,
-      'bottom': 0,
-    });
-  }*/
-
-/*
-  shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
-*/
-  constructor(private authService: AuthService, private router: Router) {
-/*
-    this.authService.getAuth();
-*/
-  }
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
   }
 
+  qqwerty() {
+    console.log("QQQ");
+    this.userService.testFindAll();
+  }
   authenticated() {
     return this.authService.getAuth();
   }

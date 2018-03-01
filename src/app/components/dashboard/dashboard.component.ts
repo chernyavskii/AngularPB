@@ -31,4 +31,8 @@ export class DashboardComponent implements OnInit {
     this.selected = true;
     console.log(this.selected);
   }
+
+  qqwerty() {
+    this.userService.testFindAll();
+  }
 }

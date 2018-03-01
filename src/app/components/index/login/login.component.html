@@ -1,18 +1,17 @@
+
 <div class="container" [hidden]="authenticated()">
-<form (submit)="login()">
+  <form (submit)="login()" >
+    <div class="form-group">
 
-  <div class="form-group">
+  <mat-form-field>
 
-    <mat-form-field>
-      <input type="text" matInput placeholder="Логин" name="username" />
+  <input type="text" matInput name="username" [(ngModel)]="model.username" #username="ngModel"  />
     </mat-form-field>
+  <mat-form-field>
 
-    <mat-form-field>
-      <input type="text" matInput placeholder="Пароль" name="password" />
-    </mat-form-field>
-
-  </div>
-
+    <input type="text" matInput="" name="password" [(ngModel)]="model.password" #username="ngModel"  />
+  </mat-form-field>
+    </div>
   <button mat-raised-button color="accent" type="submit">Войти</button>
 
 </form>
@@ -20,3 +19,5 @@
 <div class="container" [hidden]="!authenticated()">
   logOut
 </div>
+
+

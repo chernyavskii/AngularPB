@@ -12,6 +12,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  model: any = {};
   user = new User();
   testUser = new User();
   returnURL: string;
@@ -31,9 +32,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login(this.user)
+  console.log("comp " + JSON.stringify(this.model));
+    this.userService.login(this.model)
       .then(data => {
+/*
           this.cookieService.set('currentUser', btoa(JSON.stringify(data)));
+*/
           this.router.navigateByUrl(this.returnURL);
         },
         error => {
