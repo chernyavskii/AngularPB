@@ -10,17 +10,14 @@ import {UserService} from '../../services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  user = new User();
+  currentUser: User;
   selected = false;
-  constructor(private authService: AuthService,
-              private userService: UserService) {
-
+  constructor(private userService: UserService) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.currentUser);
   }
 
   ngOnInit() {
-    this.userService.findById(this.authService.getUserId()).then(res => {
-      this.user = res;
-    });
   }
 
  /* authenticated() {
@@ -32,7 +29,8 @@ export class DashboardComponent implements OnInit {
     console.log(this.selected);
   }
 
-  qqwerty() {
+  testFunc() {
     this.userService.testFindAll();
   }
+
 }

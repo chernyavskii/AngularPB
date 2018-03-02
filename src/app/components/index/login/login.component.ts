@@ -32,22 +32,30 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-  console.log("comp " + JSON.stringify(this.model));
     this.userService.login(this.model)
       .then(data => {
+        console.log(data);
 /*
-          this.cookieService.set('currentUser', btoa(JSON.stringify(data)));
+          this.router.navigate(['/dashboard']);
 */
-          this.router.navigateByUrl(this.returnURL);
         },
         error => {
           console.log(error);
         });
   }
-
+/*
   authenticated() {
     return this.authService.getAuth();
   }
 
+  login() {
+    this.userService.login(this.user)
+      .subscribe(data => {
+          this.router.navigate(['/dashboard']);
+        },err => {
+        console.log(JSON.stringify(err));
+        }
+      );
+  }*/
 
 }

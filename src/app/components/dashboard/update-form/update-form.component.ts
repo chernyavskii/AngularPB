@@ -21,10 +21,10 @@ export class UpdateFormComponent implements OnInit {
   ngOnInit() { }
 
 
-  updateProfile(user: User) {
+  /*updateProfile(user: User) {
       this.userService.updateById(this.authService.getUserId(), user)
         .then(res => { console.log(res); })
         .catch(err => { console.log(err); });
-  }
+  }*/
 
 }

@@ -22,11 +22,12 @@ export class XhrInterceptor implements HttpInterceptor {
       const xhr = req.clone({
         headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
           .set('Access-Control-Allow-Origin', '*')
-          .set('Access-Control-Allow-Credentials', 'true')
+          // .set('Access-Control-Allow-Credentials', 'true')
           .set('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT')
           .set('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers,' +
             ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
             ' Access-Control-Request-Headers')
+          .set('Authorization', 'Basic dmFnYWJ1bmQxOnZhZ2FidW5kMQ==')
         /*
           .set('Authorization', this.authService.getTestToken())
 */

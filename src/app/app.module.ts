@@ -22,9 +22,10 @@ import {
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './components/index/registration/registration.component';
+import {routing} from './app.routing';
 
 
-const routes: Routes = [
+/*const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   {
     path: 'dashboard',
@@ -33,7 +34,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent},
   { path: 'registration', component: RegistrationComponent},
-];
+];*/
 
 @NgModule({
   declarations: [
@@ -44,9 +45,12 @@ const routes: Routes = [
     RegistrationComponent
   ],
   imports: [
+    routing,
     BrowserModule,
     FormsModule,
+/*
     RouterModule.forRoot(routes),
+*/
     HttpClientModule,
     HttpModule,
     ReactiveFormsModule,
@@ -65,5 +69,4 @@ const routes: Routes = [
   providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
-
 export class AppModule { }

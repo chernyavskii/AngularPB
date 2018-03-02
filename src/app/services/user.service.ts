@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import { CookieService } from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
 import {RequestOptions} from '@angular/http';
+import {AppComponent} from '../app.component';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
@@ -24,7 +26,7 @@ export class UserService {
               private authService: AuthService,
               private cookieService: CookieService) { }
 
-  findById(id): Promise<any> {
+  /*findById(id): Promise<any> {
     id = this.authService.getUserId();
     return new Promise((resolve, reject) => {
       this.http
@@ -36,40 +38,39 @@ export class UserService {
         })
         .catch(error => reject(error));
     });
-  }
-
+  }*/
+  user: User = new User();
   login(user: User): Promise<any> {
     console.log(user.username);
+    this.user.username = user.username;
+    this.user.password = user.password;
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ' + btoa(user.username + ':' + user.password),
         'X-Requested-With': 'XMLHttpRequest',
-        'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
         'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
         ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
         ' Access-Control-Request-Headers'
       });
-      console.log("misha" + btoa(user.username + ':' + user.password));
       this.http
-        .post(this.loginURL, user,  {headers: headers, withCredentials: true})
+        .get(AppComponent.API_URL + '/login', {headers: headers, withCredentials: true}) //// withCredentials: true
         .toPromise()
         .then(result => {
-          console.log("res " + JSON.stringify(result));
-/*
-          resolve(result);
-*/
-        this.cookieService.set('currentUser', btoa(JSON.stringify(result)));
-          this.cookieService.set('testToken','Basic ' + btoa(user.username + ':' + user.password))
+          localStorage.setItem('currentUser', JSON.stringify(result));
+          this.router.navigate(['/dashboard']);
           resolve(result);
         })
-        .catch(error => {console.log(JSON.stringify(error)); });
+        .catch(error => {
+          console.log(JSON.stringify(error));
+        });
     });
   }
 
-  updateById(id: number, user: User): Promise<any> {
+  /*updateById(id: number, user: User): Promise<any> {
     id = this.authService.getUserId();
     return new Promise((resolve, reject) => {
       this.http
@@ -78,12 +79,12 @@ export class UserService {
         .then( result => resolve(result))
         .catch(error => reject(error));
     });
-  }
+  }*/
 
   registration(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .post(this.resourceURL + 'registration', user)
+        .post(AppComponent.API_URL + '/registration', user)
         .toPromise()
         .then( result => resolve(result))
         .catch(error => reject(error));
@@ -99,7 +100,10 @@ export class UserService {
       'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
       'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
       ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
-      ' Access-Control-Request-Headers'
+      ' Access-Control-Request-Headers',
+/*
+      'Authorization': 'Basic dmFnYWJ1bmQxOnZhZ2FidW5kMQ=='
+*/
     });
     return new Promise((resolve, reject) => {
       this.http
