@@ -8,10 +8,7 @@
 
 .dashboard-sidenav {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  background: rgba(255, 0, 0, 0.5);
+  width: 250px;
 }
 
 .dashboard-header {
@@ -19,6 +16,7 @@
   top: 0;
   left: 0;
   right: 0;
+  background-color: #FFEB3B;
 }
 
 .dashboard-footer {
@@ -26,4 +24,40 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+.mat-expansion-panel {
+  width: 250px;
+  background-color: #EEEEEE;
+}
+
+.mat-expansion-panel-header {
+  font-weight: bold;
+  font-size: 14px;
+}
+.mat-panel-title {
+  border: 1px solid red;
+  margin-left: 0px;
+  height: 25px;
+}
+
+.mat-panel-title p {
+  border: 1px solid black;
+  margin-top: 2px;
+  height: 20px;
+  color: #424242;
+}
+
+.mat-list {
+  border: 1px solid orange;
+}
+
+.mat-list-item {
+  font-size: 13px;
+  border: 1px solid green;
+  margin-top: -7px;
+  height: 300px;
+}
+
+.mat-list-item p{
+  border: 1px solid red;
 }

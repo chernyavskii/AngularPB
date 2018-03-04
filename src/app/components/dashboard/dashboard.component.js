@@ -10,9 +10,13 @@ var DashboardComponent = (function () {
     function DashboardComponent(userService) {
         this.userService = userService;
         this.selected = false;
+        this.sel = false;
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         console.log(this.currentUser);
     }
+    DashboardComponent.prototype.selwe = function () {
+        this.sel = true;
+    };
     DashboardComponent.prototype.ngOnInit = function () {
     };
     /* authenticated() {

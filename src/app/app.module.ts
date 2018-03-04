@@ -16,13 +16,14 @@ import { AuthGuard } from './utils/AuthGuard';
 import { AuthService } from './services/auth/auth.service';
 import { UpdateFormComponent } from './components/dashboard/update-form/update-form.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatFormFieldControl, MatFormFieldModule, MatSelectModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule
+  MatButtonModule, MatCheckboxModule, MatFormFieldControl, MatFormFieldModule, MatSelectModule, MatToolbarModule,
+  MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule,
+  MatButtonToggleModule, MatIconModule, MatExpansionModule, MatListModule 
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './components/index/registration/registration.component';
 import {routing} from './app.routing';
+import { TestComponent } from './components/dashboard/test/test.component';
 
 
 /*const routes: Routes = [
@@ -42,7 +43,8 @@ import {routing} from './app.routing';
     LoginComponent,
     DashboardComponent,
     UpdateFormComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    TestComponent
   ],
   imports: [
     routing,
@@ -66,7 +68,11 @@ import {routing} from './app.routing';
     MatButtonModule,
     MatSidenavModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatListModule
   ],
   providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]

@@ -23,6 +23,7 @@ var material_1 = require('@angular/material');
 var animations_1 = require('@angular/platform-browser/animations');
 var registration_component_1 = require('./components/index/registration/registration.component');
 var app_routing_1 = require('./app.routing');
+var test_component_1 = require('./components/dashboard/test/test.component');
 /*const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
   {
@@ -43,7 +44,8 @@ var AppModule = (function () {
                 login_component_1.LoginComponent,
                 dashboard_component_1.DashboardComponent,
                 update_form_component_1.UpdateFormComponent,
-                registration_component_1.RegistrationComponent
+                registration_component_1.RegistrationComponent,
+                test_component_1.TestComponent
             ],
             imports: [
                 app_routing_1.routing,
@@ -66,7 +68,11 @@ var AppModule = (function () {
                 material_1.MatButtonModule,
                 material_1.MatSidenavModule,
                 material_1.MatStepperModule,
-                material_1.MatSnackBarModule
+                material_1.MatSnackBarModule,
+                material_1.MatButtonToggleModule,
+                material_1.MatIconModule,
+                material_1.MatExpansionModule,
+                material_1.MatListModule
             ],
             providers: [user_service_1.UserService, auth_service_1.AuthService, ng2_cookies_1.CookieService, AuthGuard_1.AuthGuard, { provide: http_1.HTTP_INTERCEPTORS, useClass: xhr_interceptor_1.XhrInterceptor, multi: true }],
             bootstrap: [app_component_1.AppComponent]

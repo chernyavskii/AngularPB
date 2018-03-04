@@ -1,23 +1,67 @@
 <ng-container>
   <mat-toolbar class="dashboard-header">
-    <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
-    Header
+    <mat-button-toggle (click)="sidenav.toggle()">
+      <mat-icon>format_align_justify</mat-icon>
+    </mat-button-toggle>
+    <p style="margin-left:50px">Header</p>
   </mat-toolbar>
 
   <mat-sidenav-container class="dashboard-container">
-    <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav"> Test </mat-sidenav>
+    <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav">
+      <mat-accordion >
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+<!--
+              <mat-icon>account_circle</mat-icon>
+-->
+              <p>Категория 1</p>
+              </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>
+              <p mat-line> <a routerLink="test">Настройки профиля</a></p>
+            </mat-list-item>
+            <mat-list-item>
+              <a (click)="selwe()">Настройки профиля (worked)</a>
+              <a routerLink="/register" routerLinkActive="active">Misha</a>
+              <!--
+              <p mat-line> Подкатегория 2 </p>
+-->
+            </mat-list-item>
+            <mat-list-item>
+              <p mat-line> Подкатегория 2 </p>
+            </mat-list-item>
+          </mat-list>
 
-    <mat-sidenav-content >
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+<!--
+              <mat-icon>account_circle</mat-icon>
+-->
 
-    </mat-sidenav-content>
-    <h1>MISH</h1>
+              <p>Категория 2</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-sidenav>
+
+    <!-- тут контент -->
+    <router-outlet></router-outlet>
+
+    <div *ngIf="sel">
+      <app-update-form></app-update-form>
+<!--
+      <app-registration></app-registration>
+-->
+    </div>
   </mat-sidenav-container>
 
   <mat-toolbar class="dashboard-footer">Footer</mat-toolbar>
+
+
+
 </ng-container>
-
-
-
-<!-- Copyright 2018 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->

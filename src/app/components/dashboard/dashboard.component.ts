@@ -13,11 +13,15 @@ export class DashboardComponent implements OnInit {
 
   currentUser: User;
   selected = false;
+  sel = false;
   constructor(private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(this.currentUser);
   }
   
+  selwe() {
+    this.sel = true;
+  }
   ngOnInit() {
   }
 
