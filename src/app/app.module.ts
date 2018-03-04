@@ -18,7 +18,7 @@ import { UpdateFormComponent } from './components/dashboard/update-form/update-f
 import {
   MatButtonModule, MatCheckboxModule, MatFormFieldControl, MatFormFieldModule, MatSelectModule,
   MatToolbarModule,
-  MatProgressSpinnerModule, MatInputModule, MatSidenavModule,
+  MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './components/index/registration/registration.component';
@@ -64,7 +64,9 @@ import {routing} from './app.routing';
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatStepperModule,
+    MatSnackBarModule
   ],
   providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]

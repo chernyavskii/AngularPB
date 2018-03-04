@@ -1,27 +1,23 @@
-<!--
+<ng-container>
+  <mat-toolbar class="dashboard-header">
+    <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+    Header
+  </mat-toolbar>
 
-Hello, <b style="color: red"> {{user.username}} </b> !!!
-&lt;!&ndash;
-<button (click)="currentUser()">MISH</button>
-&ndash;&gt;
-  <button (click)="qqwerty()" >FindAll</button>
+  <mat-sidenav-container class="dashboard-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav"> Test </mat-sidenav>
 
-<ul>
-  <li>id: {{user.id}}</li>
-  <li>username: {{user.username}}</li>
-  <li>password: {{user.password}}</li>
-  <li>firstName: {{user.firstName}}</li>
-  <li>middleName: {{user.middleName}}</li>
-  <li>lastName: {{user.lastName}}</li>
-</ul>
-<div class="updateProfile" [hidden]="selected">
-  <button (click)="onSelect()" >Update Profile</button>
-</div>
+    <mat-sidenav-content >
 
-<div class="updateProfile" [hidden]="!selected">
-  <app-update-form [user]="user"></app-update-form>
-</div>
--->
-<h1>fdfd</h1>
-{{currentUser.name}}
-<button (click)="testFunc()">IIIIII</button>
+    </mat-sidenav-content>
+    <h1>MISH</h1>
+  </mat-sidenav-container>
+
+  <mat-toolbar class="dashboard-footer">Footer</mat-toolbar>
+</ng-container>
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

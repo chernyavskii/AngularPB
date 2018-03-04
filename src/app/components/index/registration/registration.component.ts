@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../../../models/User';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-registration',
@@ -11,20 +13,67 @@ import {Router} from '@angular/router';
 export class RegistrationComponent implements OnInit {
 
   user: User = new User();
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private _formBuilder: FormBuilder,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      username: this.user.username,
+      password: this.user.password
+    });
+
+    this.secondFormGroup = this._formBuilder.group({
+      firstName: this.user.firstName,
+      middleName: this.user.middleName,
+      lastName: this.user.lastName
+    });
+
+    this.thirdFormGroup = this._formBuilder.group({
+      unp: this.user.unp,
+      organization: this.user.organization,
+      position: this.user.position,
+      address: this.user.address,
+      rs: this.user.rs,
+      ks: this.user.ks,
+      bank: this.user.bank,
+      bik: this.user.bik,
+      phone: this.user.phone,
+    });
   }
 
   registration() {
-    this.userService.registration(this.user)
+    const saveUser: User = {
+      id: null,
+      username: this.firstFormGroup.value.username,
+      password: this.firstFormGroup.value.password,
+      firstName: this.secondFormGroup.value.firstName,
+      middleName: this.secondFormGroup.value.middleName,
+      lastName: this.secondFormGroup.value.lastName,
+      unp: this.thirdFormGroup.value.unp,
+      organization: this.thirdFormGroup.value.organization,
+      position: this.thirdFormGroup.value.position,
+      address: this.thirdFormGroup.value.address,
+      rs: this.thirdFormGroup.value.rs,
+      ks: this.thirdFormGroup.value.ks,
+      bank: this.thirdFormGroup.value.bank,
+      bik: this.thirdFormGroup.value.bik,
+      phone: this.thirdFormGroup.value.phone,
+    };
+    this.userService.registration(saveUser)
       .then(res => {
-        let test = this.router.navigateByUrl('login');
-        console.log(test);
-
+        if(res) {
+          let snackBarRef = this.snackBar.open('Регистрация прошла успешно');
+          let loginRoute = this.router.navigateByUrl('login');
+        }
       })
-      .catch(err => { console.log(err); });
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
