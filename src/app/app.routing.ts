@@ -7,7 +7,12 @@ import { UpdateFormComponent } from './components/dashboard/update-form/update-f
 import { TestComponent } from './components/dashboard/test/test.component';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard],
+    children: 
+      [
+        { path: 'qwerty', component: RegistrationComponent }
+      ]
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: '**', redirectTo: '/login' }

@@ -23,11 +23,7 @@
               <p mat-line> <a routerLink="test">Настройки профиля</a></p>
             </mat-list-item>
             <mat-list-item>
-              <a (click)="selwe()">Настройки профиля (worked)</a>
-              <a routerLink="/register" routerLinkActive="active">Misha</a>
-              <!--
-              <p mat-line> Подкатегория 2 </p>
--->
+              <a [routerLink]="['./qwerty']">ТЕСТ ТЕСТ</a>
             </mat-list-item>
             <mat-list-item>
               <p mat-line> Подкатегория 2 </p>
@@ -50,6 +46,7 @@
     </mat-sidenav>
 
     <!-- тут контент -->
+    <h1>content</h1>
     <router-outlet></router-outlet>
 
     <div *ngIf="sel">
