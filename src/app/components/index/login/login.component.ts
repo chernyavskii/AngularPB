@@ -12,19 +12,14 @@ import {AuthService} from '../../../services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  model: any = {};
+  model: any = {username: '', password: ''};
   user = new User();
-  testUser = new User();
   returnURL: string;
 
   constructor(private authService: AuthService,
               private userService: UserService,
               private router: Router,
-              private route: ActivatedRoute,
-              private cookieService: CookieService) {
-/*
-    this.userService.isAuthenticated();
-*/
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -32,30 +27,34 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login(this.model)
-      .then(data => {
+    this.userService.login(this.model);
+ /*     .then(data => {
         console.log(data);
-/*
-          this.router.navigate(['/dashboard']);
-*/
-        },
+        this.router.navigate(['dashboard']);
+      })
+      .catch(err => {
+        console.log(err);
+      });*/
+     /* .then(data => {
+          console.log(data);
+                    this.router.navigate(['/dashboard']);
+        })
         error => {
           console.log(error);
-        });
+        });*/
   }
-/*
-  authenticated() {
-    return this.authService.getAuth();
-  }
-
-  login() {
-    this.userService.login(this.user)
-      .subscribe(data => {
-          this.router.navigate(['/dashboard']);
-        },err => {
-        console.log(JSON.stringify(err));
-        }
-      );
-  }*/
+  /*
+    authenticated() {
+      return this.authService.getAuth();
+    }
+    login() {
+      this.userService.login(this.user)
+        .subscribe(data => {
+            this.router.navigate(['/dashboard']);
+          },err => {
+          console.log(JSON.stringify(err));
+          }
+        );
+    }*/
 
 }

@@ -1,15 +1,11 @@
-<h1><p>Update Profile: </p></h1>
-
+<h2><p>Изменить Профиль: </p></h2>
+<div class="update-profile-container">
 <form (submit)="updateProfile(user)">
 
   <div class="form-group">
 
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.username" placeholder="Логин" name="username" (input)="user.username=$event.target.value"/>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input type="text" matInput [ngModel]="user.password" placeholder="Пароль" name="password" (input)="user.password=$event.target.value"/>
     </mat-form-field>
 
   </div>
@@ -73,6 +69,7 @@
     </mat-form-field>
 
   </div>
-
-  <button mat-raised-button color="accent" type="submit">Обновить</button>
+  <br>
+  <button style="float: right;" mat-raised-button color="accent" type="submit">Обновить</button>
 </form>
+</div>

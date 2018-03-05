@@ -1,40 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { XhrInterceptor } from './utils/xhr-interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { LoginComponent } from './components/index/login/login.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HttpModule } from '@angular/http';
 import { CookieService } from 'ng2-cookies';
 import { AuthGuard } from './utils/AuthGuard';
 import { AuthService } from './services/auth/auth.service';
-import { UpdateFormComponent } from './components/dashboard/update-form/update-form.component';
+import { UpdateFormComponent } from './components/dashboard/profile/update-form/update-form.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatFormFieldControl, MatFormFieldModule, MatSelectModule,
-  MatToolbarModule,
-  MatProgressSpinnerModule, MatInputModule, MatSidenavModule,
+  MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatToolbarModule,
+  MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule,
+  MatButtonToggleModule, MatIconModule, MatExpansionModule, MatListModule, MatTabsModule, MatMenuModule, MatCardContent
 } from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { RegistrationComponent } from './components/index/registration/registration.component';
 import {routing} from './app.routing';
-
-
-/*const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home'},
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
-  },
-  { path: 'login', component: LoginComponent},
-  { path: 'registration', component: RegistrationComponent},
-];*/
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { DestroyFormComponent } from './components/dashboard/profile/destroy-form/destroy-form.component';
+import { ChangePasswordComponent } from './components/dashboard/profile/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -42,15 +31,15 @@ import {routing} from './app.routing';
     LoginComponent,
     DashboardComponent,
     UpdateFormComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfileComponent,
+    DestroyFormComponent,
+    ChangePasswordComponent
   ],
   imports: [
     routing,
     BrowserModule,
     FormsModule,
-/*
-    RouterModule.forRoot(routes),
-*/
     HttpClientModule,
     HttpModule,
     ReactiveFormsModule,
@@ -64,7 +53,16 @@ import {routing} from './app.routing';
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatStepperModule,
+    MatSnackBarModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatListModule,
+    MatTabsModule,
+    MatMenuModule,
+    MatCardModule
   ],
   providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]

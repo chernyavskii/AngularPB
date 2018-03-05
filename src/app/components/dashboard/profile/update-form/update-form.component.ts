@@ -1,8 +1,8 @@
 
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from '../../../services/auth/auth.service';
-import {User} from '../../../models/User';
-import {UserService} from '../../../services/user.service';
+import {AuthService} from '../../../../services/auth/auth.service';
+import {User} from '../../../../models/User';
+import {UserService} from '../../../../services/user.service';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -14,9 +14,12 @@ export class UpdateFormComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private userService: UserService) { }
-
+/////////////////////ИЗМЕНИЛ ПОКа ЧТО ПОТОМУ ЧТО АУТЕНТИФИКАЦИИ НЕТУ
+/*
   @Input()
   user: User;
+*/
+  user = new User();
 
   ngOnInit() { }
 
@@ -26,5 +29,4 @@ export class UpdateFormComponent implements OnInit {
         .then(res => { console.log(res); })
         .catch(err => { console.log(err); });
   }*/
-
 }

@@ -1,76 +1,228 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Личные данные</ng-template>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Логин" formControlName="username" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Пароль" type="password" formControlName="password" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Вперёд</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Информация о себе</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Имя" formControlName="firstName" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Фамилия" formControlName="lastName" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Отчество" formControlName="middleName" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Назад</button>
+        <button mat-button matStepperNext>Вперёд</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Другая информация</ng-template>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="УНП" formControlName="unp" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Организация" formControlName="organization" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Должность" formControlName="position" required>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Адрес" formControlName="address" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="РС" formControlName="rs" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="КС" formControlName="ks" required>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Банк" formControlName="bank" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="БИК" formControlName="bik" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Телефон" formControlName="phone" required>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Назад</button>
+        <button mat-button matStepperNext>Вперёд</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Подтверждение</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Назад</button>
+      <button mat-button (click)="registration()">Зарегистрироваться</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<!--<button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button>
+<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+  <mat-step > &lt;!&ndash;[stepControl]="firstFormGroup"&ndash;&gt;
+    <form > &lt;!&ndash;[formGroup]="firstFormGroup"&ndash;&gt;
+      <ng-template matStepLabel>Личные данные</ng-template>
+      <div class="form-group">
+        <mat-form-field>
+          <input type="text" matInput name="username" placeholder="Логин" [(ngModel)]="user.username" #username="ngModel" required />
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" matInput name="password" placeholder="Пароль" [(ngModel)]="user.password" #password="ngModel" required  />
+          &lt;!&ndash;
+                    <input matInput placeholder="Пароль" formControlName="password" type="password" required>
+          &ndash;&gt;
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step > &lt;!&ndash;[stepControl]="secondFormGroup"&ndash;&gt;
+    <form > &lt;!&ndash;[formGroup]="secondFormGroup"&ndash;&gt;
+      <ng-template matStepLabel>Информация о себе</ng-template>
+      <div class="form-group">
+        <mat-form-field>
+          <input type="text" matInput name="lastName" placeholder="Фамилия" [(ngModel)]="user.lastName" #lastName="ngModel" required />
+&lt;!&ndash;
+          <input matInput placeholder="Фамилия" formControlName="secondCtrl" required>
+&ndash;&gt;
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput name="firstName" placeholder="Имя" [(ngModel)]="user.firstName" #firstName="ngModel" required  />
+&lt;!&ndash;
+          <input matInput placeholder="Имя" formControlName="secondCtrl" required>
+&ndash;&gt;
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput name="middleName" placeholder="Отчество" [(ngModel)]="user.middleName" #middleName="ngModel" required  />
+&lt;!&ndash;
+          <input matInput placeholder="Отчество" formControlName="secondCtrl" required>
+&ndash;&gt;
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <form > &lt;!&ndash;[formGroup]="secondFormGroup"&ndash;&gt;
+    <ng-template matStepLabel>ssssssss</ng-template>
+    <div class="form-group">
+      <mat-form-field>
+        <input type="text" matInput name="lastName" placeholder="Фамилия" [(ngModel)]="user.lastName" #lastName="ngModel" required />
+        &lt;!&ndash;
+                  <input matInput placeholder="Фамилия" formControlName="secondCtrl" required>
+        &ndash;&gt;
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput name="firstName" placeholder="Имя" [(ngModel)]="user.firstName" #firstName="ngModel"  />
+        &lt;!&ndash;
+                  <input matInput placeholder="Имя" formControlName="secondCtrl" required>
+        &ndash;&gt;
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput name="middleName" placeholder="Отчество" [(ngModel)]="user.middleName" #middleName="ngModel"  />
+        &lt;!&ndash;
+                  <input matInput placeholder="Отчество" formControlName="secondCtrl" required>
+        &ndash;&gt;
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
+    </div>
+  </form>
+  <mat-step>
+  </mat-step>
+</mat-horizontal-stepper>-->
+
+<!--                тут КОНЕЦ -->
+
+<!--
 <form (submit)="registration()" >
-
   <div class="form-group">
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.username" placeholder="Логин" name="username" (input)="user.username=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.password" placeholder="Пароль" name="password" (input)="user.password=$event.target.value"/>
     </mat-form-field>
-
   </div>
-
   <div class="form-group">
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.lastName" placeholder="Фамилия" name="lastName" (input)="user.lastName=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.firstName" placeholder="Имя" name="firstName" (input)="user.firstName=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.middleName" placeholder="Отчество" name="middleName" (input)="user.middleName=$event.target.value"/>
     </mat-form-field>
-
   </div>
-
   <div class="form-group">
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.unp" placeholder="Unp" name="middleName" (input)="user.unp=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.organization" placeholder="Organization" name="organization" (input)="user.organization=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.position" placeholder="Position" name="position" (input)="user.position=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.address" placeholder="Address" name="address" (input)="user.address=$event.target.value"/>
     </mat-form-field>
-
   </div>
-
   <div class="form-group">
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.rs" placeholder="Rs" name="rs" (input)="user.rs=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.ks" placeholder="Ks" name="ks" (input)="user.ks=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.bank" placeholder="Bank" name="bank" (input)="user.bank=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.bik" placeholder="Bik" name="bik" (input)="user.bik=$event.target.value"/>
     </mat-form-field>
-
     <mat-form-field>
       <input type="text" matInput [ngModel]="user.phone" placeholder="Phone" name="phone" (input)="user.phone=$event.target.value"/>
     </mat-form-field>
-
   </div>
-
   <button mat-raised-button color="accent" type="submit">Зарегистрироваться</button>
 </form>
+-->

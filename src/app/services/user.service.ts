@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class UserService {
   private loginURL = 'http://localhost:8081/login';
-  private usersURL = 'http://localhost:8081/users';
+  private usersURL = 'http://localhost:8081/users/';
   private resourceURL = 'http://localhost:8081/';
   private agentsURL = 'http://localhost:8081/agents/';
 
@@ -39,29 +39,24 @@ export class UserService {
         .catch(error => reject(error));
     });
   }*/
-  user: User = new User();
   login(user: User): Promise<any> {
-    console.log(user.username);
-    this.user.username = user.username;
-    this.user.password = user.password;
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ' + btoa(user.username + ':' + user.password),
         'X-Requested-With': 'XMLHttpRequest',
-      'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Origin': '*',
+     /*   'Access-Control-Allow-Credentials': 'true',*/
         'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
         'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
         ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
         ' Access-Control-Request-Headers'
       });
       this.http
-        .get(AppComponent.API_URL + '/login', {headers: headers, withCredentials: true}) //// withCredentials: true
+        .get(AppComponent.API_URL + '/login', {headers: headers}) //// withCredentials: true
         .toPromise()
         .then(result => {
           localStorage.setItem('currentUser', JSON.stringify(result));
-          this.router.navigate(['/dashboard']);
           resolve(result);
         })
         .catch(error => {
@@ -69,6 +64,7 @@ export class UserService {
         });
     });
   }
+
 
   /*updateById(id: number, user: User): Promise<any> {
     id = this.authService.getUserId();
@@ -82,9 +78,19 @@ export class UserService {
   }*/
 
   registration(user: User): Promise<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+      'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
+      ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
+      ' Access-Control-Request-Headers'});
+
     return new Promise((resolve, reject) => {
       this.http
-        .post(AppComponent.API_URL + '/registration', user)
+        .post(AppComponent.API_URL + '/registration',  user, {headers:headers})
         .toPromise()
         .then( result => resolve(result))
         .catch(error => reject(error));
@@ -101,13 +107,13 @@ export class UserService {
       'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
       ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
       ' Access-Control-Request-Headers',
-/*
-      'Authorization': 'Basic dmFnYWJ1bmQxOnZhZ2FidW5kMQ=='
-*/
+      /*
+            'Authorization': 'Basic dmFnYWJ1bmQxOnZhZ2FidW5kMQ=='
+      */
     });
     return new Promise((resolve, reject) => {
       this.http
-        .get(this.agentsURL)
+        .get(this.usersURL)
         .toPromise()
         .then(result => {
           console.log(JSON.stringify(result));

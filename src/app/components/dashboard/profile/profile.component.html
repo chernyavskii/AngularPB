@@ -1,0 +1,27 @@
+<nav mat-tab-nav-bar class="demo-tab-group">
+  <a mat-tab-link
+     [routerLink]="['./c']"
+     routerLinkActive #link1="routerLinkActive"
+     [active]="link1.isActive">
+    Изменить Пароль
+  </a>
+  <a mat-tab-link
+     [routerLink]="['./u']"
+     routerLinkActive #link2="routerLinkActive"
+     [active]="link2.isActive">
+    Изменить Профиль
+  </a>
+
+  <a mat-tab-link
+     [routerLink]="['./d']"
+     routerLinkActive #link3="routerLinkActive"
+     [active]="link3.isActive">
+    Удалить Профиль
+  </a>
+
+</nav>
+<h1>Мой профиль</h1>
+
+<router-outlet></router-outlet>
+
+

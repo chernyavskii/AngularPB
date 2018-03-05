@@ -1,27 +1,77 @@
-<!--
+<ng-container>
+  <mat-toolbar class="dashboard-header">
+    <mat-button-toggle (click)="sidenav.toggle()">
+      <mat-icon>format_align_justify</mat-icon>
+    </mat-button-toggle>
+    <p style="margin-left:50px">Header</p>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+    <!--<button class="dashboard-header-right-button" mat-icon-button [matMenuTriggerFor]="menu" >
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>-->
 
-Hello, <b style="color: red"> {{user.username}} </b> !!!
-&lt;!&ndash;
-<button (click)="currentUser()">MISH</button>
-&ndash;&gt;
-  <button (click)="qqwerty()" >FindAll</button>
+  </mat-toolbar>
 
-<ul>
-  <li>id: {{user.id}}</li>
-  <li>username: {{user.username}}</li>
-  <li>password: {{user.password}}</li>
-  <li>firstName: {{user.firstName}}</li>
-  <li>middleName: {{user.middleName}}</li>
-  <li>lastName: {{user.lastName}}</li>
-</ul>
-<div class="updateProfile" [hidden]="selected">
-  <button (click)="onSelect()" >Update Profile</button>
-</div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Категория 1</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Категория 2</span>
+    </button>
+  </mat-menu>
 
-<div class="updateProfile" [hidden]="!selected">
-  <app-update-form [user]="user"></app-update-form>
-</div>
--->
-<h1>fdfd</h1>
-{{currentUser.name}}
-<button (click)="testFunc()">IIIIII</button>
+  <mat-sidenav-container class="dashboard-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav">
+      <mat-accordion >
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <!--
+                            <mat-icon>account_circle</mat-icon>
+              -->
+              <p>Категория 1</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list>
+            <mat-list-item>
+              <a [routerLink]="['./profile']">Подкатегория 1</a>
+            </mat-list-item>
+            <mat-list-item>
+              <a [routerLink]="['./test']">Подкатегория 2</a>
+            </mat-list-item>
+            <mat-list-item>
+              <a [routerLink]="['./profile']">Подкатегория 3</a>
+            </mat-list-item>
+          </mat-list>
+
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <!--
+                            <mat-icon>account_circle</mat-icon>
+              -->
+
+              <p>Категория 2</p>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-sidenav>
+
+    <!--  ===== начало контента =====  -->
+    <button (click)="testFunc()">NAJMI</button>
+    <h1>Content</h1>
+    <h2>Тестовый заголовок</h2>
+    <div class="dashboard-main-content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!--  ===== конец контента =====  -->
+
+  </mat-sidenav-container>
+
+  <mat-toolbar class="dashboard-footer">Footer</mat-toolbar>
+</ng-container>

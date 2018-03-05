@@ -1,0 +1,19 @@
+.profile-tabs {
+  border: 1px solid red;
+  margin: auto;
+  padding: 10px;
+}
+
+.mat-tab-group {
+  border: 1px solid yellowgreen;
+  width: 80%;
+  margin: auto;
+
+}
+.mat-tab {
+  border: 3px solid brown;
+}
+
+.demo-tab-content {
+  padding: 16px;
+}
