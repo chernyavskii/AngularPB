@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../models/User';
 import {UserService} from '../../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import { CookieService } from 'ng2-cookies';
 import {AuthService} from '../../../services/auth/auth.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -13,48 +12,31 @@ import {AuthService} from '../../../services/auth/auth.service';
 export class LoginComponent implements OnInit {
 
   model: any = {username: '', password: ''};
-  user = new User();
   returnURL: string;
 
   constructor(private authService: AuthService,
               private userService: UserService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private snackBar: MatSnackBar) {
   }
+
 
   ngOnInit() {
     this.returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login() {
-    this.userService.login(this.model);
- /*     .then(data => {
-        console.log(data);
+    this.userService.login(this.model)
+      .then(data => {
+        this.snackBar.open('Вход успешно выполнен', 'Закрыть', {
+          duration: 3000
+        });
         this.router.navigate(['dashboard']);
       })
       .catch(err => {
         console.log(err);
-      });*/
-     /* .then(data => {
-          console.log(data);
-                    this.router.navigate(['/dashboard']);
-        })
-        error => {
-          console.log(error);
-        });*/
+      });
   }
-  /*
-    authenticated() {
-      return this.authService.getAuth();
-    }
-    login() {
-      this.userService.login(this.user)
-        .subscribe(data => {
-            this.router.navigate(['/dashboard']);
-          },err => {
-          console.log(JSON.stringify(err));
-          }
-        );
-    }*/
 
 }

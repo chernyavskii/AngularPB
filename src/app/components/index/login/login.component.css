@@ -5,14 +5,17 @@
   width: 400px;
 }
 .mat-toolbar {
-  background: blue;
+  background: #3f51b5;
 }
 .mat-form-field {
-  /*
-  border: 1px solid black;
-  */
   width: 93.7%;
   margin: auto;
   padding: 10px;
-
+}
+.main-content {
+  border: 1px solid black;
+  margin: auto;
+  width: 90%;
+  padding: 10px;
+  background: #FFFFFF;
 }

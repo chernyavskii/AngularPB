@@ -1,71 +1,42 @@
+<!--<nav mat-tab-nav-bar class="demo-tab-group">
+  <a mat-tab-link
+     [routerLink]="['./c']"
+     routerLinkActive #link1="routerLinkActive"
+     [active]="link1.isActive">
+    Войти
+  </a>
+  <a mat-tab-link
+     [routerLink]="['./u']"
+     routerLinkActive #link2="routerLinkActive"
+     [active]="link2.isActive">
+    Регистрация
+  </a>
+</nav>-->
 
-<form (submit)="login()" >
-  <div class="form-group">
-
-    <mat-form-field>
-
-      <input type="text" matInput placeholder="Логин" name="username" [(ngModel)]="model.username" #username="ngModel"  />
-    </mat-form-field>
-    <mat-form-field>
-
-      <input type="text" matInput placeholder="Пароль" name="password" [(ngModel)]="model.password" #username="ngModel"  />
-    </mat-form-field>
-  </div>
-  <button mat-raised-button color="accent" type="submit">Войти</button>
-
-</form>
+<div class="main-content">
+  <mat-tab-group>
+    <mat-tab label="Tab 1">Content 1</mat-tab>
+    <mat-tab label="Tab 2">Content 2</mat-tab>
+  </mat-tab-group>
+</div>
 <div class="login-component-container">
   <mat-card-content>
     <mat-card>
       <mat-toolbar>
         <h2 style="color: #FFFFFF">Вход</h2>
       </mat-toolbar>
-
-    <form (click)="login()">
+    <form (submit)="login()">
       <div class="form-group">
         <mat-form-field>
-          <input type="text" matInput placeholder="Логин" [value]="model.username" /> <!--[(ngModel)]="model.username" #username="ngModel"-->
+          <input type="text" matInput placeholder="Логин" name="username" [(ngModel)]="model.username" #username="ngModel"  />
         </mat-form-field>
         <br>
         <mat-form-field>
-          <input type="password" matInput placeholder="Пароль" name="password"  [value]="model.password" /> <!--[(ngModel)]="model.username" #username="ngModel"-->
+          <input type="text" matInput placeholder="Пароль" name="password" [(ngModel)]="model.password" #username="ngModel"  />
         </mat-form-field>
       </div>
-      <button mat-button color="primary">Войти</button>
-
-<!--
-        <md-button ng-disabled="!Form.$valid" ng-click="vm.submit()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
--->
+      <button mat-raised-button color="primary"  aria-label="Show an example snack-bar">Войти</button>
     </form>
     </mat-card>
-    <!--<md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <h2><span>Login Form</span></h2>
-        </div>
-      </md-toolbar>
-      <md-card-content>
-        <form name="Form">
-          <md-input-container class="md-block">
-            <label>Login</label>
-            <input type="text" name="email" ng-model="vm.formData.email" placeholder="login" required=""/>
-            <div ng-messages="Form.email.$error" role="alert" multiple="">
-              <div ng-message="required" class="my-message">Please enter your email.</div>
-            </div>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Password</label>
-            <input type="password" name="password" ng-model="vm.formData.password" placeholder="password" required="" md-maxlength="16"/>
-            <div ng-messages="Form.password.$error" role="alert" multiple="">
-              <div ng-message="required" class="my-message">Please enter your password.</div>
-              <div ng-message="md-maxlength" class="my-message">Too long.</div>
-            </div>
-          </md-input-container>
-          <md-button ng-disabled="!Form.$valid" ng-click="vm.submit()" class="md-raised md-primary">&nbsp Login &nbsp</md-button>
-        </form>
-      </md-card-content>
-    </md-card>-->
   </mat-card-content>
-  <!-- Angular Material Dependencies-->
-
 </div>
