@@ -1,92 +1,107 @@
-<mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Личные данные</ng-template>
-      <div class="form-group">
-        <mat-form-field>
-          <input matInput placeholder="Логин" formControlName="username" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Пароль" type="password" formControlName="password" required>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-button matStepperNext>Вперёд</button>
-      </div>
-    </form>
-  </mat-step>
+<div class="registration-component-container">
 
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Информация о себе</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Имя" formControlName="firstName" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Фамилия" formControlName="lastName" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Отчество" formControlName="middleName" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext>Вперёд</button>
-      </div>
-    </form>
-  </mat-step>
+<mat-card-content>
+  <mat-card>
+    <mat-toolbar>
+      <h2 style="color: #FFFFFF">Регистрация</h2>
+    </mat-toolbar>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Личные данные</ng-template>
+          <div class="form-group">
+            <mat-form-field class="form-field-group1">
+              <input matInput placeholder="Логин" formControlName="username" [(ngModel)]="user.username" required>
+            </mat-form-field>
+            <mat-form-field class="form-field-group1">
+              <input matInput placeholder="Пароль" type="password" formControlName="password" [(ngModel)]="user.password"  required>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperNext>Вперёд</button>
+            СДЕЛАЙ ФОРМУ МЕЖДУ ШАГАМИ ФИКСИРОВАННОЙ, ЧТОБЫ УДОБНО БЫЛО ПЕРЕКЛЮЧАТЬСЯ МЕЖДУ ВКЛАДКАМИ
+          </div>
 
-  <mat-step [stepControl]="thirdFormGroup">
-    <form [formGroup]="thirdFormGroup">
-      <ng-template matStepLabel>Другая информация</ng-template>
-      <div class="form-group">
-        <mat-form-field>
-          <input matInput placeholder="УНП" formControlName="unp" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Организация" formControlName="organization" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Должность" formControlName="position" required>
-        </mat-form-field>
-      </div>
-      <div class="form-group">
-        <mat-form-field>
-          <input matInput placeholder="Адрес" formControlName="address" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="РС" formControlName="rs" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="КС" formControlName="ks" required>
-        </mat-form-field>
-      </div>
-      <div class="form-group">
-        <mat-form-field>
-          <input matInput placeholder="Банк" formControlName="bank" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="БИК" formControlName="bik" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Телефон" formControlName="phone" required>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-button matStepperPrevious>Назад</button>
-        <button mat-button matStepperNext>Вперёд</button>
-      </div>
-    </form>
-  </mat-step>
+        </form>
+      </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Подтверждение</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Назад</button>
-      <button mat-button (click)="registration()">Зарегистрироваться</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Информация о себе</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Имя" formControlName="firstName" [(ngModel)]="user.firstName" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Фамилия" formControlName="lastName" [(ngModel)]="user.lastName"  required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Отчество" formControlName="middleName" [(ngModel)]="user.middleName" required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Вперёд</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Другая информация</ng-template>
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="УНП" formControlName="unp" [(ngModel)]="user.unp" required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Организация" formControlName="organization" [(ngModel)]="user.organization" required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Должность" formControlName="position" [(ngModel)]="user.position"  required>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Адрес" formControlName="address" [(ngModel)]="user.address"  required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="РС" formControlName="rs" [(ngModel)]="user.rs" required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="КС" formControlName="ks" [(ngModel)]="user.ks" required>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field>
+              <input matInput placeholder="Банк" formControlName="bank" [(ngModel)]="user.bank"  required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="БИК" formControlName="bik" [(ngModel)]="user.bik" required>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Телефон" formControlName="phone" [(ngModel)]="user.phone" required>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Вперёд</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Подтверждение</ng-template>
+        <label for="username_input"><p><b>Логин: </b></p></label> <input id="username_input" matInput placeholder="Логин" type="text" [(ngModel)]="user.username"  required>
+        <label for="password_input"><p><b>Пароль: </b></p></label> <input id="password_input" matInput placeholder="Пароль" type="text" [(ngModel)]="user.password"  required>
+
+        <div>
+          <button mat-button matStepperPrevious>Назад</button>
+          <button mat-button (click)="registration()">Зарегистрироваться</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </mat-card>
+</mat-card-content>
+
+
 
 <!--<button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button>
 <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">

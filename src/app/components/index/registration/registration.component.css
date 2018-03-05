@@ -1,0 +1,17 @@
+.registration-component-container {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  width: 900px;
+}
+.mat-toolbar {
+  background: #3f51b5;
+}
+.form-group {
+  width: 300px;
+  margin: auto;
+
+}
+.form-field-group1 {
+  width: 300px;
+}

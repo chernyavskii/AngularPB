@@ -68,8 +68,10 @@ export class RegistrationComponent implements OnInit {
     this.userService.registration(saveUser)
       .then(res => {
         if (res) {
-          let snackBarRef = this.snackBar.open('Регистрация прошла успешно');
-          let loginRoute = this.router.navigateByUrl('login');
+          this.snackBar.open('Регистрация прошла успешно', 'Закрыть', {
+            duration: 3000
+          });
+          this.router.navigateByUrl('login');
         }
       })
       .catch(err => {
