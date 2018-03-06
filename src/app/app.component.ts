@@ -10,27 +10,6 @@ import {UserService} from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  {/*implements OnInit*/
-
+export class AppComponent  {
   static API_URL = 'http://localhost:8081';
-
-
- /* constructor(private authService: AuthService, private router: Router, private http: HttpClient, private userService: UserService) { }
-
-  ngOnInit() {
-  }
-
-  qqwerty() {
-    console.log("QQQ");
-    this.userService.testFindAll();
-  }
-  authenticated() {
-    return this.authService.getAuth();
-  }
-
-
-  logout() {
-/!*    this.cookie.delete('currentUser');
-    this.router.navigateByUrl('');*!/
-  }*/
 }

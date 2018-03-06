@@ -11,7 +11,9 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-
+  isLinear = true;
+  step = 0;
+  position = 'before';
   user: User = new User();
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -77,5 +79,17 @@ export class RegistrationComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 }
