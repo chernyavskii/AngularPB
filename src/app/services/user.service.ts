@@ -90,7 +90,7 @@ export class UserService {
 
     return new Promise((resolve, reject) => {
       this.http
-        .post(AppComponent.API_URL + '/registration',  user, {headers:headers})
+        .post(AppComponent.API_URL + '/registration',  user, {headers: headers})
         .toPromise()
         .then( result => resolve(result))
         .catch(error => reject(error));

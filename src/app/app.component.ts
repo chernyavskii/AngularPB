@@ -1,9 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from './services/auth/auth.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {UserService} from './services/user.service';
+import {Component} from '@angular/core';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-root',

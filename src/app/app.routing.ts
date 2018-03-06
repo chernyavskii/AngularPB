@@ -23,8 +23,7 @@ const appRoutes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: '**', redirectTo: '/login' }
-
+  { path: '**', redirectTo: 'login' }
 ];
-export const appR = appRoutes;
+
 export const routing = RouterModule.forRoot(appRoutes);
