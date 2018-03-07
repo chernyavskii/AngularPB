@@ -4,20 +4,33 @@
   bottom: 60px;
   left: 0;
   right: 0;
+  margin-top: 5px;
 }
-
+.mat-button-toggle {
+  background-color: #FAFAFA;
+  margin-left: -15px;
+  height: 53px;
+  border: none;
+}
 .dashboard-sidenav {
   display: flex;
   width: 250px;
 }
-
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
 .dashboard-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: #FFEB3B;
+  height: 52px;
+  background-color: #FAFAFA;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),
+              0 6px 10px 0 rgba(0,0,0,.14),
+              0 1px 18px 0 rgba(0,0,0,.12);
 }
+
 
 .dashboard-footer {
   position: fixed;
@@ -67,9 +80,6 @@
   width: 90%;
   padding: 10px;
   background: #FFFFFF;
-  /*
-  box-shadow: 0 0 10px rgba(0,0,0,0.5); !* Параметры тени *!
-  */
  /* box-shadow:
     0 1px 4px rgba(0, 0, 0, .3),
     -23px 0 20px -23px rgba(0, 0, 0, .8),
@@ -93,5 +103,15 @@
 
 .dashboard-main-content-header {
   box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
-
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 18px;
+  margin-top: -12px;
+}
+.line-toggle{
+  height: 10px;
+  line-height: 8px;
 }

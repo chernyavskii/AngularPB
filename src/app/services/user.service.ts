@@ -16,6 +16,7 @@ export class UserService {
   private agentsURL = 'http://localhost:8081/agents/';
 
 
+  checkAuth = false;
 
   isLoggedIn = false;
   redirectUrl: string;
@@ -123,4 +124,12 @@ export class UserService {
         });
     });
   }
+  /*testCheckAuth(): boolean {
+    let store = localStorage.getItem('currentUser').length;
+    if (store > 0) {
+      this.checkAuth = true;
+      return true;
+    }
+    return false;
+  }*/
 }

@@ -16,7 +16,7 @@ import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatToolbarModule,
   MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule,
   MatButtonToggleModule, MatIconModule, MatExpansionModule, MatListModule, MatTabsModule, MatMenuModule, MatTooltipModule,
-  MatProgressBarModule
+  MatProgressBarModule, MatSlideToggleModule
 } from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -35,7 +35,7 @@ import { ChangePasswordComponent } from './components/dashboard/profile/change-p
     RegistrationComponent,
     ProfileComponent,
     DestroyFormComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
     routing,
@@ -65,7 +65,8 @@ import { ChangePasswordComponent } from './components/dashboard/profile/change-p
     MatMenuModule,
     MatCardModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSlideToggleModule
   ],
   providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
