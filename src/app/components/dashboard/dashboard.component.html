@@ -1,20 +1,16 @@
-<div class="testXX">
 <ng-container>
   <mat-toolbar class="dashboard-header">
   <mat-button-toggle (click)="sidenav.toggle()">
     <mat-icon class="toogle-icon">format_align_justify</mat-icon>
-   </mat-button-toggle>
-
-    <div class="example-section">
-      <mat-slide-toggle class="line-toggle">
-      <span class="font-size-12">Slide Me</span>
-      </mat-slide-toggle>
-    </div>
-    <span>Application Title</span>
+  </mat-button-toggle>
+    <span>Dashboard</span>
 
     <span class="example-fill-remaining-space"></span>
-
-    <span>Right Aligned Text</span>
+    <div class="navigation-panel">
+     <ul class="list-items-navigation">
+      <li class="list-item-nav"><a>Account</a></li>
+     </ul>
+    </div>
   </mat-toolbar>
 
   <mat-sidenav-container class="dashboard-container">
@@ -57,17 +53,14 @@
     </mat-sidenav>
 
     <!--  ===== начало контента =====  -->
-    <button (click)="testFunc()">NAJMI</button>
-    <h1>Content</h1>
-    <h2>Тестовый заголовок</h2>
     <div class="dashboard-main-content">
       <router-outlet></router-outlet>
     </div>
-
     <!--  ===== конец контента =====  -->
 
   </mat-sidenav-container>
 
-  <mat-toolbar class="dashboard-footer">Footer</mat-toolbar>
+  <mat-toolbar class="dashboard-footer">
+
+  </mat-toolbar>
 </ng-container>
-</div>

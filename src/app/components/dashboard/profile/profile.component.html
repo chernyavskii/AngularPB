@@ -1,27 +1,46 @@
-<nav mat-tab-nav-bar class="demo-tab-group">
-  <a mat-tab-link
-     [routerLink]="['./c']"
-     routerLinkActive #link1="routerLinkActive"
-     [active]="link1.isActive">
-    Изменить Пароль
-  </a>
-  <a mat-tab-link
-     [routerLink]="['./u']"
-     routerLinkActive #link2="routerLinkActive"
-     [active]="link2.isActive">
-    Изменить Профиль
-  </a>
+<mat-grid-list cols="3" style="border: 1px solid black;" rowHeight="800px">
+  <mat-grid-tile [colspan]="2" [rowspan]="1" style="border: 1px solid blue;">
+    <mat-card class="profile-card" style="border: 1px solid green; width: 700px; height: 700px;">
+      <mat-card-header style="border-bottom: 1px solid black;">
+        <mat-card-title>Мой профиль</mat-card-title>
+        <mat-card-subtitle>Редактирование</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <nav mat-tab-nav-bar class="demo-tab-group">
+          <a mat-tab-link
+             [routerLink]="['./u']"
+             routerLinkActive #link2="routerLinkActive"
+             [active]="link2.isActive">
+            Изменить Профиль
+          </a>
+          <a mat-tab-link
+             [routerLink]="['./c']"
+             routerLinkActive #link1="routerLinkActive"
+             [active]="link1.isActive">
+            Изменить Пароль
+          </a>
+          <a mat-tab-link
+             [routerLink]="['./d']"
+             routerLinkActive #link3="routerLinkActive"
+             [active]="link3.isActive">
+            Удалить Профиль
+          </a>
+        </nav>
+        <router-outlet></router-outlet>
 
-  <a mat-tab-link
-     [routerLink]="['./d']"
-     routerLinkActive #link3="routerLinkActive"
-     [active]="link3.isActive">
-    Удалить Профиль
-  </a>
-
-</nav>
-<h1>Мой профиль</h1>
-
-<router-outlet></router-outlet>
-
-
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile style="border: 1px solid red;">
+    <mat-card class="profile-card" style="border: 1px solid green; width: 300px; height: 300px; margin-top: -200px; ">
+      <mat-card-header style="background: greenyellow;">
+        <mat-card-title>Мой профиль</mat-card-title>
+        <mat-card-subtitle>Редактирование</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Имя: Михаил <br>
+        Фамилия Чернявский
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,13 +1,17 @@
-<h2><p>Изменить Профиль: </p></h2>
-<div class="update-profile-container">
+<div class="update-profile-container" style="border: 1px solid black;">
 <form (submit)="updateProfile(user)">
 
   <div class="form-group">
 
-    <mat-form-field>
+  <!--  <mat-form-field class="form-field-group">
       <input type="text" matInput [ngModel]="user.username" placeholder="Логин" name="username" (input)="user.username=$event.target.value"/>
-    </mat-form-field>
-
+    </mat-form-field>-->
+      <mat-form-field class="form-field-group4">
+        <input matInput placeholder="Логин"  required>
+      </mat-form-field>
+      <mat-form-field class="form-field-group4">
+        <input matInput placeholder="Пароль"   required>
+      </mat-form-field>
   </div>
 
   <div class="form-group">
