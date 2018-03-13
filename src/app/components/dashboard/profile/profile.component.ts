@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../../../models/User';
 
@@ -9,17 +9,19 @@ import {User} from '../../../models/User';
 })
 export class ProfileComponent implements OnInit {
 
-  user = new User();
-  profileFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+/*
+  user = new User();
+*/
+
+  @Input()
+  user = new User();
+
+  constructor() {
   }
 
   ngOnInit() {
-    this.profileFormGroup = this._formBuilder.group({
-      username: 'testusername',
-      password: '12345678'
-    });
+
   }
 
 }

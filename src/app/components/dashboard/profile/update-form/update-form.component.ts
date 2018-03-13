@@ -4,6 +4,7 @@ import {AuthService} from '../../../../services/auth/auth.service';
 import {User} from '../../../../models/User';
 import {UserService} from '../../../../services/user.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-update-form',
@@ -12,21 +13,29 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class UpdateFormComponent implements OnInit {
 
-  constructor(private authService: AuthService,
-              private userService: UserService) { }
-/////////////////////ИЗМЕНИЛ ПОКа ЧТО ПОТОМУ ЧТО АУТЕНТИФИКАЦИИ НЕТУ
-/*
   @Input()
-  user: User;
-*/
   user = new User();
+
+  constructor(private authService: AuthService,
+              private userService: UserService,
+              private snackBar: MatSnackBar) {
+
+  }
 
   ngOnInit() { }
 
 
-  /*updateProfile(user: User) {
-      this.userService.updateById(this.authService.getUserId(), user)
-        .then(res => { console.log(res); })
-        .catch(err => { console.log(err); });
-  }*/
+  updateProfile(user: User) {
+    this.userService.updateById(user)
+      .then(res => {
+        if (res) {
+          this.snackBar.open('Профиль успешно изменён', 'Закрыть', {
+            duration: 3000
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 }

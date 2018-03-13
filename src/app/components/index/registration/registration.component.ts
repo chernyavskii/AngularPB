@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {User} from '../../../models/User';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
@@ -19,6 +19,9 @@ export class RegistrationComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
+  ////
+  @Output() newUserEvent = new EventEmitter();
+  ////
   constructor(private userService: UserService,
               private router: Router,
               private _formBuilder: FormBuilder,
@@ -73,11 +76,12 @@ export class RegistrationComponent implements OnInit {
           this.snackBar.open('Регистрация прошла успешно', 'Закрыть', {
             duration: 3000
           });
-          this.router.navigateByUrl('login');
+          this.newUserEvent.emit(this.user);
+          this.router.navigate(['dashboard']);
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(JSON.stringify(err));
       });
   }
 

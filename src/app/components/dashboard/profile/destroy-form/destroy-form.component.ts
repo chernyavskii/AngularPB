@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../../../../models/User';
 
 @Component({
   selector: 'app-destroy-form',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./destroy-form.component.css']
 })
 export class DestroyFormComponent implements OnInit {
+
+  @Input()
+  user = new User();
 
   constructor() { }
 

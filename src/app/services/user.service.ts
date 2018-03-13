@@ -4,7 +4,6 @@ import {User} from '../models/User';
 import {Router} from '@angular/router';
 import { CookieService } from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
-import {RequestOptions} from '@angular/http';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
 
@@ -67,16 +66,20 @@ export class UserService {
   }
 
 
-  /*updateById(id: number, user: User): Promise<any> {
-    id = this.authService.getUserId();
+  updateById(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http
-        .put(`${this.usersURL}/${id}`, user)
+        .put(`${this.usersURL}${user.id}`, user)
         .toPromise()
-        .then( result => resolve(result))
+        .then( result => {
+          localStorage.clear();
+          localStorage.setItem('currentUser', JSON.stringify(result));
+          resolve(result);
+        })
         .catch(error => reject(error));
     });
-  }*/
+  }
+
 
   registration(user: User): Promise<any> {
     const headers = new HttpHeaders({
@@ -93,7 +96,10 @@ export class UserService {
       this.http
         .post(AppComponent.API_URL + '/registration',  user, {headers: headers})
         .toPromise()
-        .then( result => resolve(result))
+        .then( result => {
+          localStorage.setItem('currentUser', JSON.stringify(result));
+          resolve(result);
+        })
         .catch(error => reject(error));
     });
   }

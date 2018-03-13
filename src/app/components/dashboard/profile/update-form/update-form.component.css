@@ -1,7 +1,42 @@
 .update-profile-container {
+  margin-top: 30px;
 }
-.form-group {
-  width: 80%;
+.form-group1 {
   margin: auto;
 }
-
+.form-field-group1 {
+  width: 273px;
+  margin-left: 16px;
+}
+.form-group2 {
+  margin: auto;
+}
+.form-field-group2a {
+  width: 450px;
+  margin-left: 16px;
+}
+.form-field-group2b {
+  width: 388px;
+  margin-left: 16px;
+}
+.form-group3 {
+  margin: auto;
+}
+.form-field-group3 {
+  margin-left: 16px;
+  width: 273px;
+}
+.form-group4 {
+  margin: auto;
+}
+.form-field-group4 {
+  margin-left: 16px;
+  width: 860px;
+}
+.form-group5 {
+  margin: auto;
+}
+.form-field-group5 {
+  margin-left: 16px;
+  width: 273px;
+}

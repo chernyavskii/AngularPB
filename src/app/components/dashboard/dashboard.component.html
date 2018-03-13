@@ -1,62 +1,59 @@
 <ng-container>
   <mat-toolbar class="dashboard-header">
-  <mat-button-toggle (click)="sidenav.toggle()">
-    <mat-icon class="toogle-icon">format_align_justify</mat-icon>
-  </mat-button-toggle>
-    <span>Dashboard</span>
-
     <span class="example-fill-remaining-space"></span>
     <div class="navigation-panel">
      <ul class="list-items-navigation">
-      <li class="list-item-nav"><a>Account</a></li>
+       <li class="list-item-nav"><a>{{currentUser.username}}</a></li>
      </ul>
     </div>
   </mat-toolbar>
 
   <mat-sidenav-container class="dashboard-container">
-    <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav">
-      <mat-accordion >
-        <mat-expansion-panel >
+    <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav" [fixedInViewport]="true">
+      <mat-accordion  style="background: url(https://i.pinimg.com/originals/27/13/ce/2713ce088f522c4a52d5ecb7588a800b.jpg);">
+        <div class="dashboard-title">
+          <span><b>Панель Управления</b></span>
+        </div>
+     <!--   <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <!--
+&lt;!&ndash;
                             <mat-icon>account_circle</mat-icon>
-              -->
+&ndash;&gt;
               <p>Категория 1</p>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list>
             <mat-list-item>
-              <a [routerLink]="['./profile']">Подкатегория 1</a>
+              <a [routerLink]="['./profile/u']">Подкатегория 1</a>
             </mat-list-item>
             <mat-list-item>
               <a [routerLink]="['./test']">Подкатегория 2</a>
             </mat-list-item>
             <mat-list-item>
-              <a [routerLink]="['./profile']">Подкатегория 3</a>
+              <a [routerLink]="['./profile/u']">Подкатегория 3</a>
             </mat-list-item>
           </mat-list>
 
-        </mat-expansion-panel>
-        <mat-expansion-panel>
+        </mat-expansion-panel>-->
+      <!--  <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <!--
-                            <mat-icon>account_circle</mat-icon>
-              -->
-
+           &lt;!&ndash;                 <mat-icon>account_circle</mat-icon>&ndash;&gt;
               <p>Категория 2</p>
             </mat-panel-title>
           </mat-expansion-panel-header>
-        </mat-expansion-panel>
+        </mat-expansion-panel>-->
       </mat-accordion>
     </mat-sidenav>
 
-    <!--  ===== начало контента =====  -->
+
     <div class="dashboard-main-content">
-      <router-outlet></router-outlet>
+      <app-profile [user]="currentUser"></app-profile>
+ <!--     <router-outlet>
+      </router-outlet>-->
     </div>
-    <!--  ===== конец контента =====  -->
+
 
   </mat-sidenav-container>
 
@@ -64,3 +61,4 @@
 
   </mat-toolbar>
 </ng-container>
+

@@ -1,22 +1,20 @@
-.profile-tabs {
-  border: 1px solid red;
-  margin: auto;
-  padding: 10px;
+.mat-grid-list {
+  margin-top: 28px;
 }
-
-.mat-tab-group {
-  border: 1px solid yellowgreen;
-  width: 80%;
-  margin: auto;
-
+.grid-title-1 {
 }
-.mat-tab {
-  border: 3px solid brown;
+.grid-card-1 {
+  width: 94%;
+  margin-top: -100px;
+  height: 500px;
+  margin-left: -25px;
 }
-.demo-tab-content {
-  padding: 16px;
+.grid-card-2 {
+  width: 88%;
+  margin-top: -200px;
+  height: 400px;
+  margin-left: 4px;
 }
-/*.profile-card {
-  width: 700px;
-  height: 600px;
-}*/
+.mat-card-content {
+  margin-top: 30px;
+}

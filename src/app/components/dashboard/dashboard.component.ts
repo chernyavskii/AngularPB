@@ -11,7 +11,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class DashboardComponent implements OnInit {
 
-  enable = true;
   currentUser: User;
   selected = false;
   sel = false;
