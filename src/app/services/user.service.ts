@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/User';
 import {Router} from '@angular/router';
-import { CookieService } from 'ng2-cookies';
+import { Cookie } from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
@@ -22,9 +22,7 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private cookie: CookieService,
-              private authService: AuthService,
-              private cookieService: CookieService) { }
+              private authService: AuthService) { }
 
   /*findById(id): Promise<any> {
     id = this.authService.getUserId();
@@ -56,6 +54,7 @@ export class UserService {
         .get(AppComponent.API_URL + '/login', {headers: headers}) //// withCredentials: true
         .toPromise()
         .then(result => {
+          Cookie.set('token', 'Basic ' + btoa(user.username + ':' + user.password));
           localStorage.setItem('currentUser', JSON.stringify(result));
           resolve(result);
         })

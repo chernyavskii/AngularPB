@@ -12,19 +12,25 @@ import { CookieService } from 'ng2-cookies';
 import { AuthGuard } from './utils/AuthGuard';
 import { AuthService } from './services/auth/auth.service';
 import { UpdateFormComponent } from './components/dashboard/profile/update-form/update-form.component';
+
 import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatToolbarModule,
   MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule,
   MatButtonToggleModule, MatIconModule, MatExpansionModule, MatListModule, MatTabsModule, MatMenuModule, MatTooltipModule,
   MatProgressBarModule, MatSlideToggleModule, MatGridListModule
 } from '@angular/material';
-import {MatCardModule} from '@angular/material/card';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
 import { RegistrationComponent } from './components/index/registration/registration.component';
 import {routing} from './app.routing';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { DestroyFormComponent } from './components/dashboard/profile/destroy-form/destroy-form.component';
 import { ChangePasswordComponent } from './components/dashboard/profile/change-password/change-password.component';
+import { DocumentsComponent } from './components/dashboard/documents/documents.component';
+import {DocumentService} from './services/document/document.service';
+import {PdfViewerComponent} from 'ng2-pdf-viewer';
+import {AgentService} from './services/agent/agent.service';
+import { TestCccComponent } from './test-ccc/test-ccc.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +42,9 @@ import { ChangePasswordComponent } from './components/dashboard/profile/change-p
     ProfileComponent,
     DestroyFormComponent,
     ChangePasswordComponent,
+    DocumentsComponent,
+    PdfViewerComponent,
+    TestCccComponent
   ],
   imports: [
     routing,
@@ -69,7 +78,8 @@ import { ChangePasswordComponent } from './components/dashboard/profile/change-p
     MatSlideToggleModule,
     MatGridListModule
   ],
-  providers: [UserService, AuthService, CookieService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [UserService, AgentService, DocumentService, AuthService, CookieService, AuthGuard /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

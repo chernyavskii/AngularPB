@@ -6,14 +6,12 @@ import {Injectable} from '@angular/core';
 import {HttpResponse} from 'selenium-webdriver/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
-import { CookieService } from 'ng2-cookies';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
 
 
-  constructor(private authService: AuthService,
-              private cookieService: CookieService) { }
+  constructor(private authService: AuthService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log(req.url);
    /* if (req.url === 'http://localhost:4200/login') {

@@ -7,6 +7,7 @@ import {ProfileComponent} from './components/dashboard/profile/profile.component
 import {UpdateFormComponent} from './components/dashboard/profile/update-form/update-form.component';
 import {DestroyFormComponent} from './components/dashboard/profile/destroy-form/destroy-form.component';
 import {ChangePasswordComponent} from './components/dashboard/profile/change-password/change-password.component';
+import {DocumentsComponent} from './components/dashboard/documents/documents.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard],
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
             { path: 'c', component: ChangePasswordComponent}
           ]
         },
+        { path: 'documents', component: DocumentsComponent }
       ]
   },
   { path: 'login', component: LoginComponent },

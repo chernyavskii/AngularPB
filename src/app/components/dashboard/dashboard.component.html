@@ -4,14 +4,17 @@
     <div class="navigation-panel">
      <ul class="list-items-navigation">
        <li class="list-item-nav"><a>{{currentUser.username}}</a></li>
+       <li><span><b>min-height: CSS</b></span></li>
+       <li><span><b>Toogle Button of Mobile version</b></span></li>
      </ul>
     </div>
   </mat-toolbar>
 
-  <mat-sidenav-container class="dashboard-container">
+  <mat-sidenav-container  class="dashboard-container">
     <mat-sidenav #sidenav mode="side" opened="true" class="dashboard-sidenav" [fixedInViewport]="true">
       <mat-accordion  style="background: url(https://i.pinimg.com/originals/27/13/ce/2713ce088f522c4a52d5ecb7588a800b.jpg);">
         <div class="dashboard-title">
+          <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
           <span><b>Панель Управления</b></span>
         </div>
      <!--   <mat-expansion-panel>
@@ -25,7 +28,7 @@
           </mat-expansion-panel-header>
           <mat-list>
             <mat-list-item>
-              <a [routerLink]="['./profile/u']">Подкатегория 1</a>
+              <a  [routerLink]="['./profile/u']">Подкатегория 1</a>
             </mat-list-item>
             <mat-list-item>
               <a [routerLink]="['./test']">Подкатегория 2</a>
@@ -49,7 +52,14 @@
 
 
     <div class="dashboard-main-content">
+<!--
+      <app-test-ccc></app-test-ccc>
+-->
       <app-profile [user]="currentUser"></app-profile>
+<!--
+      <app-documents [user]="currentUser"></app-documents>
+-->
+
  <!--     <router-outlet>
       </router-outlet>-->
     </div>

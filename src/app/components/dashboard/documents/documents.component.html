@@ -1,0 +1,80 @@
+<div class="main-container-documents">
+  <mat-card class="card-add-new-document">
+    <mat-card-header>
+      <mat-card-title>Мои Документы</mat-card-title>
+        <mat-card-subtitle>Создание нового документа</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-vertical-stepper [linear]="true">
+        <mat-step  label="Шаг 1"> <!--[stepControl]="firstFormGroup"-->
+          <mat-form-field style="width: 400px;">
+            <mat-select style="width: 400px;" placeholder="Выбор типа документа" disableRipple>
+              <mat-option *ngFor="let typeDoc of typeDocument" [value]="typeDoc.value">
+                {{typeDoc.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-step>
+        <mat-step label="Шаг 2">
+          <div class="documents-container" >
+            <form [formGroup]="firstFormGroup">
+              <div class="form-group1">
+                <mat-form-field style="width: 400px;">
+                  <mat-select style="width: 400px;" placeholder="Выбор контрагента" formControlName="agent_id" disableRipple required>
+                    <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                      {{agent.firstName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="form-field-group1">
+                  <input type="text" matInput placeholder="Название товара"  formControlName="name" required />
+                </mat-form-field>
+                <mat-form-field style="width: 170px;">
+                  <input matInput placeholder="Цена" type="number"  formControlName="price" required > <!--[(ngModel)]="user.username"-->
+                  <span matPrefix>б.р.&nbsp;</span>
+                  <span matSuffix>.00</span>
+                </mat-form-field>
+
+
+                <mat-form-field style="width: 200px;" >
+                  <mat-select style="width: 200px;" placeholder="Выбор единицы измерения" [formControl]="pokemonControl">
+                    <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"
+                                  [disabled]="group.disabled">
+                      <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+                        {{ pokemon.viewValue }}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-select>
+                </mat-form-field>
+
+
+                <mat-form-field style="width: 110px;">
+                  <input matInput placeholder="Количество" type="number" formControlName="number">
+                  <span matPrefix>шт.&nbsp;</span>
+                </mat-form-field>
+
+                <mat-form-field style="width: 95px;">
+                  <input matInput placeholder="Примечание" type="text" formControlName="note">
+                </mat-form-field>
+              </div>
+            </form>
+
+            <div>
+              <button mat-button (click)="testFunc()">Создать</button>
+              <button mat-raised-button color="primary" aria-label="Show an example snack-bar" (click)="savePdf()">Скачать .pdf</button>
+              <button mat-raised-button color="primary" aria-label="Show an example snack-bar" (click)="print()">Печать .pdf</button>
+            </div>
+
+            <button mat-button (click)="showDocumentInPdf()">Показать</button>
+
+            <div class="testDocDiv">
+              <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
+            </div>
+
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </mat-card-content>
+  </mat-card>
+  </div>

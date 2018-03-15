@@ -47,7 +47,9 @@
   </mat-grid-tile>
 </mat-grid-list>
 -->
-<mat-grid-list cols="3" rowHeight="650px">
+
+<!-- ТУТ PRODUCTION -->
+<!--<mat-grid-list cols="3" rowHeight="650px">
   <mat-grid-tile class="grid-title-1" [colspan]="2" [rowspan]="1" >
     <mat-card class="grid-card-1">
       <mat-card-header style="border-bottom: 1px solid #dfdfdf;">
@@ -77,6 +79,55 @@
         <mat-card-subtitle>Редактирование</mat-card-subtitle>
       </mat-card-header>
 
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>-->
+<!--<div class="container">
+  <div class="box">
+    <div>content1</div>
+    <div>content2</div>
+    <div>content3</div>
+  </div>
+</div>-->
+
+<h2> Убрал Grid</h2>
+
+<mat-card-content style="float: left; width: 970px; height: 700px; margin: auto;">
+  <mat-card class="grid-card-1">
+    <mat-card-header style="border-bottom: 1px solid #dfdfdf;">
+      <mat-card-title>Мой профиль</mat-card-title>
+      <mat-card-subtitle>Редактирование</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group class="profile-tab-group">
+        <mat-tab label="Изменить Профиль">
+          <app-update-form [user]="user"></app-update-form>
+        </mat-tab>
+        <mat-tab label="Изменить Пароль">
+          <app-destroy-form [user]="user"></app-destroy-form>
+        </mat-tab>
+        <mat-tab label="Удалить Профиль">
+          <app-change-password [user]="user"></app-change-password>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</mat-card-content>
+<mat-card-content style="float: left; width: 250px; height: 100px ; margin: auto;">
+  <mat-card class="grid-card-2"  >
+    <mat-card-header style="background: url(http://i.share.pho.to/46997b5c_o.jpeg); width: 300px; height: 140px; margin-top: -25px; margin-left: -25px;">
+      <mat-card-title>Мой профиль</mat-card-title>
+      <mat-card-subtitle>Редактирование</mat-card-subtitle>
+    </mat-card-header>
+
     <mat-card-content>
       <p>
         The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
@@ -84,6 +135,36 @@
         bred for hunting.
       </p>
     </mat-card-content>
-    </mat-card>
+  </mat-card>
+</mat-card-content>
+<!--<mat-grid-list class="profile-container" cols="5" rowHeight="700px">
+  <mat-grid-tile [colspan]="3" [rowspan]="1"  style="border: 1px solid red;" > &lt;!&ndash;[colspan]="2" [rowspan]="1" style="border: 1px solid blue;"&ndash;&gt;
+    <div>
+      1
+    </div>
   </mat-grid-tile>
-</mat-grid-list>
+
+
+  <div style="border: 1px solid black; width: 300px; width:100px;
+	height:300px;
+	top:150px;
+	background-color:#333;
+	margin-left:100%;
+        left:-100px;">
+    <mat-card >
+      <mat-card-header style="background: url(http://i.share.pho.to/46997b5c_o.jpeg);  ">
+        <mat-card-title>Мой профиль</mat-card-title>
+        <mat-card-subtitle>Редактирование</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-grid-list>-->
+
