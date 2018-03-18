@@ -1,44 +1,11 @@
-<!--
-<div class="grid">
-  <div class="grid__row grid__row&#45;&#45;sm">
-    <div class="grid__item">
-      <div class="grid">
-        <div class="grid__row grid__row&#45;&#45;lg">
-&lt;!&ndash;
-          <div class="grid__item">
-&ndash;&gt;
-            <mat-card >
-              <mat-card-header>
-                TEST
-              </mat-card-header>
-              <mat-card-content >
-
-              </mat-card-content>
-            </mat-card>
-          &lt;!&ndash;</div>&ndash;&gt;
-          <div class="grid__item">AAAAAAAAA</div>
-
-        </div>
-      </div>
-    </div>
-    <div class="grid__item">2</div>
-  </div>
-  <div class="grid__row grid__row&#45;&#45;md">
-    <div class="grid__item">1</div>
-    <div class="grid__item">Nested 1</div>
-
-  </div>
-</div>
--->
-<div class="grid">
-  <div class="grid__row">
-  <mat-card class="grid__item">
+<!--<div class="grid">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>Мой профиль</mat-card-title>
       <mat-card-subtitle>Редактирование</mat-card-subtitle>
     </mat-card-header>
       <mat-card-content>
-        <div class="grid__row grid__row--md">
+        <div class="grid__row grid__row&#45;&#45;md">
           <mat-form-field class="grid__item">
             <input type="text" matInput placeholder="Имя" />
           </mat-form-field>
@@ -49,7 +16,7 @@
             <input type="text" matInput placeholder="Отчество" />
           </mat-form-field>
         </div>
-        <div class="grid__row grid__row--sm">
+        <div class="grid__row grid__row&#45;&#45;sm">
           <mat-form-field class="grid__item">
             <input type="text" matInput placeholder="Адрес" />
           </mat-form-field>
@@ -57,7 +24,7 @@
             <input type="text" matInput placeholder="Телефон" />
           </mat-form-field>
         </div>
-        <div class="grid__row grid__row--sm">
+        <div class="grid__row grid__row&#45;&#45;sm">
           <mat-form-field class="grid__item">
             <input type="text" matInput placeholder="УНП" />
           </mat-form-field>
@@ -68,12 +35,12 @@
             <input type="text" matInput placeholder="Должность" />
           </mat-form-field>
         </div>
-        <div class="grid__row grid__row--sm">
+        <div class="grid__row grid__row&#45;&#45;sm">
           <mat-form-field class="grid__item">
             <input type="text" matInput placeholder="Банк" />
           </mat-form-field>
         </div>
-        <div class="grid__row grid__row--sm">
+        <div class="grid__row grid__row&#45;&#45;sm">
           <mat-form-field class="grid__item">
             <input type="text" matInput placeholder="РС" />
           </mat-form-field>
@@ -84,48 +51,183 @@
             <input type="text" matInput placeholder="КС" />
           </mat-form-field>
         </div>
-        <!--<div class="grid__row_button grid__row&#45;&#45;sm_button">
+        &lt;!&ndash;<div class="grid__row_button grid__row&#45;&#45;sm_button">
           <button class="grid__item" mat-button color="accent">Accent</button>
-        </div>-->
-        <div class="grid__row grid__row--sm">
+        </div>&ndash;&gt;
+        <div class="grid__row grid__row&#45;&#45;sm">
             <button class="grid__item" mat-button color="accent">обновить профиль</button>
         </div>
       </mat-card-content>
     </mat-card>
-  <mat-card class="grid__item">
+  <mat-card>
       <mat-card-header>
         <mat-card-title>Мой профиль</mat-card-title>
         <mat-card-subtitle>Редактирование</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <div class="grid__row grid__row--md">
-          <mat-form-field class="grid__item">
-
+        TEST
+        </mat-card-content>
+      </mat-card>
+</div>-->
+<div class="grid">
+  <div class="grid__row grid__row--md">
+    <div class="grid__item">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Мой профиль</mat-card-title>
+          <mat-card-subtitle>Редактирование</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Имя" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Фамилия" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Отчество" />
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Адрес" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Телефон" />
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="УНП" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Организация" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Должность" />
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Банк" />
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="РС" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="БИК" />
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="КС" />
             </mat-form-field>
           </div>
         </mat-card-content>
       </mat-card>
-  </div>
-</div>
-<!--
-
-<div class="grid">
-  <div class="grid__row grid__row&#45;&#45;sm">
-    <div class="grid__item">
-      <div class="grid">
-        <div class="grid__row grid__row&#45;&#45;lg">
-          <div class="grid__item">Nested 1</div>
-          <div class="grid__item">Nested 1</div>
-
-        </div>
-      </div>
     </div>
+    <div class="grid__item">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Мой профиль</mat-card-title>
+          <mat-card-subtitle>Редактирование</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Банк" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+ <!-- <div class="grid__row">
+    <div class="grid__item">1</div>
     <div class="grid__item">2</div>
+    <div class="grid__item">3</div>
   </div>
-  <div class="grid__row grid__row&#45;&#45;md">
+  <div class="grid__row">
     <div class="grid__item">1</div>
-    <div class="grid__item">1</div>
-
-  </div>
+    <div class="grid__item">2</div>
+    <div class="grid__item">3</div>
+    <div class="grid__item">4</div>
+  </div>-->
 </div>
--->
+
+/*CSS*/
+.grid {
+}
+.testqqw {
+  display: flex;
+  flex-direction: column;
+}
+.grid__row {
+  display: flex;
+  flex-direction: column;
+}
+.grid__row_button {
+  display: flex;
+  float: none;
+  flex-direction: column;
+}
+.grid__item {
+  flex: 1;
+  padding: 10px;
+}
+
+@media all and ( min-width: 940px ) {
+
+  .testQQsds {
+    flex-direction: row;
+  }
+
+}
+
+@media all and ( min-width: 480px ) {
+
+  .grid__row--sm {
+    flex-direction: row;
+  }
+
+}
+@media all and ( min-width: 480px ) {
+
+  .grid__row--sm_button {
+    flex-direction: row;
+    float: right;
+  }
+
+}
+
+@media all and ( min-width: 769px ) and (min-width: 1025px) {
+
+  .grid__row--md {
+    flex-direction: row;
+  }
+
+}
+@media all and ( min-width: 960px ) {
+
+  .grid__row--lg {
+    flex-direction: row;
+  }
+
+}
+/*
+.grid {
+  border: solid 1px #e7e7e7;
+}
+
+.grid__row {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid__item {
+  flex: 1;
+  padding: 12px;
+  border: solid 1px #e7e7e7;
+}
+*/
