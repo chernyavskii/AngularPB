@@ -65,7 +65,7 @@
         <mat-card-content>
           <div class="grid__row grid__row--md">
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="Банк" />
+              <input type="text" matInput />
             </mat-form-field>
           </div>
         </mat-card-content>
@@ -84,7 +84,6 @@
     <div class="grid__item">4</div>
   </div>-->
 </div>
-
 
 /*CSS*/
 .grid {
@@ -131,7 +130,7 @@
 
 }
 
-@media all and ( min-width: 769px ) and (min-width: 1025px) {
+@media all and ( min-width: 769px ) and (min-width: 1025px) and (orientation: portrait) {
 
   .grid__row--md {
     flex-direction: row;
@@ -161,3 +160,21 @@
   border: solid 1px #e7e7e7;
 }
 */
+
+/*TS*/
+import { Component, OnInit } from '@angular/core';
+import {User} from "../../models/User";
+
+@Component({
+  selector: 'app-test-qqq',
+  templateUrl: './test-qqq.component.html',
+  styleUrls: ['./test-qqq.component.css']
+})
+export class TestQqqComponent implements OnInit {
+  user = new User()
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
