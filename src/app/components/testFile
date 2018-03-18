@@ -1,74 +1,3 @@
-<!--<div class="grid">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Мой профиль</mat-card-title>
-      <mat-card-subtitle>Редактирование</mat-card-subtitle>
-    </mat-card-header>
-      <mat-card-content>
-        <div class="grid__row grid__row&#45;&#45;md">
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Имя" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Фамилия" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Отчество" />
-          </mat-form-field>
-        </div>
-        <div class="grid__row grid__row&#45;&#45;sm">
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Адрес" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Телефон" />
-          </mat-form-field>
-        </div>
-        <div class="grid__row grid__row&#45;&#45;sm">
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="УНП" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Организация" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Должность" />
-          </mat-form-field>
-        </div>
-        <div class="grid__row grid__row&#45;&#45;sm">
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="Банк" />
-          </mat-form-field>
-        </div>
-        <div class="grid__row grid__row&#45;&#45;sm">
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="РС" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="БИК" />
-          </mat-form-field>
-          <mat-form-field class="grid__item">
-            <input type="text" matInput placeholder="КС" />
-          </mat-form-field>
-        </div>
-        &lt;!&ndash;<div class="grid__row_button grid__row&#45;&#45;sm_button">
-          <button class="grid__item" mat-button color="accent">Accent</button>
-        </div>&ndash;&gt;
-        <div class="grid__row grid__row&#45;&#45;sm">
-            <button class="grid__item" mat-button color="accent">обновить профиль</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  <mat-card>
-      <mat-card-header>
-        <mat-card-title>Мой профиль</mat-card-title>
-        <mat-card-subtitle>Редактирование</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        TEST
-        </mat-card-content>
-      </mat-card>
-</div>-->
 <div class="grid">
   <div class="grid__row grid__row--md">
     <div class="grid__item">
@@ -155,6 +84,7 @@
     <div class="grid__item">4</div>
   </div>-->
 </div>
+
 
 /*CSS*/
 .grid {
