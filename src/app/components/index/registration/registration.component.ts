@@ -19,13 +19,15 @@ export class RegistrationComponent implements OnInit {
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
+  hide = true;
   ////
   @Output() newUserEvent = new EventEmitter();
   ////
   constructor(private userService: UserService,
               private router: Router,
               private _formBuilder: FormBuilder,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({

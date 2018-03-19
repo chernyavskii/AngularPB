@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   model: any = {username: '', password: ''};
   returnURL: string;
 
+  hide = true;
+
   constructor(private authService: AuthService,
               private userService: UserService,
               private router: Router,

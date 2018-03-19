@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/User';
 import {Router} from '@angular/router';
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
@@ -22,7 +22,8 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   /*findById(id): Promise<any> {
     id = this.authService.getUserId();
@@ -44,7 +45,7 @@ export class UserService {
         'Authorization': 'Basic ' + btoa(user.username + ':' + user.password),
         'X-Requested-With': 'XMLHttpRequest',
         'Access-Control-Allow-Origin': '*',
-     /*   'Access-Control-Allow-Credentials': 'true',*/
+        /*   'Access-Control-Allow-Credentials': 'true',*/
         'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
         'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
         ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
@@ -70,7 +71,7 @@ export class UserService {
       this.http
         .put(`${this.usersURL}${user.id}`, user)
         .toPromise()
-        .then( result => {
+        .then(result => {
           localStorage.clear();
           localStorage.setItem('currentUser', JSON.stringify(result));
           resolve(result);
@@ -89,13 +90,14 @@ export class UserService {
       'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
       'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
       ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
-      ' Access-Control-Request-Headers'});
+      ' Access-Control-Request-Headers'
+    });
 
     return new Promise((resolve, reject) => {
       this.http
-        .post(AppComponent.API_URL + '/registration',  user, {headers: headers})
+        .post(AppComponent.API_URL + '/registration', user, {headers: headers})
         .toPromise()
-        .then( result => {
+        .then(result => {
           localStorage.setItem('currentUser', JSON.stringify(result));
           resolve(result);
         })
@@ -129,6 +131,7 @@ export class UserService {
         });
     });
   }
+
   /*testCheckAuth(): boolean {
     let store = localStorage.getItem('currentUser').length;
     if (store > 0) {

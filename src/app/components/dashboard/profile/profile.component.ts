@@ -8,12 +8,6 @@ import {User} from '../../../models/User';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
-
-/*
-  user = new User();
-*/
-
   @Input()
   user = new User();
 

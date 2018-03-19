@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,29 +14,18 @@ export class DashboardComponent implements OnInit {
 
   currentUser: User;
   selected = false;
-  sel = false;
-  constructor(private userService: UserService) {
+
+  constructor(private userService: UserService,
+              public dialog: MatDialog) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(this.currentUser);
   }
 
-  selwe() {
-    this.sel = true;
-  }
   ngOnInit() {
   }
-
-  /* authenticated() {
-     return this.authService.getAuth();
-   }*/
 
   onSelect() {
     this.selected = true;
     console.log(this.selected);
   }
-
-  testFunc() {
-    this.userService.testFindAll();
-  }
-
 }

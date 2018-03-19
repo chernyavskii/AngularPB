@@ -1,57 +1,77 @@
-<div class="update-profile-container" >
-<form (submit)="updateProfile(user)">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Мой профиль</mat-card-title>
+    <mat-card-subtitle>Редактирование</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form (submit)="updateProfile(user)" [formGroup]="firstFormGroup">
+      <div class="grid__row grid__row--md">
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.firstName" formControlName="firstName" placeholder="Имя"
+                 name="firstName"/>
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.middleName" formControlName="middleName" placeholder="Отчество"
+                 name="middleName"/>
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.lastName" formControlName="lastName" placeholder="Фамилия"
+                 name="lastName"/>
+        </mat-form-field>
+      </div>
 
-  <div class="form-group1">
-    <mat-form-field class="form-field-group1">
-      <input type="text" matInput [ngModel]="user.firstName" placeholder="Имя" name="firstName" (input)="user.firstName=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group1">
-      <input type="text" matInput [ngModel]="user.middleName" placeholder="Отчество" name="middleName" (input)="user.middleName=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group1">
-      <input type="text" matInput [ngModel]="user.lastName" placeholder="Фамилия" name="lastName" (input)="user.lastName=$event.target.value"/>
-    </mat-form-field>
-  </div>
+      <div class="grid__row grid__row--md">
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.address" formControlName="address" placeholder="Адрес"
+                 name="address"/>
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.phone" formControlName="phone" placeholder="Телефон"
+                 name="phone"/>
+        </mat-form-field>
+      </div>
 
-  <div class="form-group2">
-    <mat-form-field class="form-field-group2a">
-      <input type="text" matInput [ngModel]="user.address" placeholder="Адрес" name="address" (input)="user.address=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group2b">
-      <input type="text" matInput [ngModel]="user.phone" placeholder="Телефон" name="phone" (input)="user.phone=$event.target.value"/>
-    </mat-form-field>
-  </div>
+      <div class="grid__row grid__row--md">
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.unp" formControlName="unp" placeholder="УНП" name="middleName"
+          />
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.organization" formControlName="organization"
+                 placeholder="Организация" name="organization"
+          />
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.position" formControlName="position" placeholder="Должность"
+                 name="position"
+          />
+        </mat-form-field>
+      </div>
 
-  <div class="form-group3">
-    <mat-form-field class="form-field-group3">
-      <input type="text" matInput [ngModel]="user.unp" placeholder="УНП" name="middleName" (input)="user.unp=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group3">
-      <input type="text" matInput [ngModel]="user.organization" placeholder="Организация" name="organization" (input)="user.organization=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group3">
-      <input type="text" matInput [ngModel]="user.position" placeholder="Должность" name="position" (input)="user.position=$event.target.value"/>
-    </mat-form-field>
-  </div>
+      <div class="grid__row grid__row--md">
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.bank" formControlName="bank" placeholder="Банк" name="bank"
+          />
+        </mat-form-field>
+      </div>
 
-  <div class="form-group4">
-    <mat-form-field class="form-field-group4">
-      <input type="text" matInput [ngModel]="user.bank" placeholder="Банк" name="bank" (input)="user.bank=$event.target.value"/>
-    </mat-form-field>
-  </div>
-
-  <div class="form-group5">
-    <mat-form-field class="form-field-group5">
-      <input type="text" matInput [ngModel]="user.rs" placeholder="РС" name="rs" (input)="user.rs=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group5">
-      <input type="text" matInput [ngModel]="user.bik" placeholder="БИК" name="bik" (input)="user.bik=$event.target.value"/>
-    </mat-form-field>
-    <mat-form-field class="form-field-group5">
-      <input type="text" matInput [ngModel]="user.ks" placeholder="КС" name="ks" (input)="user.ks=$event.target.value"/>
-    </mat-form-field>
-  </div>
-  <br>
-  <button style="float: right; margin-top: 1px; margin-right: 15px;" mat-button color="primary" type="submit">Обновить профиль</button>
-</form>
-</div>
+      <div class="grid__row grid__row--md">
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.rs" formControlName="rs" placeholder="РС" name="rs"
+          />
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.bik" formControlName="bik" placeholder="БИК" name="bik"
+          />
+        </mat-form-field>
+        <mat-form-field class="grid__item">
+          <input type="text" matInput [(ngModel)]="user.ks" formControlName="ks" placeholder="КС" name="ks"
+          />
+        </mat-form-field>
+      </div>
+      <div class="grid__row grid__row--md">
+        <button class="grid__item" mat-button color="primary" type="submit">Обновить профиль</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

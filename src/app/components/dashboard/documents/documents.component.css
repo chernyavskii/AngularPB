@@ -1,8 +1,45 @@
-.card-add-new-document {
-  border: 1px solid black;
-  width: 80%;
-  margin: auto;
+.grid {
 }
-.main-container-documents {
-  border: 1px solid black;
+.grid__row {
+  display: flex;
+  flex-direction: column;
+}
+.grid__row_button {
+  display: flex;
+  float: none;
+  flex-direction: column;
+}
+.grid__item {
+  flex: 1;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+@media all and ( min-width: 480px ) {
+
+  .grid__row--sm {
+    flex-direction: row;
+  }
+
+}
+@media all and ( min-width: 480px ) {
+
+  .grid__row--sm_button {
+    flex-direction: row;
+    float: right;
+  }
+
+}
+@media all and ( min-width: 769px ) and (min-width: 1025px) {
+
+  .grid__row--md {
+    flex-direction: row;
+  }
+
+}
+@media all and ( min-width: 960px ) {
+
+  .grid__row--lg {
+    flex-direction: row;
+  }
+
 }

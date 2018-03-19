@@ -6,7 +6,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { LoginComponent } from './components/index/login/login.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
 import { HttpModule } from '@angular/http';
 import { CookieService } from 'ng2-cookies';
 import { AuthGuard } from './utils/AuthGuard';
@@ -17,7 +17,7 @@ import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatToolbarModule,
   MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule,
   MatButtonToggleModule, MatIconModule, MatExpansionModule, MatListModule, MatTabsModule, MatMenuModule, MatTooltipModule,
-  MatProgressBarModule, MatSlideToggleModule, MatGridListModule
+  MatProgressBarModule, MatSlideToggleModule, MatGridListModule, MatDialogModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
@@ -30,7 +30,7 @@ import { DocumentsComponent } from './components/dashboard/documents/documents.c
 import {DocumentService} from './services/document/document.service';
 import {PdfViewerComponent} from 'ng2-pdf-viewer';
 import {AgentService} from './services/agent/agent.service';
-import { TestCccComponent } from './test-ccc/test-ccc.component';
+import { AddFormComponent } from './components/dashboard/documents/add-form/add-form.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { TestCccComponent } from './test-ccc/test-ccc.component';
     ChangePasswordComponent,
     DocumentsComponent,
     PdfViewerComponent,
-    TestCccComponent
+    AddFormComponent
   ],
   imports: [
     routing,
@@ -76,7 +76,8 @@ import { TestCccComponent } from './test-ccc/test-ccc.component';
     MatTooltipModule,
     MatProgressBarModule,
     MatSlideToggleModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ],
   providers: [UserService, AgentService, DocumentService, AuthService, CookieService, AuthGuard /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
