@@ -17,7 +17,7 @@ import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatToolbarModule,
   MatProgressSpinnerModule, MatInputModule, MatSidenavModule, MatStepperModule, MatSnackBarModule,
   MatButtonToggleModule, MatIconModule, MatExpansionModule, MatListModule, MatTabsModule, MatMenuModule, MatTooltipModule,
-  MatProgressBarModule, MatSlideToggleModule, MatGridListModule, MatDialogModule
+  MatProgressBarModule, MatSlideToggleModule, MatGridListModule, MatDialogModule, MatTableModule, MatSortModule, MatAutocompleteModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
@@ -31,6 +31,7 @@ import {DocumentService} from './services/document/document.service';
 import {PdfViewerComponent} from 'ng2-pdf-viewer';
 import {AgentService} from './services/agent/agent.service';
 import { AddFormComponent } from './components/dashboard/documents/add-form/add-form.component';
+import { AgentsComponent } from './components/dashboard/agents/agents.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddFormComponent } from './components/dashboard/documents/add-form/add-
     ChangePasswordComponent,
     DocumentsComponent,
     PdfViewerComponent,
-    AddFormComponent
+    AddFormComponent,
+    AgentsComponent
   ],
   imports: [
     routing,
@@ -77,7 +79,10 @@ import { AddFormComponent } from './components/dashboard/documents/add-form/add-
     MatProgressBarModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatAutocompleteModule
   ],
   providers: [UserService, AgentService, DocumentService, AuthService, CookieService, AuthGuard /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]

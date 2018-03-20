@@ -18,6 +18,6 @@ export class DocumentsComponent implements OnInit {
   user = new User();
 
   ngOnInit() {
-
   }
+
 }

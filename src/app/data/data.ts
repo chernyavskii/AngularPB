@@ -41,6 +41,17 @@ export const units = [
 ];
 
 export const  typeOfDocument = [
-  {value: 'value1', viewValue: 'Строгая отчетность'},
-  {value: 'value2', viewValue: 'Нестрогая отчетность'}
+  {value: 0, viewValue: 'Строгая отчетность'},
+  {value: 1, viewValue: 'Нестрогая отчетность'}
 ];
+
+export const  typeOfStrictReportingDocument = [
+  {value: 0, viewValue: 'Товарная накладная'},
+  {value: 1, viewValue: 'Товарно-транспортная накладная'}
+];
+
+export const  typeOfNotStrictReportingDocument = [
+  {value: 0, viewValue: 'Акт приёмки-сдачи выполненных работ'},
+  {value: 1, viewValue: 'Тест'}
+];
+
