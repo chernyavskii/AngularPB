@@ -32,6 +32,7 @@ import {PdfViewerComponent} from 'ng2-pdf-viewer';
 import {AgentService} from './services/agent/agent.service';
 import { AddFormComponent } from './components/dashboard/documents/add-form/add-form.component';
 import { AgentsComponent } from './components/dashboard/agents/agents.component';
+import { TestFeautureComponent } from './components/test-feauture/test-feauture.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AgentsComponent } from './components/dashboard/agents/agents.component'
     DocumentsComponent,
     PdfViewerComponent,
     AddFormComponent,
-    AgentsComponent
+    AgentsComponent,
+    TestFeautureComponent
   ],
   imports: [
     routing,

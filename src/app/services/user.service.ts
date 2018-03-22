@@ -6,6 +6,11 @@ import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
+import {Hero, heroes} from '../data/data';
+import {Observable} from 'rxjs/Observable';
+
+import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class UserService {
@@ -14,6 +19,7 @@ export class UserService {
   private resourceURL = 'http://localhost:8081/';
   private agentsURL = 'http://localhost:8081/agents/';
 
+  delayMs = 5000;
 
   checkAuth = false;
 
@@ -132,12 +138,8 @@ export class UserService {
     });
   }
 
-  /*testCheckAuth(): boolean {
-    let store = localStorage.getItem('currentUser').length;
-    if (store > 0) {
-      this.checkAuth = true;
-      return true;
-    }
-    return false;
-  }*/
+  getHeroes(): Observable<Hero[]> {
+    return of(heroes).delay(this.delayMs);
+  }
+
 }

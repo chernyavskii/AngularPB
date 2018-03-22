@@ -40,18 +40,61 @@ export const units = [
   }
 ];
 
-export const  typeOfDocument = [
-  {value: 0, viewValue: 'Строгая отчетность'},
-  {value: 1, viewValue: 'Нестрогая отчетность'}
+export const typeOfDocument = [
+  {
+    id: 1,
+    name: 'Нестрогая отчетность',
+    documents:
+      [
+        {document: 'Акт приёмки-сдачи выполненных работ'},
+        {document: 'Счёт-фактура'}
+      ]
+  },
+  {
+    id: 2,
+    name: 'Строгая отчетность',
+    documents:
+      [
+        {document: 'Товарная накладная'},
+        {document: 'Товарно-транспортная накладная'}
+      ]
+  }
 ];
 
-export const  typeOfStrictReportingDocument = [
-  {value: 0, viewValue: 'Товарная накладная'},
-  {value: 1, viewValue: 'Товарно-транспортная накладная'}
+export const states = ['CA', 'MD', 'OH', 'VA'];
+
+export const heroes: Hero[] = [
+  {
+    id: 1,
+    name: 'Whirlwind',
+    addresses: [
+      {street: '123 Main', city: 'Anywhere', state: 'CA', zip: '94801'},
+      {street: '456 Maple', city: 'Somewhere', state: 'VA', zip: '23226'},
+    ]
+  },
+  {
+    id: 2,
+    name: 'Bombastic',
+    addresses: [
+      {street: '789 Elm', city: 'Smallville', state: 'OH', zip: '04501'},
+    ]
+  },
+  {
+    id: 3,
+    name: 'Magneta',
+    addresses: []
+  },
 ];
 
-export const  typeOfNotStrictReportingDocument = [
-  {value: 0, viewValue: 'Акт приёмки-сдачи выполненных работ'},
-  {value: 1, viewValue: 'Тест'}
-];
+export class Hero {
+  id = 0;
+  name = '';
+  addresses: Address[];
+}
 
+export class Address {
+  street = '';
+  city = '';
+  state = '';
+  zip = '';
+}

@@ -6,13 +6,13 @@
 
   <mat-card-content>
     <mat-vertical-stepper [linear]="true">
-      <mat-step label="Шаг 1" [stepControl]="initFormGroup">
+     <!-- <mat-step label="Шаг 1" [stepControl]="initFormGroup">
         <form [formGroup]="initFormGroup">
-          <div class="grid__row grid__row--md">
+          <div class="grid__row grid__row&#45;&#45;md">
               <mat-form-field class="grid__item">
                 <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfDocument_id" disableRipple
                             required>
-                  <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> <!--formControlName=""-->
+                  <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
                     {{typeDoc.viewValue}}
                   </mat-option>
                 </mat-select>
@@ -22,7 +22,7 @@
                 <mat-form-field class="grid__item">
                   <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument_id" disableRipple
                               required>
-                    <mat-option *ngFor="let typeDoc of typeOfStrictReportingDocument_" [value]="typeDoc.value"> <!--formControlName=""-->
+                    <mat-option *ngFor="let typeDoc of typeOfStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
                       {{typeDoc.viewValue}}
                     </mat-option>
                   </mat-select>
@@ -32,24 +32,24 @@
                 <mat-form-field class="grid__item">
                   <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfNotStrictDocument_id" disableRipple
                               required>
-                    <mat-option *ngFor="let typeDoc of typeOfNotStrictReportingDocument_" [value]="typeDoc.value"> <!--formControlName=""-->
+                    <mat-option *ngFor="let typeDoc of typeOfNotStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
                       {{typeDoc.viewValue}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
-           <!--   <mat-form-field class="grid__item">
+           &lt;!&ndash;   <mat-form-field class="grid__item">
                 <mat-select [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument" disableRipple
                             required>
                   <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
                     {{typeDoc.viewValue}}
                   </mat-option>
                 </mat-select>
-              </mat-form-field>-->
+              </mat-form-field>&ndash;&gt;
             </div>
           </div>
         </form>
-      </mat-step>
+      </mat-step>-->
       <mat-step label="Шаг 2" [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <div class="grid__row grid__row--md">

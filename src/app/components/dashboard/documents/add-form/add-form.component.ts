@@ -6,8 +6,8 @@ import {DocumentService} from '../../../../services/document/document.service';
 import {User} from '../../../../models/User';
 import {units} from '../../../../data/data';
 import {typeOfDocument} from '../../../../data/data';
-import {typeOfStrictReportingDocument} from '../../../../data/data';
-import {typeOfNotStrictReportingDocument} from '../../../../data/data';
+/*import {typeOfStrictReportingDocument} from '../../../../data/data';
+import {typeOfNotStrictReportingDocument} from '../../../../data/data';*/
 import {MatOptionSelectionChange} from '@angular/material';
 
 @Component({
@@ -27,8 +27,8 @@ export class AddFormComponent implements OnInit {
 
   units_ = units;
   typeOfDocument_ = typeOfDocument;
-  typeOfStrictReportingDocument_ = typeOfStrictReportingDocument;
-  typeOfNotStrictReportingDocument_ = typeOfNotStrictReportingDocument;
+/*  typeOfStrictReportingDocument_ = typeOfStrictReportingDocument;
+  typeOfNotStrictReportingDocument_ = typeOfNotStrictReportingDocument;*/
 
   pageurl: Uint8Array;
   product = new Product();
