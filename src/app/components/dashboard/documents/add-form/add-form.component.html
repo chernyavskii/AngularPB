@@ -1,3 +1,45 @@
+<!--<mat-form-field class="grid__item">
+  <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfDocument_id" disableRipple
+              required>
+    <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
+      {{typeDoc.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="secondBlockCheck" >
+  <div *ngIf="secondBlockStrictCheck">
+    <mat-form-field class="grid__item">
+      <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument_id" disableRipple
+                  required>
+        <mat-option *ngFor="let typeDoc of typeOfStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
+          {{typeDoc.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div *ngIf="secondBlockNotStrictCheck">
+    <mat-form-field class="grid__item">
+      <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfNotStrictDocument_id" disableRipple
+                  required>
+        <mat-option *ngFor="let typeDoc of typeOfNotStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
+          {{typeDoc.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  &lt;!&ndash;   <mat-form-field class="grid__item">
+  <mat-select [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument" disableRipple
+              required>
+    <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
+      {{typeDoc.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>&ndash;&gt;
+</div>
+</div>
+</form>
+</mat-step>&ndash;&gt;-->
+
 <mat-card>
   <mat-card-header>
     <mat-card-title>Мои Документы</mat-card-title>
@@ -6,53 +48,98 @@
 
   <mat-card-content>
     <mat-vertical-stepper [linear]="true">
-     <!-- <mat-step label="Шаг 1" [stepControl]="initFormGroup">
-        <form [formGroup]="initFormGroup">
-          <div class="grid__row grid__row&#45;&#45;md">
-              <mat-form-field class="grid__item">
-                <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfDocument_id" disableRipple
-                            required>
-                  <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-                    {{typeDoc.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            <div *ngIf="secondBlockCheck" >
-              <div *ngIf="secondBlockStrictCheck">
-                <mat-form-field class="grid__item">
-                  <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument_id" disableRipple
-                              required>
-                    <mat-option *ngFor="let typeDoc of typeOfStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-                      {{typeDoc.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+      <mat-step label="Шаг 1" [stepControl]="firstStepGroup">
+        <form [formGroup]="firstStepGroup">
+          <div class="grid__row grid__row__md">
+            <mat-form-field class="grid__item">
+              <mat-select placeholder="Выберите тип документа " (change)="searchTypeById()"
+                          formControlName="typeOfDocument" disableRipple required>
+                <mat-option *ngFor="let type of typeOfDocument" [value]="type.id">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="grid__item" *ngIf="index_">
+              <mat-select placeholder="Выберите документ из категории - {{elementOfType.name}}"
+                          formControlName="elementOfType" disableRipple required>
+                <mat-option *ngFor="let type of elementOfType.documents" [value]="type">
+                  {{type.document}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step label="Шаг 2" [stepControl]="secondStepGroup">
+        <form [formGroup]="secondStepGroup">
+          <div class="grid__row grid__row__md">
+            <mat-form-field class="grid__item">
+              <mat-select placeholder="Выберите Контрагента"
+                          formControlName="agentId" disableRipple required>
+                <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                  {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div formArrayName="products" style="background: #dfdfdf;">
+              <div *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
+                <h4>Товар #{{i + 1}}</h4>
+                <div class="grid__row grid__row--md">
+                  <mat-form-field class="grid__item">
+                    <input type="text" matInput placeholder="Название товара" formControlName="name" required/>
+                  </mat-form-field>
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Цена" type="number" formControlName="price" required>
+                    <span matPrefix>б.р.&nbsp;</span>
+                    <span matSuffix>.00</span>
+                  </mat-form-field>
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Количество" type="number" formControlName="number" required>
+                    <span matSuffix>шт. </span>
+                  </mat-form-field>
+
+                </div>
+                <div class="grid__row grid__row--md">
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Количество грузовых мест" type="number"
+                           formControlName="packageNumber" required>
+                    <span matSuffix>шт. </span>
+                  </mat-form-field>
+
+                  <mat-form-field class="grid__item">
+                    <mat-select placeholder="Выбор единицы измерения" formControlName="measure" required>
+                      <mat-optgroup *ngFor="let unit of units" [label]="unit.name">
+                        <mat-option *ngFor="let element of unit.elements" [value]="element.value">
+                          {{ element.viewValue }}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Вес" type="number" formControlName="weight" required>
+                      <span matSuffix>шт. </span>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="grid__row grid__row--md">
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Примечание" type="text" formControlName="note">
+                  </mat-form-field>
+                </div>
               </div>
-              <div *ngIf="secondBlockNotStrictCheck">
-                <mat-form-field class="grid__item">
-                  <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfNotStrictDocument_id" disableRipple
-                              required>
-                    <mat-option *ngFor="let typeDoc of typeOfNotStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-                      {{typeDoc.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-           &lt;!&ndash;   <mat-form-field class="grid__item">
-                <mat-select [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument" disableRipple
-                            required>
-                  <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-                    {{typeDoc.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>&ndash;&gt;
+              <button (click)="addProduct()" type="button">Add a Product</button>
             </div>
           </div>
         </form>
-      </mat-step>-->
-      <mat-step label="Шаг 2" [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <div class="grid__row grid__row--md">
+      </mat-step>
+      <!--
+           <mat-step label="Шаг 2" [stepControl]="secondStepGroup">
+             <form [formGroup]="secondStepGroup">
+               <app-tn-document [fixedFG]="secondStepGroup" (notify)="onNotify($event)"></app-tn-document> <!--[secondStepGroup]="secondStepGroup"
+         <div class="grid__row grid__row&#45;&#45;md">
             <mat-form-field class="grid__item">
               <mat-select placeholder="Выбор контрагента" formControlName="agent_id" disableRipple required>
                 <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
@@ -61,18 +148,20 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="grid__row grid__row--md">
+          <div class="grid__row grid__row&#45;&#45;md">
             <mat-form-field class="grid__item">
               <input type="text" matInput placeholder="Название товара" formControlName="name" required/>
             </mat-form-field>
             <mat-form-field class="grid__item">
               <input matInput placeholder="Цена" type="number" formControlName="price" required>
-              <!--[(ngModel)]="user.username"-->
+              &lt;!&ndash;[(ngModel)]="user.username"&ndash;&gt;
               <span matPrefix>б.р.&nbsp;</span>
               <span matSuffix>.00</span>
             </mat-form-field>
 
             <mat-form-field class="grid__item">
+
+
               <mat-select placeholder="Выбор единицы измерения" [formControl]="unitsControl" required>
                 <mat-optgroup *ngFor="let unit of units_" [label]="unit.name">
                   <mat-option *ngFor="let pokemon of unit.pokemon" [value]="pokemon.value">
@@ -88,31 +177,32 @@
             </mat-form-field>
           </div>
 
-          <div class="grid__row grid__row--md">
+          <div class="grid__row grid__row&#45;&#45;md">
             <mat-form-field class="grid__item">
               <input matInput placeholder="Примечание" type="text" formControlName="note" [(ngModel)]="product.note">
             </mat-form-field>
-          </div>
-        </form>
-      </mat-step>
+          </div>&ndash;&gt;-->
+      <!--</form>
+    </mat-step>-->
 
-      <mat-step label="Шаг 3">
-        <div style="margin-top: 7px;">
-          <button class="add__button" mat-button color="primary" (click)="addDocumentTN()">СОЗДАТЬ ДОКУМЕНТ</button>
-        </div>
-        <div class="grid__row grid__row--md" *ngIf="onSelect">
-          <button class="grid__item" mat-button color="primary"
-                  (click)="saveDocumentInPdf()">Скачать .pdf
-          </button>
-          <button class="grid__item" mat-button color="primary" (click)="printDocument()">Печать .pdf</button>
+      <!-- <mat-step label="Шаг 3">
+         <div style="margin-top: 7px;">
+           <button class="add__button" mat-button color="primary" (click)="addDocumentTN()">СОЗДАТЬ ДОКУМЕНТ</button>
+         </div>
+         <div class="grid__row grid__row&#45;&#45;md" *ngIf="onSelect">
+           <button class="grid__item" mat-button color="primary"
+                   (click)="saveDocumentInPdf()">Скачать .pdf
+           </button>
+           <button class="grid__item" mat-button color="primary" (click)="printDocument()">Печать .pdf</button>
 
-          <button class="grid__item" mat-button color="primary" (click)="showDocumentInPdf()">Показать</button>
+           <button class="grid__item" mat-button color="primary" (click)="showDocumentInPdf()">Показать</button>
 
-        </div>
-        <div class="testDocDiv">
-          <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
-        </div>
-      </mat-step>
+         </div>
+         <div class="testDocDiv">
+           <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
+         </div>
+       </mat-step>-->
+
     </mat-vertical-stepper>
   </mat-card-content>
 </mat-card>

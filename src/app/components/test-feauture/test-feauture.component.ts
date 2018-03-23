@@ -1,7 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {User} from '../../models/User';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Hero, states} from '../../data/data';
 import {UserService} from '../../services/user.service';
 import {Observable} from 'rxjs/Observable';
 

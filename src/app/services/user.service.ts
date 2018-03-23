@@ -6,7 +6,6 @@ import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
-import {Hero, heroes} from '../data/data';
 import {Observable} from 'rxjs/Observable';
 
 import { of } from 'rxjs/observable/of';
@@ -137,9 +136,9 @@ export class UserService {
         });
     });
   }
-
+/*
   getHeroes(): Observable<Hero[]> {
     return of(heroes).delay(this.delayMs);
-  }
+  }*/
 
 }
