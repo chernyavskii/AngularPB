@@ -104,7 +104,13 @@
 }
 
 .dashboard-main-content {
+  /*
   margin: auto;
+  */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:auto;
+  margin-bottom: 50px;
   width: 95%;
   padding-top: 30px;
 }

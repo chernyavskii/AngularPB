@@ -86,6 +86,10 @@ export class AddFormComponent implements OnInit {
     ));
   }
 
+  removeProduct(i: number) {
+    this.products.removeAt(i);
+  }
+
   /*  allAgents = [];
 
     agent_id: number;

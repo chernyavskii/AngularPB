@@ -82,31 +82,29 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <div formArrayName="products" style="background: #dfdfdf;">
-              <div *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
-                <h4>Товар #{{i + 1}}</h4>
+            <div formArrayName="products">
+              <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
+                <div class="title__block">
+                  <span class="product__title_left">Товар #{{i + 1}}</span>
+                  <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProduct(i)"><mat-icon>delete</mat-icon></span>
+                </div>
                 <div class="grid__row grid__row--md">
                   <mat-form-field class="grid__item">
                     <input type="text" matInput placeholder="Название товара" formControlName="name" required/>
+                  </mat-form-field>
+                </div>
+                <div class="grid__row grid__row--md">
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Количество" type="number" formControlName="number" required>
+                    <span matSuffix>шт. </span>
                   </mat-form-field>
                   <mat-form-field class="grid__item">
                     <input matInput placeholder="Цена" type="number" formControlName="price" required>
                     <span matPrefix>б.р.&nbsp;</span>
                     <span matSuffix>.00</span>
                   </mat-form-field>
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Количество" type="number" formControlName="number" required>
-                    <span matSuffix>шт. </span>
-                  </mat-form-field>
-
                 </div>
                 <div class="grid__row grid__row--md">
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Количество грузовых мест" type="number"
-                           formControlName="packageNumber" required>
-                    <span matSuffix>шт. </span>
-                  </mat-form-field>
-
                   <mat-form-field class="grid__item">
                     <mat-select placeholder="Выбор единицы измерения" formControlName="measure" required>
                       <mat-optgroup *ngFor="let unit of units" [label]="unit.name">
@@ -116,13 +114,15 @@
                       </mat-optgroup>
                     </mat-select>
                   </mat-form-field>
-
-                  <div class="grid__row grid__row--md">
-                    <mat-form-field class="grid__item">
-                      <input matInput placeholder="Вес" type="number" formControlName="weight" required>
-                      <span matSuffix>шт. </span>
-                    </mat-form-field>
-                  </div>
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Вес" type="number" formControlName="weight" required>
+                    <span matSuffix>шт. </span>
+                  </mat-form-field>
+                  <mat-form-field class="grid__item">
+                    <input matInput placeholder="Количество грузовых мест" type="number"
+                           formControlName="packageNumber" required>
+                    <span matSuffix>шт. </span>
+                  </mat-form-field>
                 </div>
                 <div class="grid__row grid__row--md">
                   <mat-form-field class="grid__item">
@@ -130,9 +130,9 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button (click)="addProduct()" type="button">Add a Product</button>
             </div>
           </div>
+          <button (click)="addProduct()" type="button">Add a Product</button>
         </form>
       </mat-step>
       <!--
