@@ -1,140 +1,311 @@
-<!--<mat-form-field class="grid__item">
-  <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfDocument_id" disableRipple
-              required>
-    <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-      {{typeDoc.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<div *ngIf="secondBlockCheck" >
-  <div *ngIf="secondBlockStrictCheck">
-    <mat-form-field class="grid__item">
-      <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument_id" disableRipple
-                  required>
-        <mat-option *ngFor="let typeDoc of typeOfStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-          {{typeDoc.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div *ngIf="secondBlockNotStrictCheck">
-    <mat-form-field class="grid__item">
-      <mat-select (selectionChange)="checkTypeOfDocument($event)" [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfNotStrictDocument_id" disableRipple
-                  required>
-        <mat-option *ngFor="let typeDoc of typeOfNotStrictReportingDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-          {{typeDoc.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  &lt;!&ndash;   <mat-form-field class="grid__item">
-  <mat-select [(value)]="selected" placeholder="Выбор типа документа" formControlName="typeOfStrictDocument" disableRipple
-              required>
-    <mat-option *ngFor="let typeDoc of typeOfDocument_" [value]="typeDoc.value"> &lt;!&ndash;formControlName=""&ndash;&gt;
-      {{typeDoc.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>&ndash;&gt;
-</div>
-</div>
-</form>
-</mat-step>&ndash;&gt;-->
-
 <mat-card>
   <mat-card-header>
     <mat-card-title>Мои Документы</mat-card-title>
     <mat-card-subtitle>Создание нового документа</mat-card-subtitle>
   </mat-card-header>
-
   <mat-card-content>
-    <mat-vertical-stepper [linear]="true">
+    <mat-vertical-stepper [linear]="true" #stepper>
       <mat-step label="Шаг 1" [stepControl]="firstStepGroup">
         <form [formGroup]="firstStepGroup">
           <div class="grid__row grid__row__md">
             <mat-form-field class="grid__item">
               <mat-select placeholder="Выберите тип документа " (change)="searchTypeById()"
-                          formControlName="typeOfDocument" disableRipple required>
+                          formControlName="typeOfDocument" disableRipple>
                 <mat-option *ngFor="let type of typeOfDocument" [value]="type.id">
                   {{type.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
-
             <mat-form-field class="grid__item" *ngIf="index_">
-              <mat-select placeholder="Выберите документ из категории - {{elementOfType.name}}"
-                          formControlName="elementOfType" disableRipple required>
+              <mat-select (change)="searchElementOfTypeById()"
+                          placeholder="Выберите документ из категории - {{elementOfType.name}}"
+                          formControlName="elementOfType" disableRipple>
                 <mat-option *ngFor="let type of elementOfType.documents" [value]="type">
                   {{type.document}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
+          <mat-action-row>
+            <button style="margin-top: 20px;" mat-button matStepperNext>Вперёд</button>
+          </mat-action-row>
         </form>
       </mat-step>
-      <mat-step label="Шаг 2" [stepControl]="secondStepGroup">
-        <form [formGroup]="secondStepGroup">
-          <div class="grid__row grid__row__md">
-            <mat-form-field class="grid__item">
-              <mat-select placeholder="Выберите Контрагента"
-                          formControlName="agentId" disableRipple required>
-                <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
-                  {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div formArrayName="products">
-              <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
-                <div class="title__block">
-                  <span class="product__title_left">Товар #{{i + 1}}</span>
-                  <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProduct(i)"><mat-icon>delete</mat-icon></span>
+      <mat-step #stp label="Шаг 2" [stepControl]="secondStepGroup">
+        <form [formGroup]="secondStepGroup" #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <div *ngIf="document_id == 1">
+            <div class="grid__row grid__row__md">
+              <mat-form-field class="grid__item">
+                <mat-select placeholder="Выберите Контрагента"
+                            formControlName="agentId" disableRipple>
+                  <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                    {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div formArrayName="products">
+                <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
+                  <div class="title__block">
+                    <mat-icon
+                      style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                      assignment
+                    </mat-icon>
+                    <span class="product__title_left"> Товар #{{i + 1}}</span>
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProductById(i)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input type="text" matInput placeholder="Название товара" formControlName="name"/>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Количество" type="number" formControlName="number">
+                      <span matSuffix>шт. </span>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Цена" type="number" formControlName="price">
+                      <span matPrefix>б.р.&nbsp;</span>
+                      <span matSuffix>.00</span>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <mat-select placeholder="Выбор единицы измерения" formControlName="measure">
+                        <mat-optgroup *ngFor="let unit of units" [label]="unit.name">
+                          <mat-option *ngFor="let element of unit.elements" [value]="element.value">
+                            {{ element.viewValue }}
+                          </mat-option>
+                        </mat-optgroup>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Вес" type="number" formControlName="weight">
+                      <span matSuffix>шт. </span>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Количество грузовых мест" type="number"
+                             formControlName="packageNumber">
+                      <span matSuffix>шт. </span>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Примечание" type="text" formControlName="note">
+                    </mat-form-field>
+                  </div>
                 </div>
-                <div class="grid__row grid__row--md">
-                  <mat-form-field class="grid__item">
-                    <input type="text" matInput placeholder="Название товара" formControlName="name" required/>
-                  </mat-form-field>
-                </div>
-                <div class="grid__row grid__row--md">
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Количество" type="number" formControlName="number" required>
-                    <span matSuffix>шт. </span>
-                  </mat-form-field>
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Цена" type="number" formControlName="price" required>
-                    <span matPrefix>б.р.&nbsp;</span>
-                    <span matSuffix>.00</span>
-                  </mat-form-field>
-                </div>
-                <div class="grid__row grid__row--md">
-                  <mat-form-field class="grid__item">
-                    <mat-select placeholder="Выбор единицы измерения" formControlName="measure" required>
-                      <mat-optgroup *ngFor="let unit of units" [label]="unit.name">
-                        <mat-option *ngFor="let element of unit.elements" [value]="element.value">
-                          {{ element.viewValue }}
-                        </mat-option>
-                      </mat-optgroup>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Вес" type="number" formControlName="weight" required>
-                    <span matSuffix>шт. </span>
-                  </mat-form-field>
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Количество грузовых мест" type="number"
-                           formControlName="packageNumber" required>
-                    <span matSuffix>шт. </span>
-                  </mat-form-field>
-                </div>
-                <div class="grid__row grid__row--md">
-                  <mat-form-field class="grid__item">
-                    <input matInput placeholder="Примечание" type="text" formControlName="note">
-                  </mat-form-field>
+                <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
+                  <mat-action-row style="margin: auto;">
+                    <button mat-button matStepperPrevious>Назад</button>
+                  </mat-action-row>
+                  <mat-action-row style="margin: auto;">
+                    <button mat-button matStepperNext>Вперёд</button>
+                  </mat-action-row>
+                  <mat-action-row style="margin: auto;">
+                    <button mat-fab (click)="addProduct()" style="float: right;"><span
+                      style="font-size: 30px;">+</span>
+                    </button>
+                  </mat-action-row>
                 </div>
               </div>
             </div>
           </div>
-          <button (click)="addProduct()" type="button">Add a Product</button>
+          <div *ngIf="document_id == 2">
+            <div class="grid__row grid__row__md">
+              <mat-form-field class="grid__item">
+                <mat-select placeholder="Выберите Контрагента"
+                            formControlName="agentId" disableRipple>
+                  <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                    {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div formArrayName="products">
+                <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
+                  <div class="title__block">
+                    <mat-icon
+                      style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                      assignment
+                    </mat-icon>
+                    <span class="product__title_left"> Товар #{{i + 1}}</span>
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProductById(i)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input type="text" matInput placeholder="Название товара" formControlName="name"/>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Количество" type="number" formControlName="number">
+                      <span matSuffix>шт. </span>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Цена" type="number" formControlName="price">
+                      <span matPrefix>б.р.&nbsp;</span>
+                      <span matSuffix>.00</span>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <mat-select placeholder="Выбор единицы измерения" formControlName="measure">
+                        <mat-optgroup *ngFor="let unit of units" [label]="unit.name">
+                          <mat-option *ngFor="let element of unit.elements" [value]="element.value">
+                            {{ element.viewValue }}
+                          </mat-option>
+                        </mat-optgroup>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Примечание" type="text" formControlName="note">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
+                  <mat-action-row style="margin: auto;">
+                    <button mat-button matStepperPrevious>Назад</button>
+                  </mat-action-row>
+                  <mat-action-row style="margin: auto;">
+                    <button mat-button matStepperNext>Вперёд</button>
+                  </mat-action-row>
+                  <mat-action-row style="margin: auto;">
+                    <button mat-fab (click)="addProduct()" style="float: right;"><span
+                      style="font-size: 30px;">+</span>
+                    </button>
+                  </mat-action-row>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="document_id == 3">
+            <div class="grid__row grid__row__md">
+              <mat-form-field class="grid__item">
+                <mat-select placeholder="Выберите Контрагента"
+                            formControlName="agentId" disableRipple>
+                  <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                    {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div formArrayName="works">
+                <div class="product__item" *ngFor="let element of works.controls; let i=index" [formGroupName]="i">
+                  <div class="title__block">
+                    <mat-icon
+                      style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                      assignment
+                    </mat-icon>
+                    <span class="product__title_left"> Работа #{{i + 1}}</span>
+                    <span class="product__title_right" *ngIf="works.length > 1" (click)="removeWorkById(i)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input type="text" matInput placeholder="Наименование работы" formControlName="name"/>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Цена" type="number" formControlName="price">
+                      <span matPrefix>б.р.&nbsp;</span>
+                      <span matSuffix>.00</span>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
+                <mat-action-row style="margin: auto;">
+                  <button mat-button matStepperPrevious>Назад</button>
+                </mat-action-row>
+                <mat-action-row style="margin: auto;">
+                  <button mat-button matStepperNext>Вперёд</button>
+                </mat-action-row>
+                <mat-action-row style="margin: auto;">
+                  <button mat-fab (click)="addWork()" style="float: right;"><span
+                    style="font-size: 30px;">+</span>
+                  </button>
+                </mat-action-row>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="document_id == 4">
+            <div class="grid__row grid__row__md">
+              <mat-form-field class="grid__item">
+                <mat-select placeholder="Выберите Контрагента"
+                            formControlName="agentId" disableRipple>
+                  <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                    {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div formArrayName="products">
+                <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
+                  <div class="title__block">
+                    <mat-icon
+                      style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                      assignment
+                    </mat-icon>
+                    <span class="product__title_left"> Товар #{{i + 1}}</span>
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProductById(i)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input type="text" matInput placeholder="Название товара" formControlName="name"/>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Количество" type="number" formControlName="number">
+                      <span matSuffix>шт. </span>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Цена" type="number" formControlName="price">
+                      <span matPrefix>б.р.&nbsp;</span>
+                      <span matSuffix>.00</span>
+                    </mat-form-field>
+                    <mat-form-field class="grid__item">
+                      <mat-select placeholder="Выбор единицы измерения" formControlName="measure">
+                        <mat-optgroup *ngFor="let unit of units" [label]="unit.name">
+                          <mat-option *ngFor="let element of unit.elements" [value]="element.value">
+                            {{ element.viewValue }}
+                          </mat-option>
+                        </mat-optgroup>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="grid__row grid__row--md">
+                    <mat-form-field class="grid__item">
+                      <input matInput placeholder="Примечание" type="text" formControlName="note">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
+                  <mat-action-row style="margin: auto;">
+                    <button mat-button matStepperPrevious>Назад</button>
+                  </mat-action-row>
+                  <mat-action-row style="margin: auto;">
+                    <button mat-button matStepperNext>Вперёд</button>
+                  </mat-action-row>
+                  <mat-action-row style="margin: auto;">
+                    <button mat-fab (click)="addProduct()" style="float: right;"><span
+                      style="font-size: 30px;">+</span>
+                    </button>
+                  </mat-action-row>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </mat-step>
+      <mat-step label="Шаг 3" [stepControl]="thirdStepGroup">
+        <form [formGroup]="thirdStepGroup">
+          <mat-form-field class="grid__item">
+            <input matInput placeholder="Цена" type="number" formControlName="testContr" required>
+          </mat-form-field>
+        </form>
+      </mat-step>
+
       <!--
            <mat-step label="Шаг 2" [stepControl]="secondStepGroup">
              <form [formGroup]="secondStepGroup">
@@ -158,10 +329,7 @@
               <span matPrefix>б.р.&nbsp;</span>
               <span matSuffix>.00</span>
             </mat-form-field>
-
             <mat-form-field class="grid__item">
-
-
               <mat-select placeholder="Выбор единицы измерения" [formControl]="unitsControl" required>
                 <mat-optgroup *ngFor="let unit of units_" [label]="unit.name">
                   <mat-option *ngFor="let pokemon of unit.pokemon" [value]="pokemon.value">
@@ -170,13 +338,11 @@
                 </mat-optgroup>
               </mat-select>
             </mat-form-field>
-
             <mat-form-field class="grid__item">
               <input matInput placeholder="Количество" type="number" formControlName="number">
               <span matSuffix>шт.&nbsp;</span>
             </mat-form-field>
           </div>
-
           <div class="grid__row grid__row&#45;&#45;md">
             <mat-form-field class="grid__item">
               <input matInput placeholder="Примечание" type="text" formControlName="note" [(ngModel)]="product.note">
@@ -194,9 +360,7 @@
                    (click)="saveDocumentInPdf()">Скачать .pdf
            </button>
            <button class="grid__item" mat-button color="primary" (click)="printDocument()">Печать .pdf</button>
-
            <button class="grid__item" mat-button color="primary" (click)="showDocumentInPdf()">Показать</button>
-
          </div>
          <div class="testDocDiv">
            <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
