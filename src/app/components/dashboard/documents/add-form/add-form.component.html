@@ -32,7 +32,7 @@
         </form>
       </mat-step>
       <mat-step #stp label="Шаг 2" [stepControl]="secondStepGroup">
-        <form [formGroup]="secondStepGroup" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <form [formGroup]="secondStepGroup" #f="ngForm">
           <div *ngIf="document_id == 1">
             <div class="grid__row grid__row__md">
               <mat-form-field class="grid__item">
@@ -198,7 +198,7 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Работа #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="works.length > 1" (click)="removeWorkById(i)"><mat-icon
+                    <span class="product__title_right" *ngIf="works.length > 1" (click)="removeItemById(i, works)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
@@ -246,7 +246,7 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProductById(i)"><mat-icon
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i, products)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
