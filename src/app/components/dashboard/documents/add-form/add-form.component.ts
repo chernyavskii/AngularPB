@@ -1,24 +1,31 @@
-'use strict';
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, FormControl, NgForm, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AgentService} from '../../../../services/agent/agent.service';
 import {User} from '../../../../models/User';
 import {typeOfDocument} from '../../../../data/data';
 import {units} from '../../../../data/data';
 import {Agent} from '../../../../models/Agent';
-import {MatSelect, MatStep, MatStepper} from '@angular/material';
+import {AddFormUtils} from './add-form-utils';
+import {Product} from '../../../../models/Product';
+import {DocumentService} from '../../../../services/document/document.service';
+import {DriverService} from '../../../../services/driver/driver.service';
+import {Driver} from '../../../../models/Driver';
+import {MatButton, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-add-form',
   templateUrl: './add-form.component.html',
   styleUrls: ['./add-form.component.css']
 })
-export class AddFormComponent {
+export class AddFormComponent /*implements OnChanges*/ {
+
   @Input()
   user = new User();
 
   typeOfDocument = typeOfDocument;
   units = units;
+  allAgents: Agent[] = [];
+  allDrivers: Driver[] = [];
 
   index_: number;
   document_id: number;
@@ -28,10 +35,26 @@ export class AddFormComponent {
   secondStepGroup: FormGroup;
   thirdStepGroup: FormGroup;
 
-  allAgents: Agent[] = [];
+
+  createdDocument = {id: null, name: '', type: '', date: ''};
+  pageurl: Uint8Array;
+  url: any[] = [];
+
+  onLoad = false;
 
   constructor(private fb: FormBuilder,
-              private agentService: AgentService) {
+              private snackBar: MatSnackBar,
+              private agentService: AgentService,
+              private documentService: DocumentService,
+              private driverService: DriverService) {
+
+    this.driverService.getAllDrivers()
+      .then(data => {
+        for (const driver of data) {
+          this.allDrivers.push(driver);
+        }
+      });
+
     this.agentService.getAllAgents()
       .then(data => {
         for (const agent of data) {
@@ -42,13 +65,15 @@ export class AddFormComponent {
         console.log(err);
       });
 
+
     this.firstStepGroup = this.fb.group({
       typeOfDocument: ['', Validators.required],
       elementOfType: ['', Validators.required]
     });
 
     this.secondStepGroup = this.fb.group({
-      agentId: '',
+      driverId: '',
+      agentId: ['', Validators.required],
       products: this.fb.array([(
         this.fb.group({
             name: '',
@@ -70,17 +95,68 @@ export class AddFormComponent {
     });
 
     this.thirdStepGroup = this.fb.group({
-      testContr: ''
+      successButton: new FormControl()
     });
 
   }
+
+  /*  rebuildSecondStep() {
+      console.log(this.works.value);
+      this.secondStepGroup.reset({
+        driverId: this.driverId,
+        agentId: this.agentId,
+        products: this.fb.array([(
+            this.fb.group({
+              name: this.products.value.name,
+              measure: this.products.value.measure,
+              number: this.products.value.number,
+              price: this.products.value.price,
+              packageNumber: this.products.value.packageNumber,
+              weight: this.products.value.weight,
+              note: this.products.value.note
+            })
+          )]
+        ),
+        works: this.fb.array([(
+            this.fb.group({
+              name: this.works.value.name,
+              price: this.works.value.price
+            })
+          )]
+        )
+      });
+    }*/
+  /* works: this.fb.array([(
+   this.fb.group({
+     name: '',
+     price: ''
+   })
+ )])
+   this.setAddresses(this.hero.addresses);*/
+
+
+  /*  ngOnChanges() {
+      this.rebuildSecondStep();
+    }*/
 
   get products(): FormArray {
     return this.secondStepGroup.get('products') as FormArray;
   }
 
+  get agentId(): FormControl {
+    return this.secondStepGroup.get('agentId') as FormControl;
+  }
+
   get works(): FormArray {
     return this.secondStepGroup.get('works') as FormArray;
+  }
+
+  get driverId(): FormControl {
+    return this.secondStepGroup.get('driverId') as FormControl;
+  }
+
+  removeItemById(i: number, array: FormArray) {
+    array.removeAt(i);
   }
 
   searchTypeById() {
@@ -91,117 +167,32 @@ export class AddFormComponent {
     this.elementOfType = elementOfArray;
   }
 
-  resetValidationOfProducts(array: FormArray) {
-    for (let i = 0; i < array.length; i++) {
-      array.controls[i].get('name').setValidators(Validators.nullValidator);
-      array.controls[i].get('name').setValidators(Validators.nullValidator);
-      array.controls[i].get('measure').setValidators(Validators.nullValidator);
-      array.controls[i].get('number').setValidators(Validators.nullValidator);
-      array.controls[i].get('price').setValidators(Validators.nullValidator);
-     // array.controls[i].get('packageNumber').setValidators(Validators.nullValidator);
-     // array.controls[i].get('weight').setValidators(Validators.nullValidator);
-      array.controls[i].get('note').setValidators(Validators.nullValidator);
-    }
-  }
-
-  resetValidationOfWorks(array: FormArray) {
-    for (let i = 0; i < array.length; i++) {
-      array.controls[i].get('name').setValidators(Validators.nullValidator);
-      array.controls[i].get('price').setValidators(Validators.nullValidator);
-    }
-  }
-
-  addValidationOfProducts(array: FormArray) {
-    for (let i = 0; i < array.length; i++) {
-      array.controls[i].get('name').setValidators(Validators.required);
-      array.controls[i].get('name').setValidators(Validators.required);
-      array.controls[i].get('measure').setValidators(Validators.required);
-      array.controls[i].get('number').setValidators(Validators.required);
-      array.controls[i].get('price').setValidators(Validators.required);
-      // array.controls[i].get('packageNumber').setValidators(Validators.nullValidator);
-      // array.controls[i].get('weight').setValidators(Validators.nullValidator);
-      array.controls[i].get('note').setValidators(Validators.required);
-    }
-  }
-
-  addValidationOfWorks(array: FormArray) {
-    for (let i = 0; i < array.length; i++) {
-      array.controls[i].get('name').setValidators(Validators.required);
-      array.controls[i].get('price').setValidators(Validators.required);
-    }
-  }
-
-  resetValuesOfProducts(array: FormArray) {
-    for (let i = 0; i < array.length; i++) {
-      array.controls[i].get('name').setValue('');
-      array.controls[i].get('measure').setValue('');
-      array.controls[i].get('number').setValue('');
-      array.controls[i].get('price').setValue('');
-     // array.controls[i].get('packageNumber').setValue('');
-     // array.controls[i].get('weight').setValue('');
-      array.controls[i].get('note').setValue('');
-    }
-  }
-
-  resetValuesOfWorks(array: FormArray) {
-    for (let i = 0; i < array.length; i++) {
-      array.controls[i].get('name').setValue('');
-      array.controls[i].get('price').setValue('');
-    }
-  }
-
   searchElementOfTypeById() {
-    /*for (let i = 0; i < this.products.length; i++) {
-     this.products.controls[i].get('name').setValue('');
-     this.products.controls[i].get('name').setValidators(Validators.nullValidator);
-     this.products.controls[i].get('measure').setValidators(Validators.nullValidator);
-     this.products.controls[i].get('number').setValidators(Validators.nullValidator);
-     this.products.controls[i].get('price').setValidators(Validators.nullValidator);
-     this.products.controls[i].get('packageNumber').setValidators(Validators.nullValidator);
-     this.products.controls[i].get('weight').setValidators(Validators.nullValidator);
-     this.products.controls[i].get('note').setValidators(Validators.nullValidator);
+    this.agentId.setValue('');
 
-     this.products.controls[i].get('name').setValue('');
-     this.products.controls[i].get('measure').setValue('');
-     this.products.controls[i].get('number').setValue('');
-     this.products.controls[i].get('price').setValue('');
-     this.products.controls[i].get('packageNumber').setValue('');
-     this.products.controls[i].get('weight').setValue('');
-     this.products.controls[i].get('note').setValue('');
-     }*/
+    AddFormUtils.resetDriverInformation(this.driverId);
 
-    /*for (let i = 0; i < this.works.length; i++) {
-     this.works.controls[i].get('name').setValidators(Validators.nullValidator);
-     this.works.controls[i].get('price').setValidators(Validators.nullValidator);
+    AddFormUtils.clearAllItems(this.products);
+    AddFormUtils.clearAllItems(this.works);
 
-     this.works.controls[i].get('name').setValue('');
-     this.works.controls[i].get('price').setValue('');
-     }*/
-
-/* code */
-    this.clearAllItems(this.products);
-    this.clearAllItems(this.works);
-
-    this.resetValidationOfProducts(this.products);
-    this.resetValuesOfProducts(this.products);
-
-    this.resetValidationOfWorks(this.works);
-    this.resetValuesOfWorks(this.works);
+    AddFormUtils.resetValidation(this.products, this.works);
+    AddFormUtils.resetValues(this.products, this.works);
 
     for (let i = 0; i < this.products.length; i++) {
       this.products.controls[i].get('packageNumber').setValue('');
       this.products.controls[i].get('weight').setValue('');
-
-      this.products.controls[i].get('packageNumber').setValidators(Validators.nullValidator);
-      this.products.controls[i].get('weight').setValidators(Validators.nullValidator);
     }
 
     const nameControl = this.firstStepGroup.get('elementOfType');
     this.document_id = nameControl.value.id;
     switch (this.document_id) {
       case 1:
-        this.resetValuesOfProducts(this.products);
-        this.addValidationOfProducts(this.products);
+        AddFormUtils.resetValuesOfProducts(this.products);
+        AddFormUtils.addValidationOfProducts(this.products);
+
+        this.driverId.setValidators(Validators.required);
+        this.driverId.setValue('');
+
         for (let i = 0; i < this.products.length; i++) {
           this.products.controls[i].get('packageNumber').setValue('');
           this.products.controls[i].get('weight').setValue('');
@@ -209,68 +200,24 @@ export class AddFormComponent {
           this.products.controls[i].get('packageNumber').setValidators(Validators.required);
           this.products.controls[i].get('weight').setValidators(Validators.required);
         }
-       /* for (let i = 0; i < this.products.length; i++) {
-          this.products.controls[i].get('name').setValue('');
-          this.products.controls[i].get('measure').setValue('');
-          this.products.controls[i].get('number').setValue('');
-          this.products.controls[i].get('price').setValue('');
-          this.products.controls[i].get('packageNumber').setValue('');
-          this.products.controls[i].get('weight').setValue('');
-          this.products.controls[i].get('note').setValue('');
-
-          this.products.controls[i].get('name').setValidators(Validators.required);
-          this.products.controls[i].get('measure').setValidators(Validators.required);
-          this.products.controls[i].get('number').setValidators(Validators.required);
-          this.products.controls[i].get('price').setValidators(Validators.required);
-          this.products.controls[i].get('packageNumber').setValidators(Validators.required);
-          this.products.controls[i].get('weight').setValidators(Validators.required);
-          this.products.controls[i].get('note').setValidators(Validators.required);
-        }*/
         break;
       case 2:
-        this.resetValuesOfProducts(this.products);
-        this.addValidationOfProducts(this.products);
-        /*for (let i = 0; i < this.products.length; i++) {
-          this.products.controls[i].get('name').setValue('');
-          this.products.controls[i].get('measure').setValue('');
-          this.products.controls[i].get('number').setValue('');
-          this.products.controls[i].get('price').setValue('');
-          this.products.controls[i].get('note').setValue('');
+        AddFormUtils.resetDriverInformation(this.driverId);
 
-          this.products.controls[i].get('name').setValidators(Validators.required);
-          this.products.controls[i].get('measure').setValidators(Validators.required);
-          this.products.controls[i].get('number').setValidators(Validators.required);
-          this.products.controls[i].get('price').setValidators(Validators.required);
-          this.products.controls[i].get('note').setValidators(Validators.required);
-        }*/
+        AddFormUtils.resetValuesOfProducts(this.products);
+        AddFormUtils.addValidationOfProducts(this.products);
         break;
       case 3:
-        this.resetValuesOfWorks(this.works);
-        this.addValidationOfWorks(this.works);
-        /*for (let i = 0; i < this.works.length; i++) {
-          this.works.controls[i].get('name').setValue('');
-          this.works.controls[i].get('price').setValue('');
+        AddFormUtils.resetDriverInformation(this.driverId);
 
-          this.works.controls[i].get('name').setValidators(Validators.required);
-          this.works.controls[i].get('price').setValidators(Validators.required);
-        }*/
+        AddFormUtils.resetValuesOfWorks(this.works);
+        AddFormUtils.addValidationOfWorks(this.works);
         break;
       case 4:
-        this.resetValuesOfProducts(this.products);
-        this.addValidationOfProducts(this.products);
-        /*for (let i = 0; i < this.products.length; i++) {
-          this.products.controls[i].get('name').setValue('');
-          this.products.controls[i].get('measure').setValue('');
-          this.products.controls[i].get('number').setValue('');
-          this.products.controls[i].get('price').setValue('');
-          this.products.controls[i].get('note').setValue('');
+        AddFormUtils.resetDriverInformation(this.driverId);
 
-          this.products.controls[i].get('name').setValidators(Validators.required);
-          this.products.controls[i].get('measure').setValidators(Validators.required);
-          this.products.controls[i].get('number').setValidators(Validators.required);
-          this.products.controls[i].get('price').setValidators(Validators.required);
-          this.products.controls[i].get('note').setValidators(Validators.required);
-        }*/
+        AddFormUtils.resetValuesOfProducts(this.products);
+        AddFormUtils.addValidationOfProducts(this.products);
         break;
       default:
         alert('Problems');
@@ -327,16 +274,109 @@ export class AddFormComponent {
     }));
   }
 
-  removeItemById(i: number, array: FormArray) {
-    array.removeAt(i);
-  }
+  addNewDocument() {
+    switch (this.document_id) {
+      case 1:
+        this.documentService.addDocumentTTN(this.agentId.value, this.driverId.value, this.products.value)
+          .then(data => {
+            if (data) {
+              this.createdDocument = data;
+              this.showDocumentInPdf();
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        break;
+      case 2:
+        const saveArrayOfProducts: Product[] = [];
+        for (let i = 0; i < this.secondStepGroup.value.products.length; i++) {
+          const product = new Product();
+          product.name = this.secondStepGroup.value.products[i].name;
+          product.measure = this.secondStepGroup.value.products[i].measure;
+          product.number = this.secondStepGroup.value.products[i].number;
+          product.price = this.secondStepGroup.value.products[i].price;
+          product.note = this.secondStepGroup.value.products[i].note;
 
-  clearAllItems(array: FormArray) {
-    while (array.length !== 1) {
-      array.removeAt(0);
+          saveArrayOfProducts.push(product);
+        }
+        this.documentService.addDocumentTN(this.agentId.value, saveArrayOfProducts)
+          .then(data => {
+            if (data) {
+              this.createdDocument = data;
+              this.showDocumentInPdf();
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        break;
+      case 3:
+        this.documentService.addDocumentASPR(this.agentId.value, this.works.value)
+          .then(data => {
+            if (data) {
+              this.createdDocument = data;
+              this.showDocumentInPdf();
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        break;
+      case 4:
+        this.documentService.addDocumentTN(this.agentId.value, this.products.value)
+          .then(data => {
+            if (data) {
+              this.createdDocument = data;
+              this.showDocumentInPdf();
+            }
+          });
+        break;
+      default:
+        alert('Problems');
     }
   }
 
+  downloadDocumentInPdf() {
+    this.documentService.getDocumentByIdInPDF(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+      .then(data => {
+        /*
+                this.pageurl = data;
+        */
+        console.log(data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  showDocumentInPng() {
+    this.documentService.showDocumentInPng(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+      .then(res => {
+        console.log(res);
+        this.url.push('data:image/png;base64,' + res);
+      })
+      .catch(err => err.toString());
+  }
+
+  showDocumentInPdf() {
+    this.onLoad = true;
+    this.documentService.showDocumentInPdf(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+      .then(res => {
+        this.pageurl = res;
+        this.onLoad = false;
+        this.snackBar.open('Файл успешно создан', 'Закрыть', {
+          duration: 3000
+        });
+
+      })
+      .catch(err => err.toString());
+  }
+
+
+  onSubmit() {
+    /*
+        this.rebuildSecondStep();
+    */
+  }
 
 
   /*  allAgents = [];

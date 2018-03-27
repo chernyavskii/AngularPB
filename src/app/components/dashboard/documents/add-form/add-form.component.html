@@ -1,9 +1,9 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Мои Документы</mat-card-title>
-    <mat-card-subtitle>Создание нового документа</mat-card-subtitle>
+<mat-card class="mat-card-main">
+  <mat-card-header class="mat-card-main-header">
+    <mat-card-title class="mat-card-main-title">Мои Документы</mat-card-title>
+    <mat-card-subtitle class="mat-card-main-subtitle">Создание нового документа</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content class="mat-card-main-content">
     <mat-vertical-stepper [linear]="true" #stepper>
       <mat-step label="Шаг 1" [stepControl]="firstStepGroup">
         <form [formGroup]="firstStepGroup">
@@ -32,17 +32,27 @@
         </form>
       </mat-step>
       <mat-step #stp label="Шаг 2" [stepControl]="secondStepGroup">
-        <form [formGroup]="secondStepGroup" #f="ngForm">
+        <form [formGroup]="secondStepGroup" #f="ngForm" (ngSubmit)="onSubmit()">
           <div *ngIf="document_id == 1">
             <div class="grid__row grid__row__md">
-              <mat-form-field class="grid__item">
-                <mat-select placeholder="Выберите Контрагента"
-                            formControlName="agentId" disableRipple>
-                  <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
-                    {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div class="grid__row grid__row--md">
+                <mat-form-field class="grid__item">
+                  <mat-select placeholder="Выберите Контрагента"
+                              formControlName="agentId" disableRipple>
+                    <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
+                      {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="grid__item">
+                  <mat-select placeholder="Выберите Водителя"
+                              formControlName="driverId" disableRipple>
+                    <mat-option *ngFor="let driver of allDrivers" [value]="driver.id">
+                      {{driver.lastName}} {{driver.firstName}} {{driver.middleName}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
               <div formArrayName="products">
                 <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
                   <div class="title__block">
@@ -246,7 +256,8 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i, products)"><mat-icon
+                    <span class="product__title_right" *ngIf="products.length > 1"
+                          (click)="removeItemById(i, products)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
@@ -297,13 +308,61 @@
             </div>
           </div>
         </form>
+
       </mat-step>
       <mat-step label="Шаг 3" [stepControl]="thirdStepGroup">
+        <!--        <button type="submit" mat-button #but (click)="testIO(but)"
+                        [disabled]="secondStepGroup.pristine" class="btn btn-success">Save</button>-->
+        <!--  <button type="button" (click)="revert()"
+                  [disabled]="secondStepGroup.pristine" class="btn btn-danger">Revert</button>-->
         <form [formGroup]="thirdStepGroup">
-          <mat-form-field class="grid__item">
-            <input matInput placeholder="Цена" type="number" formControlName="testContr" required>
-          </mat-form-field>
+          <span><p>Для создания файла нажмите кнопку "Принять".</p></span>
+          <mat-action-row style="margin: auto;">
+            <button mat-button matStepperPrevious>Назад</button>
+          </mat-action-row>
+          <mat-action-row style="margin: auto;" (click)="addNewDocument()">
+            <button mat-button matStepperNext>Принять</button> <!--formControlName="successButton"-->
+          </mat-action-row>
+          <mat-progress-bar *ngIf="onLoad" mode="buffer"></mat-progress-bar>
+          <mat-card>
+            <mat-card-header>
+              <button mat-icon-button [matMenuTriggerFor]="menu" style="background: #f7f7f8; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);   border: 1px solid #e3e3e3;">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>dialpad</mat-icon>
+                  <span>Скачать</span>
+                </button>
+                <button mat-menu-item >
+                  <mat-icon>voicemail</mat-icon>
+                  <span>Печать</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>Удалить</span>
+                </button>
+              </mat-menu>
+              <!--<mat-card-title>Мои Документы</mat-card-title>
+              <mat-card-subtitle>Создание нового документа</mat-card-subtitle>-->
+            </mat-card-header>
+            <mat-card-content>
+              <pdf-viewer [src]="pageurl" [original-size]="true"
+                          ></pdf-viewer>
+            </mat-card-content>
+          </mat-card>
         </form>
+        <!-- <button class="grid__item" mat-button color="primary" (click)="downloadDocumentInPdf()">Скачать .pdf</button>
+         <button class="grid__item" mat-button color="primary" (click)="showDocumentInPng()">Показать</button>
+        &lt;!&ndash; <div class="testDocDiv">
+           <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
+         </div>&ndash;&gt;
+        <img src="{{url}}" style="width: 300px; height: 500px;" >
+          <form [formGroup]="thirdStepGroup">
+            <mat-form-field class="grid__item">
+              <input matInput placeholder="Цена" type="number" formControlName="testContr" required>
+            </mat-form-field>
+          </form>-->
       </mat-step>
 
       <!--

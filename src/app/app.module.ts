@@ -33,6 +33,8 @@ import {AgentService} from './services/agent/agent.service';
 import { AddFormComponent } from './components/dashboard/documents/add-form/add-form.component';
 import { AgentsComponent } from './components/dashboard/agents/agents.component';
 import { TestFeautureComponent } from './components/test-feauture/test-feauture.component';
+import {AddFormUtils} from './components/dashboard/documents/add-form/add-form-utils';
+import {DriverService} from './services/driver/driver.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,7 @@ import { TestFeautureComponent } from './components/test-feauture/test-feauture.
     MatSortModule,
     MatAutocompleteModule
   ],
-  providers: [UserService, AgentService, DocumentService, AuthService, CookieService, AuthGuard /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
+  providers: [UserService, DriverService, AgentService, DocumentService, AuthService, CookieService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })
 
