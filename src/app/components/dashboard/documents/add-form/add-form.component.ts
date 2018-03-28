@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AgentService} from '../../../../services/agent/agent.service';
 import {User} from '../../../../models/User';
@@ -17,7 +17,7 @@ import {MatButton, MatSnackBar} from '@angular/material';
   templateUrl: './add-form.component.html',
   styleUrls: ['./add-form.component.css']
 })
-export class AddFormComponent /*implements OnChanges*/ {
+export class AddFormComponent {
 
   @Input()
   user = new User();
@@ -35,18 +35,21 @@ export class AddFormComponent /*implements OnChanges*/ {
   secondStepGroup: FormGroup;
   thirdStepGroup: FormGroup;
 
-
   createdDocument = {id: null, name: '', type: '', date: ''};
   pageurl: Uint8Array;
-  url: any[] = [];
+  //url: any[] = [];
 
   onLoad = false;
+  visibleDocument = false;
+  disableButton = false;
+
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
               private agentService: AgentService,
               private documentService: DocumentService,
               private driverService: DriverService) {
+    this.disableButton = false;
 
     this.driverService.getAllDrivers()
       .then(data => {
@@ -95,49 +98,10 @@ export class AddFormComponent /*implements OnChanges*/ {
     });
 
     this.thirdStepGroup = this.fb.group({
-      successButton: new FormControl()
+      successButton: ['', Validators.required]
     });
 
   }
-
-  /*  rebuildSecondStep() {
-      console.log(this.works.value);
-      this.secondStepGroup.reset({
-        driverId: this.driverId,
-        agentId: this.agentId,
-        products: this.fb.array([(
-            this.fb.group({
-              name: this.products.value.name,
-              measure: this.products.value.measure,
-              number: this.products.value.number,
-              price: this.products.value.price,
-              packageNumber: this.products.value.packageNumber,
-              weight: this.products.value.weight,
-              note: this.products.value.note
-            })
-          )]
-        ),
-        works: this.fb.array([(
-            this.fb.group({
-              name: this.works.value.name,
-              price: this.works.value.price
-            })
-          )]
-        )
-      });
-    }*/
-  /* works: this.fb.array([(
-   this.fb.group({
-     name: '',
-     price: ''
-   })
- )])
-   this.setAddresses(this.hero.addresses);*/
-
-
-  /*  ngOnChanges() {
-      this.rebuildSecondStep();
-    }*/
 
   get products(): FormArray {
     return this.secondStepGroup.get('products') as FormArray;
@@ -155,6 +119,10 @@ export class AddFormComponent /*implements OnChanges*/ {
     return this.secondStepGroup.get('driverId') as FormControl;
   }
 
+  get successButton(): FormControl {
+    return this.secondStepGroup.get('successButton') as FormControl;
+  }
+
   removeItemById(i: number, array: FormArray) {
     array.removeAt(i);
   }
@@ -169,6 +137,9 @@ export class AddFormComponent /*implements OnChanges*/ {
 
   searchElementOfTypeById() {
     this.agentId.setValue('');
+    this.visibleDocument = false;
+    this.pageurl = null;
+    this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
 
     AddFormUtils.resetDriverInformation(this.driverId);
 
@@ -275,6 +246,10 @@ export class AddFormComponent /*implements OnChanges*/ {
   }
 
   addNewDocument() {
+    this.disableButton = true;
+    this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
+    this.thirdStepGroup.get('successButton').setValue('setValue');
+
     switch (this.document_id) {
       case 1:
         this.documentService.addDocumentTTN(this.agentId.value, this.driverId.value, this.products.value)
@@ -335,27 +310,65 @@ export class AddFormComponent /*implements OnChanges*/ {
       default:
         alert('Problems');
     }
+    const disableSuccessButton = this.secondStepGroup.valueChanges.subscribe(data => {
+      if (data) {
+        this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
+        this.thirdStepGroup.get('successButton').setValue('');
+        this.visibleDocument = false;
+        this.pageurl = null;
+        this.disableButton = false;
+      }
+      disableSuccessButton.unsubscribe();
+    });
   }
 
   downloadDocumentInPdf() {
+    this.onLoad = true;
     this.documentService.getDocumentByIdInPDF(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
       .then(data => {
-        /*
-                this.pageurl = data;
-        */
-        console.log(data);
+        if (data) {
+          this.onLoad = false;
+        }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-  showDocumentInPng() {
-    this.documentService.showDocumentInPng(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
-      .then(res => {
-        console.log(res);
-        this.url.push('data:image/png;base64,' + res);
+  downloadDocumentInExcel() {
+    this.onLoad = true;
+    this.documentService.getDocumentByIdInExcel(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+      .then(data => {
+        if (data) {
+          this.onLoad = false;
+        }
       })
-      .catch(err => err.toString());
+      .catch(err => {
+        console.log(err);
+      });
   }
+
+  printDocument() {
+    this.onLoad = true;
+    this.documentService.printDocument(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+      .then(data => {
+        if (data) {
+          this.onLoad = false;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  // showDocumentInPng() {
+  //   this.documentService.showDocumentInPng(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+  //     .then(res => {
+  //       console.log(res);
+  //       this.url.push('data:image/png;base64,' + res);
+  //     })
+  //     .catch(err => err.toString());
+  // }
 
   showDocumentInPdf() {
     this.onLoad = true;
@@ -363,6 +376,8 @@ export class AddFormComponent /*implements OnChanges*/ {
       .then(res => {
         this.pageurl = res;
         this.onLoad = false;
+        this.visibleDocument = true;
+
         this.snackBar.open('Файл успешно создан', 'Закрыть', {
           duration: 3000
         });
@@ -371,103 +386,18 @@ export class AddFormComponent /*implements OnChanges*/ {
       .catch(err => err.toString());
   }
 
-
-  onSubmit() {
-    /*
-        this.rebuildSecondStep();
-    */
+  deleteDocument() {
+    this.onLoad = true;
+    this.documentService.deleteDocument(this.createdDocument.id)
+      .then(data => {
+        if (data) {
+          this.onLoad = false;
+          this.visibleDocument = false;
+          this.disableButton = false;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
-
-
-  /*  allAgents = [];
-   agent_id: number;
-   typeOfDocument_id: number;
-   typeOfStrictDocument_id: number;
-   typeOfNotStrictDocument_id: number;
-   units_ = units;
-   typeOfDocument_ = typeOfDocument;
-   /!*  typeOfStrictReportingDocument_ = typeOfStrictReportingDocument;
-   typeOfNotStrictReportingDocument_ = typeOfNotStrictReportingDocument;*!/
-   pageurl: Uint8Array;
-   product = new Product();
-   unitsControl = new FormControl();
-   firstFormGroup: FormGroup;
-   initFormGroup: FormGroup;
-   onSelect = false;
-   selected: string;
-   secondBlockCheck = false;
-   secondBlockStrictCheck = false;
-   secondBlockNotStrictCheck = false;
-   createdDocument = {id: null, name: '', type: '', date: ''};
-   constructor(private _formBuilder: FormBuilder,
-   private documentService: DocumentService,
-   private agentService: AgentService) {
-   this.agentService.getAllAgents()
-   .then(data => {
-   for (let agent of data) {
-   this.allAgents.push(agent);
-   }
-   })
-   .catch(err => {
-   console.log(err);
-   });
-   }
-   ngOnInit() {
-   this.firstFormGroup = this._formBuilder.group({
-   name: this.product.name,
-   measure: this.product.measure,
-   number: this.product.number,
-   price: this.product.price,
-   note: this.product.note,
-   agent_id: this.agent_id
-   });
-   this.initFormGroup = this._formBuilder.group({
-   typeOfDocument_id: this.typeOfDocument_id,
-   typeOfStrictDocument: this.typeOfStrictDocument_id,
-   typeOfNotStrictDocument_id: this.typeOfNotStrictDocument_id
-   });
-   }
-   addDocumentTN() {
-   const saveProduct: Product[] = [{
-   name: this.firstFormGroup.value.name,
-   measure: this.unitsControl.value,
-   number: this.firstFormGroup.value.number,
-   price: this.firstFormGroup.value.price,
-   packageNumber: null,
-   weight: null,
-   note: this.firstFormGroup.value.note
-   }];
-   this.documentService.addDocumentTN(this.firstFormGroup.value.agent_id, saveProduct)
-   .then(data => {
-   this.createdDocument = data;
-   this.onSelect = true;
-   })
-   .catch(err => {
-   console.log(err);
-   });
-   }
-   saveDocumentInPdf() {
-   this.documentService.getDocumentByIdInPDF(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type);
-   }
-   printDocument() {
-   this.documentService.printDocument(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type);
-   }
-   showDocumentInPdf() {
-   this.documentService.showDocumentInPdf(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
-   .then(res => {
-   this.pageurl = res;
-   })
-   .catch(err => err.toString());
-   }
-   checkTypeOfDocument(event: MatOptionSelectionChange) {
-   this.secondBlockCheck = true;
-   if (event.source.value === 0) {
-   this.secondBlockStrictCheck = true;
-   this.secondBlockNotStrictCheck = false;
-   }
-   if (event.source.value === 1) {
-   this.secondBlockNotStrictCheck = true;
-   this.secondBlockStrictCheck = false;
-   }
-   }*/
 }

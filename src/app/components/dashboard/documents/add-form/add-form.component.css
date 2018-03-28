@@ -113,7 +113,14 @@
   height: 55px;
   width: auto;
   border-bottom: 1px solid #EEEEEE;
-  /*
-  background: #FAFAFA;
-  */
+}
+
+.progress-bar {
+  height: 10px;
+  margin: 20px;
+}
+
+.titleThirdStep {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 19px;
 }

@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as blobUtil from 'blob-util';
 import * as FileSaver from 'file-saver';
 import {Product} from '../../models/Product';
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies';
 import {Work} from '../../models/Work';
 
 @Injectable()
 export class DocumentService {
   secret = '8CVpGPXxEqKV6p2v';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAllDocuments(): Promise<any> {
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.get('http://localhost:8081/documents/', {headers: headers}).toPromise()
         .then(response => {
@@ -27,7 +28,7 @@ export class DocumentService {
 
   convertExcelToPdf(filename: string, type: string, file: string): Promise<any> {
     const url = 'https://v2.convertapi.com/' + type + '/to/pdf?Secret=' + this.secret;
-    const body = { Parameters: [{ Name: 'File', FileValue: { Name: filename + '.' + type, Data: file } }]};
+    const body = {Parameters: [{Name: 'File', FileValue: {Name: filename + '.' + type, Data: file}}]};
     return new Promise((resolve, reject) => {
       this.http.post(url, body).toPromise()
         .then(data => {
@@ -47,7 +48,7 @@ export class DocumentService {
 
   convertExcelToPng(filename: string, type: string, file: string): Promise<any> {
     const url = 'https://v2.convertapi.com/' + type + '/to/pdf?Secret=' + this.secret;
-    const body = { Parameters: [{ Name: 'File', FileValue: { Name: filename + '.' + type, Data: file } }]};
+    const body = {Parameters: [{Name: 'File', FileValue: {Name: filename + '.' + type, Data: file}}]};
     return new Promise((resolve, reject) => {
       this.http.post(url, body).toPromise()
         .then(data => {
@@ -61,7 +62,7 @@ export class DocumentService {
 
   getDocumentByIdInPDF(id: number, filename: string, type: string): Promise<any> {
     const url = 'http://localhost:8081/documents/' + id;
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.get(url, {headers: headers, responseType: 'blob'}).toPromise()
         .then(response => {
@@ -70,6 +71,7 @@ export class DocumentService {
               this.convertExcelToPdf(filename, type, base64String)
                 .then(blob => {
                   FileSaver.saveAs(new Blob([blob]), filename + '.pdf');
+                  resolve('success');
                 })
                 .catch(error => {
                   reject(error);
@@ -86,11 +88,12 @@ export class DocumentService {
   }
 
   getDocumentByIdInExcel(id: number, filename: string, type: string): Promise<any> {
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.get('http://localhost:8081/documents/' + id, {headers: headers, responseType: 'blob'}).toPromise()
         .then(response => {
           FileSaver.saveAs(new Blob([response]), filename + '.' + type);
+          resolve('success');
         })
         .catch(error => {
           reject(error);
@@ -100,7 +103,7 @@ export class DocumentService {
 
   showDocumentInPdf(id: number, filename: string, type: string): Promise<Uint8Array> {
     const url = 'http://localhost:8081/documents/' + id;
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.get(url, {headers: headers, responseType: 'blob'}).toPromise()
         .then(response => {
@@ -132,7 +135,7 @@ export class DocumentService {
 
   showDocumentInPng(id: number, filename: string, type: string): Promise<Uint8Array> {
     const url = 'http://localhost:8081/documents/' + id;
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.get(url, {headers: headers, responseType: 'blob'}).toPromise()
         .then(response => {
@@ -158,7 +161,7 @@ export class DocumentService {
 
   printDocument(id: number, filename: string, type: string): Promise<any> {
     const url = 'http://localhost:8081/documents/' + id;
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.get(url, {headers: headers, responseType: 'blob'}).toPromise()
         .then((response) => {
@@ -172,6 +175,7 @@ export class DocumentService {
                   iframe.src = blobUrl;
                   document.body.appendChild(iframe);
                   iframe.contentWindow.print();
+                  resolve('success');
                 })
                 .catch(error => {
                   reject(error);
@@ -190,7 +194,7 @@ export class DocumentService {
   addDocumentTN(agent_id: number, products: Product[]): Promise<any> {
     const url = 'http://localhost:8081/documents/tn';
     const body = {agent_id: agent_id, products: products};
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.post(url, body, {headers: headers}).toPromise()
         .then(response => {
@@ -205,7 +209,7 @@ export class DocumentService {
   addDocumentTTN(agent_id: number, driver_id: number, products: Product[]): Promise<any> {
     const url = 'http://localhost:8081/documents/ttn';
     const body = {agent_id: agent_id, driver_id: driver_id, products: products};
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.post(url, body, {headers: headers}).toPromise()
         .then(response => {
@@ -220,7 +224,7 @@ export class DocumentService {
   addDocumentASPR(agent_id: number, works: Work[]): Promise<any> {
     const url = 'http://localhost:8081/documents/aspr';
     const body = {agent_id: agent_id, works: works};
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.post(url, body, {headers: headers}).toPromise()
         .then(response => {
@@ -234,7 +238,7 @@ export class DocumentService {
 
   deleteDocument(id: number): Promise<any> {
     const url = 'http://localhost:8081/documents/' + id;
-    const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.delete(url, {headers: headers}).toPromise()
         .then(response => {

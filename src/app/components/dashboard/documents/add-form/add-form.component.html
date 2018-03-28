@@ -32,7 +32,7 @@
         </form>
       </mat-step>
       <mat-step #stp label="Шаг 2" [stepControl]="secondStepGroup">
-        <form [formGroup]="secondStepGroup" #f="ngForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="secondStepGroup" #f="ngForm">
           <div *ngIf="document_id == 1">
             <div class="grid__row grid__row__md">
               <div class="grid__row grid__row--md">
@@ -61,7 +61,7 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProductById(i)"><mat-icon
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
@@ -140,7 +140,7 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeProductById(i)"><mat-icon
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
@@ -311,46 +311,88 @@
 
       </mat-step>
       <mat-step label="Шаг 3" [stepControl]="thirdStepGroup">
-        <!--        <button type="submit" mat-button #but (click)="testIO(but)"
-                        [disabled]="secondStepGroup.pristine" class="btn btn-success">Save</button>-->
-        <!--  <button type="button" (click)="revert()"
-                  [disabled]="secondStepGroup.pristine" class="btn btn-danger">Revert</button>-->
         <form [formGroup]="thirdStepGroup">
-          <span><p>Для создания файла нажмите кнопку "Принять".</p></span>
+          <mat-form-field style="display: none;">
+            <input matInput type="text" formControlName="successButton">
+          </mat-form-field>
+          <span><p class="titleThirdStep">Для создания файла нажмите кнопку "Принять".</p></span>
           <mat-action-row style="margin: auto;">
             <button mat-button matStepperPrevious>Назад</button>
           </mat-action-row>
-          <mat-action-row style="margin: auto;" (click)="addNewDocument()">
-            <button mat-button matStepperNext>Принять</button> <!--formControlName="successButton"-->
+          <mat-action-row style="margin: auto;">
+            <button mat-button matStepperNext [disabled]="disableButton" (click)="addNewDocument()">Принять</button>
           </mat-action-row>
-          <mat-progress-bar *ngIf="onLoad" mode="buffer"></mat-progress-bar>
-          <mat-card>
-            <mat-card-header>
-              <button mat-icon-button [matMenuTriggerFor]="menu" style="background: #f7f7f8; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);   border: 1px solid #e3e3e3;">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <mat-icon>dialpad</mat-icon>
-                  <span>Скачать</span>
+          <div class="progress-bar">
+            <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
+          </div>
+          <div class="product__item" *ngIf="visibleDocument">
+            <div class="title__block">
+              <span class="product__title_left">
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
-                <button mat-menu-item >
-                  <mat-icon>voicemail</mat-icon>
-                  <span>Печать</span>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="download">
+                    <mat-icon>file_download</mat-icon>
+                    <span>Скачать</span>
+                  </button>
+                  <button mat-menu-item (click)="printDocument()">
+                    <mat-icon>print</mat-icon>
+                    <span>Печать</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteDocument()">
+                    <mat-icon>delete</mat-icon>
+                    <span>Удалить</span>
+                  </button>
+                </mat-menu>
+                <mat-menu #download="matMenu">
+                   <button mat-menu-item (click)="downloadDocumentInPdf()">
+                    <mat-icon>label</mat-icon>
+                    <span>.pdf</span>
+                  </button>
+                  <button mat-menu-item (click)="downloadDocumentInExcel()">
+                    <mat-icon>label</mat-icon>
+                    <span>.xlsx</span>
+                  </button>
+                </mat-menu>
+              </span>
+            </div>
+            <div class="grid__row grid__row--md">
+              <div class="grid__item" style="padding: 30px;">
+                <pdf-viewer [src]="pageurl" [original-size]="true"></pdf-viewer>
+              </div>
+            </div>
+          </div>
+          <!--  <mat-card class="newDocumentCard" *ngIf="visibleDocument">
+              <mat-card-header style="background: #f7f7f8;">
+          &lt;!&ndash;      <button mat-icon-button [matMenuTriggerFor]="menu"
+                        style="background: #f7f7f8; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);   border: 1px solid #e3e3e3;">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
-                <button mat-menu-item>
-                  <mat-icon>notifications_off</mat-icon>
-                  <span>Удалить</span>
-                </button>
-              </mat-menu>
-              <!--<mat-card-title>Мои Документы</mat-card-title>
-              <mat-card-subtitle>Создание нового документа</mat-card-subtitle>-->
-            </mat-card-header>
-            <mat-card-content>
-              <pdf-viewer [src]="pageurl" [original-size]="true"
-                          ></pdf-viewer>
-            </mat-card-content>
-          </mat-card>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>dialpad</mat-icon>
+                    <span>Скачать</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>voicemail</mat-icon>
+                    <span>Печать</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span>Удалить</span>
+                  </button>
+                </mat-menu>&ndash;&gt;
+                <mat-card-title>Мои Документы</mat-card-title>
+                <mat-card-subtitle>Создание нового документа</mat-card-subtitle>
+              </mat-card-header>
+              <div style="background: #f5f5f5">
+                <pdf-viewer [src]="pageurl" [original-size]="true"></pdf-viewer>
+              </div>
+              <mat-card-content style="background: #f5f5f5">
+                TEST
+              </mat-card-content>
+            </mat-card>-->
         </form>
         <!-- <button class="grid__item" mat-button color="primary" (click)="downloadDocumentInPdf()">Скачать .pdf</button>
          <button class="grid__item" mat-button color="primary" (click)="showDocumentInPng()">Показать</button>
