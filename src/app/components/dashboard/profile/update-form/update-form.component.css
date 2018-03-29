@@ -3,7 +3,7 @@
 
 .grid__row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 /*.grid__row_button {

@@ -35,6 +35,7 @@ import { AgentsComponent } from './components/dashboard/agents/agents.component'
 import { TestFeautureComponent } from './components/test-feauture/test-feauture.component';
 import {AddFormUtils} from './components/dashboard/documents/add-form/add-form-utils';
 import {DriverService} from './services/driver/driver.service';
+import { UpdateAgentComponent } from './components/dashboard/agents/update-agent/update-agent.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {DriverService} from './services/driver/driver.service';
     PdfViewerComponent,
     AddFormComponent,
     AgentsComponent,
-    TestFeautureComponent
+    TestFeautureComponent,
+    UpdateAgentComponent
   ],
   imports: [
     routing,
