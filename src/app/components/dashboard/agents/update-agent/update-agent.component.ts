@@ -46,7 +46,7 @@ export class UpdateAgentComponent implements OnChanges {
     }
   }
 
-  checkId(id: number): boolean {
+  checkIdCurrent(id: number): boolean {
     for (let i = 0; i < this.changes.agents.previousValue.length; i++) {
       if (id === this.changes.agents.previousValue[i].id) {
         console.log('DS: ');
@@ -56,29 +56,63 @@ export class UpdateAgentComponent implements OnChanges {
     return false;
   }
 
+  checkIdPrevious(id: number): boolean {
+    for (let i = 0; i < this.changes.agents.currentValue.length; i++) {
+      if (id === this.changes.agents.currentValue[i].id) {
+        console.log('UI: ');
+        console.log(this.changes.agents.currentValue[i].firstName);
+        return true;
+      }
+    }
+    return false;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.testFind();
     } else {
-      for (let i = 0; i < changes.agents.currentValue.length; i++) {
-        const result = this.checkId(changes.agents.currentValue[i].id);
-        if (!result) {
-          this.items.push(this.fb.group({
-            id: changes.agents.currentValue[i].id,
-            firstName: changes.agents.currentValue[i].firstName,
-            middleName: changes.agents.currentValue[i].middleName,
-            lastName: changes.agents.currentValue[i].lastName,
-            address: changes.agents.currentValue[i].address,
-            bank: changes.agents.currentValue[i].bank,
-            bik: changes.agents.currentValue[i].bik,
-            ks: changes.agents.currentValue[i].ks,
-            organization: changes.agents.currentValue[i].organization,
-            phone: changes.agents.currentValue[i].phone,
-            position: changes.agents.currentValue[i].position,
-            unp: changes.agents.currentValue[i].unp,
-            rs: changes.agents.currentValue[i].rs,
-          }));
+      if (changes.agents.currentValue.length > changes.agents.previousValue.length) {
+        for (let i = 0; i < changes.agents.currentValue.length; i++) {
+          const result = this.checkIdCurrent(changes.agents.currentValue[i].id);
+          if (!result) {
+            this.items.push(this.fb.group({
+              id: changes.agents.currentValue[i].id,
+              firstName: changes.agents.currentValue[i].firstName,
+              middleName: changes.agents.currentValue[i].middleName,
+              lastName: changes.agents.currentValue[i].lastName,
+              address: changes.agents.currentValue[i].address,
+              bank: changes.agents.currentValue[i].bank,
+              bik: changes.agents.currentValue[i].bik,
+              ks: changes.agents.currentValue[i].ks,
+              organization: changes.agents.currentValue[i].organization,
+              phone: changes.agents.currentValue[i].phone,
+              position: changes.agents.currentValue[i].position,
+              unp: changes.agents.currentValue[i].unp,
+              rs: changes.agents.currentValue[i].rs,
+            }));
+          }
+        }
+      } else {
+        for (let i = 0; i < changes.agents.previousValue.length; i++) {
+          const result = this.checkIdPrevious(changes.agents.previousValue[i].id);
+          console.log(result);
+          if (!result) {
+            for (let k = 0; k < this.items.length; k++) {
+              if (this.items.at(k).value.id === changes.agents.previousValue[i].id) {
+                this.items.removeAt(k);
+              }
+              /* this.items.removeAt(k);
+
+               console.log(this.items.at(k).value.firstName);
+
+
+               this.items.at(k).value.id
+ */
+            }
+            console.log('z');
+          }
         }
       }
     }
