@@ -27,12 +27,6 @@ export class AgentsComponent implements OnChanges {
   dataSource = null;
   selection = new SelectionModel<Agent>(true, []);
 
-
-  ////
-  agreed = 0;
-  disagreed = 0;
-  voters = ['Mr. IQ', 'Ms. Universe', 'Bombasto'];
-
   constructor(private agentService: AgentService) {
     this.loadData = true;
     this.agentService.getAllAgents()
@@ -78,9 +72,10 @@ export class AgentsComponent implements OnChanges {
     return numSelected === numRows;
   }
 
-  proverkaId(id: number): boolean {
+  checkId(id: number): boolean {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
+        console.log('DS: ' + this.dataSource.data[i].id);
         return true;
       }
     }
@@ -88,30 +83,30 @@ export class AgentsComponent implements OnChanges {
   }
 
   onVoted(updateDataArray: any) {
-    /*
-        console.log(this.dataSource.data);
-    */
     for (let i = 0; i < updateDataArray.length; i++) {
-      const result = this.proverkaId(updateDataArray[i].id);
+      const result = this.checkId(updateDataArray[i].id);
       if (result) {
-        console.log('win');
-        всё правильно, доделай только, чтоб this.dataSource перезаписывалась
+        this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
       }
     }
-    /* for (let i = 0; i < this.dataSource.data.length; i++) {
-       /!*if(this.dataSource.data[i].id === updateDataArray[i].id)*!/
-       console.log(this.dataSource.data[i].id);
-     }*/
+  }
 
-    /*
-            this.dataSource.data[i].firstName = 'aaaa';
-    */
-    /* console.log('m');
-     console.log(updateDataArray[i].id);
-     console.log('a');
-     console.l
-     og(this.dataSource.data[i].id);*/
-
-
+  updateDataSource(id: number, data: any) {
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (id === this.dataSource.data[i].id) {
+        this.dataSource.data[i].firstName = data.firstName;
+        this.dataSource.data[i].middleName = data.middleName;
+        this.dataSource.data[i].lastName = data.lastName;
+        this.dataSource.data[i].unp = data.unp;
+        this.dataSource.data[i].organization = data.organization;
+        this.dataSource.data[i].position = data.position;
+        this.dataSource.data[i].address = data.address;
+        this.dataSource.data[i].rs = data.rs;
+        this.dataSource.data[i].ks = data.ks;
+        this.dataSource.data[i].bank = data.bank;
+        this.dataSource.data[i].bik = data.bik;
+        this.dataSource.data[i].phone = data.phone;
+      }
+    }
   }
 }
