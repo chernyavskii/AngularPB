@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {User} from '../../../models/User';
 import {MatTableDataSource} from '@angular/material';
 import {AgentService} from '../../../services/agent/agent.service';
@@ -10,16 +10,19 @@ import {SelectionModel} from '@angular/cdk/collections';
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.css']
 })
-export class AgentsComponent {
+export class AgentsComponent implements AfterViewInit{
+
+
   /*
     displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'organization', 'position', 'address', 'phone', 'bank', 'rs', 'ks', 'bik'];
   */
-  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'options'];
+  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName'/*, 'options'*/];
 
   @Input()
   user = new User();
   allAgents: Agent[];
   selectedAgents: Agent[];
+  selectedAgentsForDeleted: Agent[];
 
   loadData = false;
   allSelect = false;
@@ -27,12 +30,36 @@ export class AgentsComponent {
   dataSource = null;
   selection = new SelectionModel<Agent>(true, []);
 
-  constructor(private agentService: AgentService) {
+  createnewprop = false;
+
+  constructor(private agentService: AgentService,
+              private ref: ChangeDetectorRef) {
     this.loadData = true;
-    this.agentService.getAllAgents()
+    this.agentService.getAllAgents().subscribe(data => {
+      if (data) {
+        this.allAgents = data;
+        this.dataSource = new MatTableDataSource<Agent>(data);
+      }
+    });
+    изменил getAllAgents на Observable
+
+   /* this.agentService.getAllAgents()
       .then(data => {
         if (data) {
           this.loadData = false;
+          this.allAgents = data;
+          this.dataSource = new MatTableDataSource<Agent>(data);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });*/
+  }
+
+  ngAfterViewInit(): void {
+    this.agentService.getAllAgents()
+      .then(data => {
+        if (data) {
           this.allAgents = data;
           this.dataSource = new MatTableDataSource<Agent>(data);
         }
@@ -59,7 +86,14 @@ export class AgentsComponent {
 
   isSelect(raw: any) {
     this.selection.toggle(raw);
+  }
+
+  editElements() {
     this.selectedAgents = this.selection.selected;
+  }
+
+  deleteElements() {
+    this.selectedAgentsForDeleted = this.selection.selected;
   }
 
   isAllSelected() {
@@ -86,6 +120,33 @@ export class AgentsComponent {
     }
   }
 
+  newItem(event: any) {
+    console.log('mmm');
+    console.log(event);
+    this.allAgents.push(event);
+    this.ngAfterViewInit();
+  }
+
+  deleteArray(updateDataArray: any) {
+    for (let i = 0; i < updateDataArray.length; i++) {
+      const result = this.checkId(updateDataArray[i].id);
+      if (result) {
+        this.updateDataSourceAfterDeleted(updateDataArray[i].id);
+      }
+    }
+  }
+
+  updateDataSourceAfterDeleted(id: number) {
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (id === this.dataSource.data[i].id) {
+        this.dataSource.data.splice(i);
+      }
+    }
+
+/*    this.selection.clear();
+    this.ngAfterViewInit();*/
+  }
+
   updateDataSource(id: number, data: any) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
@@ -103,5 +164,8 @@ export class AgentsComponent {
         this.dataSource.data[i].phone = data.phone;
       }
     }
+  }
+  createNew() {
+    this.createnewprop = true;
   }
 }

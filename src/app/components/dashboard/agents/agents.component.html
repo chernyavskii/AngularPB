@@ -14,121 +14,130 @@
         </div>
         <div class="grid__row">
           <div class="product__item">
-            <div>
-              выбрано: {{selection.selected.length | json}}
-              <button mat-button>
+            <div class="navigation_panel">
+              <button mat-button class="navigation_panel__item" (click)="editElements()">
                 <mat-icon>create</mat-icon>
+                {{selection.selected.length | json}}
               </button>
-              <button mat-button>
+
+              <button mat-button class="navigation_panel__item" (click)="deleteElements()">
                 <mat-icon>delete</mat-icon>
+                {{selection.selected.length | json}}
               </button>
-              <button mat-button>
+              <button mat-button class="navigation_panel__item" (click)="createNew()">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
-          <mat-table #table [dataSource]="dataSource">
-            <ng-container matColumnDef="select">
-              <mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? masterToggle() : null"
-                              [checked]="selection.hasValue() && isAllSelected()"
-                              [indeterminate]="selection.hasValue() && !isAllSelected()">
-                </mat-checkbox>
-              </mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()"
-                              (change)="isSelect(row)"
-                              [checked]="selection.isSelected(row)">
-                </mat-checkbox>
-              </mat-cell>
-            </ng-container>
+            <mat-table #table [dataSource]="dataSource">
+              <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="isSelect(row)"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="unp">
-              <mat-header-cell *matHeaderCellDef> УНП</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.unp}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="unp">
+                <mat-header-cell *matHeaderCellDef> УНП</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.unp}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="firstName">
-              <mat-header-cell *matHeaderCellDef> Имя</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.firstName}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="firstName">
+                <mat-header-cell *matHeaderCellDef> Имя</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.firstName}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="lastName">
-              <mat-header-cell *matHeaderCellDef> Фамилия</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="lastName">
+                <mat-header-cell *matHeaderCellDef> Фамилия</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="middleName">
-              <mat-header-cell *matHeaderCellDef> Отчество</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.middleName}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="options">
-              <mat-header-cell *matHeaderCellDef>
-                <!--
-                                <button mat-button (click)="isSelect(row)">
-                -->
-                <button mat-button>
-                  <mat-icon>create</mat-icon>
-                  {{selection.selected.length}}
-                </button>
-                <button mat-button>
-                  <mat-icon>delete</mat-icon>
-                  {{selection.selected.length}}
-                </button>
-              </mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                <button mat-button (click)="isSelect(row)">
-                  <mat-icon>create</mat-icon>
-                </button>
-                <button mat-button>
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="middleName">
+                <mat-header-cell *matHeaderCellDef> Отчество</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.middleName}}</mat-cell>
+              </ng-container>
+              <!--<ng-container matColumnDef="options">
 
-            <!-- <ng-container matColumnDef="organization">
-               <mat-header-cell *matHeaderCellDef> Организация</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.organization}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="position">
-               <mat-header-cell *matHeaderCellDef> Должность</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.position}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="address">
-               <mat-header-cell *matHeaderCellDef> Адрес</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.address}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="phone">
-               <mat-header-cell *matHeaderCellDef> Телефон</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.phone}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="bank">
-               <mat-header-cell *matHeaderCellDef> Банк</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.bank}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="rs">
-               <mat-header-cell *matHeaderCellDef> РС</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.rs}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="ks">
-               <mat-header-cell *matHeaderCellDef> КС</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.ks}}</mat-cell>
-             </ng-container>
-             <ng-container matColumnDef="bik">
-               <mat-header-cell *matHeaderCellDef> БИК</mat-header-cell>
-               <mat-cell *matCellDef="let element"> {{element.bik}}</mat-cell>
-             </ng-container>
- -->
+<mat-header-cell *matHeaderCellDef>
+  &lt;!&ndash;
+                  <button mat-button (click)="isSelect(row)">
+  &ndash;&gt;
+  <button mat-button>
+    <mat-icon>create</mat-icon>
+    {{selection.selected.length}}
+  </button>
+  <button mat-button>
+    <mat-icon>delete</mat-icon>
+    {{selection.selected.length}}
+  </button>
+</mat-header-cell>
+<mat-cell *matCellDef="let row">
+  <button mat-button (click)="isSelect(row)">
+    <mat-icon>create</mat-icon>
+  </button>
+  <button mat-button>
+    <mat-icon>delete</mat-icon>
+  </button>
+</mat-cell>
+              </ng-container>-->
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <!-- <ng-container matColumnDef="organization">
+                 <mat-header-cell *matHeaderCellDef> Организация</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.organization}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="position">
+                 <mat-header-cell *matHeaderCellDef> Должность</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.position}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="address">
+                 <mat-header-cell *matHeaderCellDef> Адрес</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.address}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="phone">
+                 <mat-header-cell *matHeaderCellDef> Телефон</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.phone}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="bank">
+                 <mat-header-cell *matHeaderCellDef> Банк</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.bank}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="rs">
+                 <mat-header-cell *matHeaderCellDef> РС</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.rs}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="ks">
+                 <mat-header-cell *matHeaderCellDef> КС</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.ks}}</mat-cell>
+               </ng-container>
+               <ng-container matColumnDef="bik">
+                 <mat-header-cell *matHeaderCellDef> БИК</mat-header-cell>
+                 <mat-cell *matCellDef="let element"> {{element.bik}}</mat-cell>
+               </ng-container>
+   -->
 
-          </mat-table>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+            </mat-table>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
   </div>
+  <div class="grid__item" *ngIf="createnewprop" style="margin-top: 30px;">
+    <app-add-agent [agents]="allAgents" (newItem)="newItem($event)"></app-add-agent>
+  </div>
   <div class="grid__item" *ngIf="selectedAgents" style="margin-top: 30px;">
     <app-update-agent [agents]="selectedAgents" (onVoted)="onVoted($event)"></app-update-agent>
+  </div>
+  <div class="grid__item" *ngIf="selectedAgentsForDeleted">
+    <app-delete-agent [agents]="selectedAgentsForDeleted" (deleteArray)="deleteArray($event)"></app-delete-agent>
   </div>
 </div>

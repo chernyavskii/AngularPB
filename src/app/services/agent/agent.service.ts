@@ -3,13 +3,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Cookie} from 'ng2-cookies';
 import {Agent} from '../../models/Agent';
 import {FormArray} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AgentService {
   constructor(private http: HttpClient) {
   }
 
-  getAllAgents(): Promise<any> {
+ /* getAllAgents(): Promise<any> {
     const url = 'http://localhost:8081/agents/';
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
@@ -21,6 +22,15 @@ export class AgentService {
           reject(error);
         });
     });
+  }*/
+
+
+  getAllAgents(): Observable<any> {
+    const url = 'http://localhost:8081/agents/';
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
+
+     return this.http.get(url, {headers: headers});
+
   }
 
   getAgentById(id: number): Promise<any> {
@@ -95,12 +105,19 @@ export class AgentService {
     });
   }
 
-  deleteAllAgents(array: Agent[]) {
-    /*return new Promise((resolve, reject) => {
-      Promise.all([this.deleteAgent(1), this.deleteAgent(2)]).then(res => {
-        res.
-      })
-    })
-  }*/
+  deleteAllAgents(array: any) {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.deleteAgent(array[i].id));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 }

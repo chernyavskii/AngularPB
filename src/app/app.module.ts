@@ -36,6 +36,8 @@ import { TestFeautureComponent } from './components/test-feauture/test-feauture.
 import {AddFormUtils} from './components/dashboard/documents/add-form/add-form-utils';
 import {DriverService} from './services/driver/driver.service';
 import { UpdateAgentComponent } from './components/dashboard/agents/update-agent/update-agent.component';
+import { DeleteAgentComponent } from './components/dashboard/agents/delete-agent/delete-agent.component';
+import { AddAgentComponent } from './components/dashboard/agents/add-agent/add-agent.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { UpdateAgentComponent } from './components/dashboard/agents/update-agent
     AddFormComponent,
     AgentsComponent,
     TestFeautureComponent,
-    UpdateAgentComponent
+    UpdateAgentComponent,
+    DeleteAgentComponent,
+    AddAgentComponent
   ],
   imports: [
     routing,
