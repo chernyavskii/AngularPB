@@ -10,7 +10,7 @@ import {SelectionModel} from '@angular/cdk/collections';
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.css']
 })
-export class AgentsComponent implements OnChanges {
+export class AgentsComponent {
   /*
     displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'organization', 'position', 'address', 'phone', 'bank', 'rs', 'ks', 'bik'];
   */
@@ -42,10 +42,6 @@ export class AgentsComponent implements OnChanges {
       });
   }
 
-  ngOnChanges() {
-    console.log('misha');
-  }
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
@@ -75,7 +71,6 @@ export class AgentsComponent implements OnChanges {
   checkId(id: number): boolean {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
-        console.log('DS: ' + this.dataSource.data[i].id);
         return true;
       }
     }

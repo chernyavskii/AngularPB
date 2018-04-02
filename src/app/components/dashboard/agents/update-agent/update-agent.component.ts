@@ -136,4 +136,16 @@ export class UpdateAgentComponent implements OnChanges {
         console.log(err);
       });
   }
+
+  updateAllAgents() {
+    this.onLoad = true;
+    this.agentService.updateAllAgents(this.items.value)
+      .then(data => {
+        this.onVoted.emit(this.items.value);
+        this.onLoad = false;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 }

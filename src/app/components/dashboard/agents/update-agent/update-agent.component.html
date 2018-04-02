@@ -53,12 +53,14 @@
               <input type="text" matInput placeholder="КС" formControlName="ks"/>
             </mat-form-field>
           </div>
-          <button mat-button (click)="updateAgent(element)">button</button>
+          <button mat-button (click)="updateAgent(element)">обновить</button>
+        </div>
+        <div>
+          <button mat-button (click)="updateAllAgents()">обновить всё</button>
         </div>
         <div class="progress-bar">
           <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
         </div>
-
       </div>
     </form>
   </mat-card-content>

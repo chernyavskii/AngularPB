@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Cookie } from 'ng2-cookies';
+import {Cookie} from 'ng2-cookies';
 import {Agent} from '../../models/Agent';
+import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class AgentService {
@@ -57,6 +58,22 @@ export class AgentService {
       this.http.put(url, agent, {headers: headers}).toPromise()
         .then(response => {
           resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  updateAllAgents(array: FormArray): Promise<any> {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.updateAgent(array[i].id, array[i]));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
         })
         .catch(error => {
           reject(error);
