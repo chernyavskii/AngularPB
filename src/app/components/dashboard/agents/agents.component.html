@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-header>
         <mat-card-title>Мои Контрагенты</mat-card-title>
-        <mat-card-subtitle>Список всех контрагентов</mat-card-subtitle>
+        <mat-card-subtitle>список всех контрагентов</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="grid__item">
         <mat-form-field class="data_filter">
@@ -12,7 +12,7 @@
         <div class="progress-bar" *ngIf="loadData">
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
-        <div class="grid__row">
+        <div class="grid__row" *ngIf="!errorProp">
           <div class="product__item">
             <div class="navigation_panel">
               <button mat-button class="navigation_panel__item" (click)="editElements()">
@@ -128,11 +128,14 @@
             </mat-table>
           </div>
         </div>
+        <div *ngIf="errorProp">
+          {{error | json}}
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
   <div class="grid__item" *ngIf="createnewprop" style="margin-top: 30px;">
-    <app-add-agent [agents]="allAgents" (newItem)="newItem($event)"></app-add-agent>
+    <app-add-agent (newItem)="newItem($event)"></app-add-agent>
   </div>
   <div class="grid__item" *ngIf="selectedAgents" style="margin-top: 30px;">
     <app-update-agent [agents]="selectedAgents" (onVoted)="onVoted($event)"></app-update-agent>

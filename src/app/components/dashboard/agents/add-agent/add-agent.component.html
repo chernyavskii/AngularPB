@@ -1,7 +1,7 @@
 <mat-card ><!--*ngIf="agents.length > 0"-->
   <mat-card-header>
     <mat-card-title>Новая запись</mat-card-title>
-    <mat-card-subtitle>добавление нового агента</mat-card-subtitle>
+    <mat-card-subtitle>добавление нового контрагента</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="grid__item" style="margin-top: 20px;">
     <form [formGroup]="addNewAgentGroup">
@@ -51,7 +51,8 @@
           <input type="text" matInput placeholder="КС" formControlName="ks"/>
         </mat-form-field>
       </div>
-      <button (click)="testFubn()">button</button>
+      <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-top: 20px;" mat-raised-button color="accent" (click)="testFubn()">Добавить</button>
     </form>
   </mat-card-content>
+
 </mat-card>

@@ -10,7 +10,7 @@ export class AgentService {
   constructor(private http: HttpClient) {
   }
 
- /* getAllAgents(): Promise<any> {
+  getAllAgents(): Promise<any> {
     const url = 'http://localhost:8081/agents/';
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
@@ -22,16 +22,16 @@ export class AgentService {
           reject(error);
         });
     });
-  }*/
+  }
 
 
-  getAllAgents(): Observable<any> {
+  /*getAllAgents(): Observable<any> {
     const url = 'http://localhost:8081/agents/';
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
 
      return this.http.get(url, {headers: headers});
 
-  }
+  }*/
 
   getAgentById(id: number): Promise<any> {
     const url = 'http://localhost:8081/agents/' + id;

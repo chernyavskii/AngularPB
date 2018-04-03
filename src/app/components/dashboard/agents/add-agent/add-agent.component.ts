@@ -12,9 +12,6 @@ export class AddAgentComponent implements OnInit {
 
   addNewAgentGroup: FormGroup;
 
-  @Input()
-  agents: Agent[];
-
   @Output() newItem = new EventEmitter<Agent[]>();
 
   constructor(private agentService: AgentService,

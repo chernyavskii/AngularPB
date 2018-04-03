@@ -148,4 +148,7 @@ export class UpdateAgentComponent implements OnChanges {
         console.log(err);
       });
   }
+  testQQQ() {
+    console.log(this.agents);
+  }
 }

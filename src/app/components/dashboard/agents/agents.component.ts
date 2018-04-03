@@ -4,13 +4,14 @@ import {MatTableDataSource} from '@angular/material';
 import {AgentService} from '../../../services/agent/agent.service';
 import {Agent} from '../../../models/Agent';
 import {SelectionModel} from '@angular/cdk/collections';
+import {Error} from '../../../models/Error';
 
 @Component({
   selector: 'app-agents',
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.css']
 })
-export class AgentsComponent implements AfterViewInit{
+export class AgentsComponent implements AfterViewInit {
 
 
   /*
@@ -23,6 +24,7 @@ export class AgentsComponent implements AfterViewInit{
   allAgents: Agent[];
   selectedAgents: Agent[];
   selectedAgentsForDeleted: Agent[];
+  error = new Error();
 
   loadData = false;
   allSelect = false;
@@ -31,19 +33,21 @@ export class AgentsComponent implements AfterViewInit{
   selection = new SelectionModel<Agent>(true, []);
 
   createnewprop = false;
+  errorProp = false;
+
 
   constructor(private agentService: AgentService,
               private ref: ChangeDetectorRef) {
     this.loadData = true;
-    this.agentService.getAllAgents().subscribe(data => {
-      if (data) {
-        this.allAgents = data;
-        this.dataSource = new MatTableDataSource<Agent>(data);
-      }
-    });
-    изменил getAllAgents на Observable
+    /* this.agentService.getAllAgents().subscribe(data => {
+       if (data) {
+         this.allAgents = data;
+         this.dataSource = new MatTableDataSource<Agent>(data);
+       }
+     });*/
+    /*изменил getAllAgents на Observable*/
 
-   /* this.agentService.getAllAgents()
+    this.agentService.getAllAgents()
       .then(data => {
         if (data) {
           this.loadData = false;
@@ -52,8 +56,13 @@ export class AgentsComponent implements AfterViewInit{
         }
       })
       .catch(err => {
+        this.loadData = false;
+        this.errorProp = true;
+        this.error.code = err.error.code;
+        this.error.message = err.error.message;
+        this.error.status = err.error.status;
         console.log(err);
-      });*/
+      });
   }
 
   ngAfterViewInit(): void {
@@ -65,7 +74,11 @@ export class AgentsComponent implements AfterViewInit{
         }
       })
       .catch(err => {
-        console.log(err);
+        this.loadData = false;
+        this.errorProp = true;
+        this.error.code = err.error.code;
+        this.error.message = err.error.message;
+        this.error.status = err.error.status;
       });
   }
 
@@ -121,10 +134,8 @@ export class AgentsComponent implements AfterViewInit{
   }
 
   newItem(event: any) {
-    console.log('mmm');
-    console.log(event);
     this.allAgents.push(event);
-    this.ngAfterViewInit();
+    this.dataSource = new MatTableDataSource<Agent>(this.allAgents);
   }
 
   deleteArray(updateDataArray: any) {
@@ -134,6 +145,7 @@ export class AgentsComponent implements AfterViewInit{
         this.updateDataSourceAfterDeleted(updateDataArray[i].id);
       }
     }
+    this.selectedAgents = null;
   }
 
   updateDataSourceAfterDeleted(id: number) {
@@ -142,9 +154,8 @@ export class AgentsComponent implements AfterViewInit{
         this.dataSource.data.splice(i);
       }
     }
-
-/*    this.selection.clear();
-    this.ngAfterViewInit();*/
+    this.selection.clear();
+    this.ngAfterViewInit();
   }
 
   updateDataSource(id: number, data: any) {
@@ -165,6 +176,7 @@ export class AgentsComponent implements AfterViewInit{
       }
     }
   }
+
   createNew() {
     this.createnewprop = true;
   }

@@ -1,13 +1,13 @@
 <mat-card *ngIf="agents.length > 0">
   <mat-card-header>
     <mat-card-title>Редактирование</mat-card-title>
-    <mat-card-subtitle>Текст</mat-card-subtitle>
+    <mat-card-subtitle>изменение существующих контрагентов</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="grid__item" style="margin-top: 20px;">
     <form [formGroup]="updateAgentForm">
       <div formArrayName="items">
         <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
-          <div class="grid__row grid__row--md" style="margin-top: 10px;">
+          <div class="grid__row grid__row--md" style="margin-top: 30px;">
             <mat-form-field class="grid__item">
               <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
             </mat-form-field>
@@ -53,15 +53,23 @@
               <input type="text" matInput placeholder="КС" formControlName="ks"/>
             </mat-form-field>
           </div>
-          <button mat-button (click)="updateAgent(element)">обновить</button>
+          <div style="border: 1px solid black">
+            <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
+                    mat-raised-button
+                    color="accent" (click)="updateAgent(element)">Обновить
+            </button>
+          </div>
         </div>
-        <div>
-          <button mat-button (click)="updateAllAgents()">обновить всё</button>
+        <div style="border: 1px solid black;">
+          <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); " mat-raised-button
+                  color="accent" (click)="updateAllAgents()">Обновить всё
+          </button>
         </div>
         <div class="progress-bar">
           <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
         </div>
       </div>
     </form>
+
   </mat-card-content>
 </mat-card>
