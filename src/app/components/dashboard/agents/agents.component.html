@@ -6,6 +6,7 @@
         <mat-card-subtitle>список всех контрагентов</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="grid__item">
+        <h1>исправить закрытие вкладки с updateAgent (X)</h1>
         <mat-form-field class="data_filter">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Введите ...">
         </mat-form-field>
@@ -135,7 +136,7 @@
     </mat-card>
   </div>
   <div class="grid__item" *ngIf="createnewprop" style="margin-top: 30px;">
-    <app-add-agent (newItem)="newItem($event)"></app-add-agent>
+    <app-add-agent [createnewprop]="createnewprop" (newItem)="newItem($event)"></app-add-agent>
   </div>
   <div class="grid__item" *ngIf="selectedAgents" style="margin-top: 30px;">
     <app-update-agent [agents]="selectedAgents" (onVoted)="onVoted($event)"></app-update-agent>

@@ -12,8 +12,10 @@ export class UpdateAgentComponent implements OnChanges {
 
   @Input()
   agents: Agent[] = [];
-
   @Output() onVoted = new EventEmitter<Agent[]>();
+  /*
+    @Output() onVoted1 = new EventEmitter<any>();
+  */
 
   updateAgentForm: FormGroup;
   onLoad = false;
@@ -65,6 +67,7 @@ export class UpdateAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();
@@ -148,7 +151,9 @@ export class UpdateAgentComponent implements OnChanges {
         console.log(err);
       });
   }
-  testQQQ() {
-    console.log(this.agents);
+
+  closeWindow(i: number) {
+    this.items.removeAt(i);
+    this.onVoted.emit(this.items.value);
   }
 }

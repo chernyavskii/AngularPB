@@ -112,6 +112,7 @@ export class AgentsComponent implements AfterViewInit {
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
+
     return numSelected === numRows;
   }
 
@@ -124,18 +125,45 @@ export class AgentsComponent implements AfterViewInit {
     return false;
   }
 
-  onVoted(updateDataArray: any) {
-    for (let i = 0; i < updateDataArray.length; i++) {
-      const result = this.checkId(updateDataArray[i].id);
-      if (result) {
-        this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
-      }
+  testFindddddd(id: number) {
+    for (let i = 0; i < this.selectedAgents.length; i++) {
+      console.log(this.selectedAgents[i]);
+      /*if (id !== this.selectedAgents[i].id) {
+        this.selectedAgents.splice(i);
+      }*/
     }
   }
 
+  onVoted(updateDataArray: any) {
+  /*  console.log('dA');
+    console.log(updateDataArray);
+    for (let i = 0; i < updateDataArray.length; i++) {
+      const result = this.checkId(updateDataArray[i].id);
+      console.log(result);
+      if (result) {
+        this.testFindddddd(updateDataArray[i].id);
+      }
+
+    }
+    console.log('muc');
+    console.log(this.selectedAgents);*/
+    ////  НИЖЕ ИДЕТ РАБОЧИЙ КОД, Я ТЕСТИРУЮ ЗАКрЫТИЕ ВКлАДКИ РЕДАКТИРОВАНИЯ АГЕНТА И УМЕНЬШЕНИЕ СЧЕТЧИКА У АГЕНТОВ ( не items )
+     for (let i = 0; i < updateDataArray.length; i++) {
+       const result = this.checkId(updateDataArray[i].id);
+       if (result) {
+         this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
+       }
+     }
+  }
+
   newItem(event: any) {
-    this.allAgents.push(event);
-    this.dataSource = new MatTableDataSource<Agent>(this.allAgents);
+    const result = typeof event;
+    if (result == 'boolean') {
+      this.createnewprop = false;
+    } else {
+      this.allAgents.push(event);
+      this.dataSource = new MatTableDataSource<Agent>(this.allAgents);
+    }
   }
 
   deleteArray(updateDataArray: any) {
@@ -158,7 +186,7 @@ export class AgentsComponent implements AfterViewInit {
     this.ngAfterViewInit();
   }
 
-  updateDataSource(id: number, data: any) {
+  updateDataSource(id: number, data: Agent) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;

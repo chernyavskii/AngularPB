@@ -5,6 +5,7 @@
   </mat-card-header>
   <mat-card-content class="grid__item" style="margin-top: 20px;">
     <form [formGroup]="addNewAgentGroup">
+      <span (click)="closeWindow()"><mat-icon style="float: right; color: red;">clear</mat-icon></span>
       <div class="grid__row grid__row--md" style="margin-top: 10px;">
         <mat-form-field class="grid__item">
           <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
@@ -51,7 +52,7 @@
           <input type="text" matInput placeholder="КС" formControlName="ks"/>
         </mat-form-field>
       </div>
-      <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-top: 20px;" mat-raised-button color="accent" (click)="testFubn()">Добавить</button>
+      <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-top: 20px;" mat-raised-button color="accent" (click)="addNewAgent()">Добавить</button>
     </form>
   </mat-card-content>
 

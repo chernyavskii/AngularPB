@@ -1,7 +1,27 @@
+<!--
 <div class="grid">
-  <div class="grid__row grid__row--md">
+  <div class="grid__row grid__row&#45;&#45;md">
     <div class="grid__item">
       <app-add-form [user]="user"></app-add-form>
     </div>
   </div>
+</div>
+-->
+<div class="grid__row grid__row--md">
+  <mat-card class="grid__item" *ngFor="let document of allDocuments; let i=index;" style=" margin: 10px;">
+    <mat-card-header style="background: linear-gradient(to right, #834d9b, #d04ed6);">
+      <mat-card-title style="color: #FFFFFF">{{document.date}}</mat-card-title>
+      <mat-card-subtitle style="color: #FFFFFF">тесттесттесттесттест</mat-card-subtitle>
+    </mat-card-header>
+
+    <img src="{{url[i]}}" width="250" height="300" >
+
+    <mat-card-content>
+      {{document.name}}
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

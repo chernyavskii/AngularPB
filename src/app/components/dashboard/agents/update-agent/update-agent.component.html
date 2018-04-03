@@ -1,4 +1,4 @@
-<mat-card *ngIf="agents.length > 0">
+<mat-card *ngIf="items.length > 0">
   <mat-card-header>
     <mat-card-title>Редактирование</mat-card-title>
     <mat-card-subtitle>изменение существующих контрагентов</mat-card-subtitle>
@@ -7,6 +7,7 @@
     <form [formGroup]="updateAgentForm">
       <div formArrayName="items">
         <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
+          <span (click)="closeWindow(i)"><mat-icon style="float: right; color: red; margin: 2px;">clear</mat-icon></span> <!--(click)="testHH()"-->
           <div class="grid__row grid__row--md" style="margin-top: 30px;">
             <mat-form-field class="grid__item">
               <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
@@ -53,15 +54,15 @@
               <input type="text" matInput placeholder="КС" formControlName="ks"/>
             </mat-form-field>
           </div>
-          <div style="border: 1px solid black">
+          <div>
             <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
                     mat-raised-button
                     color="accent" (click)="updateAgent(element)">Обновить
             </button>
           </div>
         </div>
-        <div style="border: 1px solid black;">
-          <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); " mat-raised-button
+        <div>
+          <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;" mat-raised-button
                   color="accent" (click)="updateAllAgents()">Обновить всё
           </button>
         </div>
@@ -70,6 +71,5 @@
         </div>
       </div>
     </form>
-
   </mat-card-content>
 </mat-card>
