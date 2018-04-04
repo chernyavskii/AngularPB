@@ -32,7 +32,6 @@ import {PdfViewerComponent} from 'ng2-pdf-viewer';
 import {AgentService} from './services/agent/agent.service';
 import { AddFormComponent } from './components/dashboard/documents/add-form/add-form.component';
 import { AgentsComponent } from './components/dashboard/agents/agents.component';
-import { TestFeautureComponent } from './components/test-feauture/test-feauture.component';
 import {AddFormUtils} from './components/dashboard/documents/add-form/add-form-utils';
 import {DriverService} from './services/driver/driver.service';
 import { UpdateAgentComponent } from './components/dashboard/agents/update-agent/update-agent.component';
@@ -53,7 +52,6 @@ import { AddAgentComponent } from './components/dashboard/agents/add-agent/add-a
     PdfViewerComponent,
     AddFormComponent,
     AgentsComponent,
-    TestFeautureComponent,
     UpdateAgentComponent,
     DeleteAgentComponent,
     AddAgentComponent

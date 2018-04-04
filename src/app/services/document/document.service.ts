@@ -9,7 +9,7 @@ import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class DocumentService {
-  secret = '7ehZyDoLocqwA7hV';
+  secret = '4FTqRHkLm8nr9Qy5';
 
   constructor(private http: HttpClient) {
   }

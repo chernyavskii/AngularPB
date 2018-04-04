@@ -19,6 +19,8 @@ export class DocumentsComponent implements OnInit {
   allDocuments: Document[];
 
   url: any[] = [];
+  waitProp = false;
+  onLoad = false;
 
   constructor(private documentService: DocumentService,
               private fb: FormBuilder) {
@@ -26,6 +28,8 @@ export class DocumentsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onLoad = true;
+    this.waitProp = true;
     this.documentService.getAllDocuments()
       .then(data => {
         this.allDocuments = data;
@@ -34,16 +38,6 @@ export class DocumentsComponent implements OnInit {
             for (let doc of this.allDocuments) {
               this.showDocumentInPng(doc.id, doc.name, doc.type);
             }
-        /*    this.url = 'data:image/png;base64,' + result;
-            this.url = result;*/
-       /* let Uint: Uint8Array;
-
-            this.url = result;
-            for (let i = 0; i < this.url.length; i++) {
-              let aa = <Uint8Array>this.url[i];
-              this.url[i] = 'data:image/png;base64,' + aa;
-
-            }*/
           })
           .catch(err => {
             console.log(err);
@@ -56,9 +50,17 @@ export class DocumentsComponent implements OnInit {
 
   showDocumentInPng(id: number, filename: string, type: string) {
     this.documentService.showDocumentInPng(id, filename, type)
-      .then(res => { this.url.push('data:image/png;base64,' + res); })
+      .then(res => {
+        this.url.push('data:image/png;base64,' + res);
+        this.waitProp = false;
+        this.onLoad = false;
+
+      })
       .catch(err => err.toString());
   }
 
 
 }
+
+
+
