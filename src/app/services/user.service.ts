@@ -73,8 +73,9 @@ export class UserService {
 
   updateById(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
       this.http
-        .put(`${this.usersURL}${user.id}`, user)
+        .put(`${this.usersURL}${user.id}`, user, {headers: headers})
         .toPromise()
         .then(result => {
           localStorage.clear();

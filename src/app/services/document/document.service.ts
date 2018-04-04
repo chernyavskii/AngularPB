@@ -9,7 +9,7 @@ import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class DocumentService {
-  secret = '4FTqRHkLm8nr9Qy5';
+  secret = '320ndsQ5AZSHrw00';
 
   constructor(private http: HttpClient) {
   }
@@ -177,31 +177,22 @@ export class DocumentService {
           reject(error);
         });
     });
-    /* const arrayOfDocuments: Document[] = [];
-     arrayOfDocuments.push(array);
-     const promises = [];
-     for (let i = 0; i < arrayOfDocuments.length; i++) {
-       console.log(arrayOfDocuments[i]);
-     /!*  promises.push(this.showDocumentInPng(array[i].id, array[i].filename, array[i].type));*!/
-     }*/
-    /*    return new Promise((resolve, reject) => {
-x
-        }*/
-    /* updateAllAgents(array: FormArray): Promise<any> {
-       const promises = [];
-     for (let i = 0; i < array.length; i++) {
-       promises.push(this.updateAgent(array[i].id, array[i]));
-     }
-     return new Promise((resolve, reject) => {
-       Promise.all(promises)
-         .then(data => {
-           resolve(data);
-         })
-         .catch(error => {
-           reject(error);
-         });
-     });
-   }*/
+  }
+
+  showAllDocumentInPdf(array: any): Promise<any>  {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.showDocumentInPdf(array[i].id, array[i].filename, array[i].type));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 
   printDocument(id: number, filename: string, type: string): Promise<any> {

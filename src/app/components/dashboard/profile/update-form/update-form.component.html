@@ -3,7 +3,7 @@
     <mat-card-title>Мой профиль</mat-card-title>
     <mat-card-subtitle>Редактирование</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content style="margin-top: 30px;">
     <form (submit)="updateProfile(user)" [formGroup]="firstFormGroup">
       <div class="grid__row grid__row--md">
         <mat-form-field class="grid__item">
@@ -69,9 +69,12 @@
           />
         </mat-form-field>
       </div>
-      <div class="grid__row grid__row--md">
-        <button class="grid__item" mat-button color="primary" type="submit">Обновить профиль</button>
-      </div>
+
+<!--
+      <button class="grid__item" mat-button color="primary" type="submit">Принять</button>
+-->
+      <button class="submit--button"  mat-raised-button type="submit">Принять</button>
+
     </form>
   </mat-card-content>
 </mat-card>

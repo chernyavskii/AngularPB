@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../../../../services/auth/auth.service';
 import {User} from '../../../../models/User';
 import {UserService} from '../../../../services/user.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -25,21 +25,21 @@ export class UpdateFormComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      id: this.user.id,
-      username: this.user.username,
-      password: this.user.password,
-      firstName: this.user.firstName,
-      middleName: this.user.middleName,
-      lastName: this.user.lastName,
-      unp: this.user.unp,
-      organization: this.user.organization,
-      position: this.user.position,
-      address: this.user.address,
-      rs: this.user.rs,
-      ks: this.user.ks,
-      bank: this.user.bank,
-      bik: this.user.bik,
-      phone: this.user.phone,
+      id: [this.user.id, Validators.required],
+      username: [this.user.username, Validators.required],
+      password: [this.user.password, Validators.required],
+      firstName: [this.user.firstName, Validators.required],
+      middleName: [this.user.middleName, Validators.required],
+      lastName: [this.user.lastName, Validators.required],
+      unp: [this.user.unp, Validators.required],
+      organization: [this.user.organization, Validators.required],
+      position: [this.user.position, Validators.required],
+      address: [this.user.address, Validators.required],
+      rs: [this.user.rs, Validators.required],
+      ks: [this.user.ks, Validators.required],
+      bank: [this.user.bank, Validators.required],
+      bik: [this.user.bik, Validators.required],
+      phone: [this.user.phone, Validators.required],
     });
   }
 
