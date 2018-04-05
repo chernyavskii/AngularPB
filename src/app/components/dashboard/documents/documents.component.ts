@@ -37,7 +37,10 @@ export class DocumentsComponent implements OnInit {
         this.documentService.showAllDocumentInPdf(this.allDocuments)
           .then(result => {
             for (let doc of this.allDocuments) {
+/*
               this.showDocumentInPdf(doc.id, doc.name, doc.type);
+*/
+this.showDocumentInPng(doc.id, doc.name, doc.type);
             }
           })
           .catch(err => {
@@ -49,7 +52,7 @@ export class DocumentsComponent implements OnInit {
       });
   }
 
- /* showDocumentInPng(id: number, filename: string, type: string) {
+  showDocumentInPng(id: number, filename: string, type: string) {
     this.documentService.showDocumentInPng(id, filename, type)
       .then(res => {
         this.url.push('data:image/png;base64,' + res);
@@ -58,7 +61,7 @@ export class DocumentsComponent implements OnInit {
 
       })
       .catch(err => err.toString());
-  }*/
+  }
 
   showDocumentInPdf(id: number, filename: string, type: string) {
     this.documentService.showDocumentInPdf(id, filename, type)

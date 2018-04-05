@@ -122,27 +122,24 @@
       <mat-card-title style="font-size: 1.2em;">Название: {{document.name}}</mat-card-title>
       <mat-card-subtitle>Дата создания: {{document.date}}</mat-card-subtitle>
     </mat-card-header>
-    <div style="height: 400px; width: 300px">
+   <!-- <div style="height: 400px; width: 300px">
+
       <pdf-viewer [src]="url[i]" [original-size]="false" [zoom]="0.5" [page]="1"></pdf-viewer>
-    </div>
+    </div>-->
     <div style="height: 400px;" *ngIf="waitProp">
       <mat-progress-bar mode="buffer"></mat-progress-bar>
       <!-- <mat-icon class="image_span">content_paste
        </mat-icon>-->
     </div>
-    <div style="height: 400px" *ngIf="!waitProp">
-
-
-      <!--
-            <img *ngIf="!onLoad" class="zoom" style="height: 400px;" src="{{url[i]}}" width="250" height="400">
-      -->
-
-    </div>
+      <div style="height: 400px" *ngIf="!waitProp">
+        <img *ngIf="!onLoad" class="zoom" style="height: 400px;" src="{{url[i]}}" width="250" height="400">
+      </div>
     <mat-card-actions>
       <button mat-button class="button--next" (click)="documentInfo(document)">Подробнее</button>
     </mat-card-actions>
   </mat-card>
 </div>
+
 
 
 <!--<div class="grid__item">

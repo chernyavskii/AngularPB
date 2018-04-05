@@ -18,6 +18,7 @@
   display: flex;
   width: 270px;
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+  background: #dfdfdf;
 }
 
 .dashboard-title {
@@ -25,10 +26,7 @@
   display: table;
   width: 270px;
   text-align: center;
-  border: 1px solid black;
-  /*
   border-bottom: 1px solid #dfdfdf;
-  */
 }
 
 .dashboard-title span {
@@ -164,19 +162,28 @@
 }
 
 .left-menu-item {
-  border: 1px solid black;
   list-style-type: none;
   padding: 5px;
 }
 
 .left-menu-item a {
-  border: 1px solid red;
   display: block;
-  padding: 8px 16px;
   text-decoration: none;
+  font-family: 'Open Sans Condensed', sans-serif;
+  border-radius: 3px;
+  height: 50px;
+  font-size: 18px;
+  margin: 7px;
+  color: #a9afbb;
+}
+.left-menu-item a:hover {
+  background: #f3f3f3;
+}
+.active {
+  background: linear-gradient(to right, #834d9b, #d04ed6);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
 }
 
-.left-menu-item a:hover {
-  background: linear-gradient(to right, #fc4a1a, #f7b733); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: white;
+.active:hover {
+  background: #e3e3e3;
 }

@@ -12,7 +12,8 @@ import {MatSnackBar} from '@angular/material';
 })
 export class UpdateFormComponent implements OnInit {
 
-  @Input()
+  /*@Input()
+  user = new User();*/
   user = new User();
   firstFormGroup: FormGroup;
 
@@ -22,10 +23,12 @@ export class UpdateFormComponent implements OnInit {
               private userService: UserService,
               private snackBar: MatSnackBar,
               private _formBuilder: FormBuilder) {
-
   }
 
   ngOnInit() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = currentUser;
+
     this.firstFormGroup = this._formBuilder.group({
       id: [this.user.id, Validators.required],
       username: [this.user.username, Validators.required],
