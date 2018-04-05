@@ -6,9 +6,6 @@ import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
-
-import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/delay';
 
 @Injectable()
@@ -18,7 +15,6 @@ export class UserService {
   private resourceURL = 'http://localhost:8081/';
   private agentsURL = 'http://localhost:8081/agents/';
 
-  delayMs = 5000;
 
   checkAuth = false;
 
@@ -137,9 +133,23 @@ export class UserService {
         });
     });
   }
-/*
-  getHeroes(): Observable<Hero[]> {
-    return of(heroes).delay(this.delayMs);
-  }*/
+
+  changePassword(passwordCredentials: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
+      this.http
+        .put(`${this.usersURL}` + '/password', passwordCredentials, {headers: headers})
+        .toPromise()
+        .then(result => {
+          localStorage.clear();
+          localStorage.setItem('currentUser', JSON.stringify(result));
+          Cookie.delete('token');
+          const userObject: User = <User>result;
+          Cookie.set('token', 'Basic ' + btoa(userObject.username + ':' + passwordCredentials.newPassword));
+          resolve(result);
+        })
+        .catch(error => reject(error));
+    });
+  }
 
 }
