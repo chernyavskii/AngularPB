@@ -12,8 +12,6 @@ import {Error} from '../../../models/Error';
   styleUrls: ['./agents.component.css']
 })
 export class AgentsComponent implements AfterViewInit {
-
-
   /*
     displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'organization', 'position', 'address', 'phone', 'bank', 'rs', 'ks', 'bik'];
   */
@@ -39,13 +37,6 @@ export class AgentsComponent implements AfterViewInit {
   constructor(private agentService: AgentService,
               private ref: ChangeDetectorRef) {
     this.loadData = true;
-    /* this.agentService.getAllAgents().subscribe(data => {
-       if (data) {
-         this.allAgents = data;
-         this.dataSource = new MatTableDataSource<Agent>(data);
-       }
-     });*/
-    /*изменил getAllAgents на Observable*/
 
     this.agentService.getAllAgents()
       .then(data => {

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AgentService} from '../../../../services/agent/agent.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Agent} from '../../../../models/Agent';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-add-agent',
@@ -13,12 +14,16 @@ export class AddAgentComponent implements OnInit {
   addNewAgentGroup: FormGroup;
 
   @Output() newItem = new EventEmitter<Agent[]>();
-
+  @Output() newAgentFromDocuments = new EventEmitter<Agent[]>();
   @Input()
   createnewprop: any;
 
+  @Input()
+  newAgentProp: any;
+
   constructor(private agentService: AgentService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private snackBar: MatSnackBar) {
     this.addNewAgentGroup = this.fb.group({
       id: ['', Validators.nullValidator],
       firstName: ['', Validators.required],
@@ -58,7 +63,13 @@ export class AddAgentComponent implements OnInit {
       };
       this.agentService.addAgent(newAgent)
         .then(data => {
-          this.newItem.emit(data);
+          if (data) {
+            this.newItem.emit(data);
+            this.newAgentFromDocuments.emit(data);
+            this.snackBar.open('Новый контрагент успешно добавлен', 'Закрыть', {
+              duration: 3000
+            });
+          }
         })
         .catch(err => {
           console.log(err);
@@ -68,7 +79,9 @@ export class AddAgentComponent implements OnInit {
 
   closeWindow() {
     this.createnewprop = false;
+    this.newAgentProp = false;
     this.newItem.emit(this.createnewprop);
+    this.newAgentFromDocuments.emit(this.newAgentProp);
   }
 
 }

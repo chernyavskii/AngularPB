@@ -9,7 +9,7 @@ import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class DocumentService {
-  secret = '320ndsQ5AZSHrw00';
+  secret = 'PrRwslvDDpard8gX';
 
   constructor(private http: HttpClient) {
   }
@@ -26,7 +26,6 @@ export class DocumentService {
         });
     });
   }
-
   convertExcelToPdf(filename: string, type: string, file: string): Promise<any> {
     const url = 'https://v2.convertapi.com/' + type + '/to/pdf?Secret=' + this.secret;
     const body = {Parameters: [{Name: 'File', FileValue: {Name: filename + '.' + type, Data: file}}]};
@@ -160,7 +159,7 @@ export class DocumentService {
     });
   }
 
-  showAllDocumentInPng(array: any): Promise<any>  {
+  showAllDocumentInPng(array: any): Promise<any> {
     const promises = [];
     for (let i = 0; i < array.length; i++) {
       promises.push(this.showDocumentInPng(array[i].id, array[i].filename, array[i].type));
@@ -179,7 +178,7 @@ export class DocumentService {
     });
   }
 
-  showAllDocumentInPdf(array: any): Promise<any>  {
+  showAllDocumentInPdf(array: any): Promise<any> {
     const promises = [];
     for (let i = 0; i < array.length; i++) {
       promises.push(this.showDocumentInPdf(array[i].id, array[i].filename, array[i].type));
@@ -227,9 +226,9 @@ export class DocumentService {
     });
   }
 
-  addDocumentTN(agent_id: number, products: Product[]): Promise<any> {
+  addDocumentTN(documentName: string, agent_id: number, products: Product[]): Promise<any> {
     const url = 'http://localhost:8081/documents/tn';
-    const body = {agent_id: agent_id, products: products};
+    const body = {documentName: documentName, agent_id: agent_id, products: products};
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.post(url, body, {headers: headers}).toPromise()
@@ -242,9 +241,9 @@ export class DocumentService {
     });
   }
 
-  addDocumentTTN(agent_id: number, driver_id: number, products: Product[]): Promise<any> {
+  addDocumentTTN(documentName: string, agent_id: number, driver_id: number, products: Product[]): Promise<any> {
     const url = 'http://localhost:8081/documents/ttn';
-    const body = {agent_id: agent_id, driver_id: driver_id, products: products};
+    const body = {documentName: documentName, agent_id: agent_id, driver_id: driver_id, products: products};
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.post(url, body, {headers: headers}).toPromise()
@@ -257,9 +256,9 @@ export class DocumentService {
     });
   }
 
-  addDocumentASPR(agent_id: number, works: Work[]): Promise<any> {
+  addDocumentASPR(documentName: string, agent_id: number, works: Work[]): Promise<any> {
     const url = 'http://localhost:8081/documents/aspr';
-    const body = {agent_id: agent_id, works: works};
+    const body = {documentName: documentName, agent_id: agent_id, works: works};
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
       this.http.post(url, body, {headers: headers}).toPromise()

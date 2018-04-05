@@ -136,7 +136,15 @@
     </mat-card>
   </div>
   <div class="grid__item" *ngIf="createnewprop" style="margin-top: 30px;">
-    <app-add-agent [createnewprop]="createnewprop" (newItem)="newItem($event)"></app-add-agent>
+    <mat-card><!--*ngIf="agents.length > 0"-->
+      <mat-card-header>
+        <mat-card-title>Новая запись</mat-card-title>
+        <mat-card-subtitle>добавление нового контрагента</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="grid__item" style="margin-top: 20px;">
+        <app-add-agent [createnewprop]="createnewprop" (newItem)="newItem($event)"></app-add-agent>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="grid__item" *ngIf="selectedAgents" style="margin-top: 30px;">
     <app-update-agent [agents]="selectedAgents" (onVoted)="onVoted($event)"></app-update-agent>

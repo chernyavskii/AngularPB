@@ -9,6 +9,9 @@
         <form [formGroup]="firstStepGroup">
           <div class="grid__row grid__row__md">
             <mat-form-field class="grid__item">
+              <input matInput placeholder="Введите название документа" type="text" formControlName="documentName">
+            </mat-form-field>
+            <mat-form-field class="grid__item">
               <mat-select placeholder="Выберите тип документа " (change)="searchTypeById()"
                           formControlName="typeOfDocument" disableRipple>
                 <mat-option *ngFor="let type of typeOfDocument" [value]="type.id">
@@ -39,6 +42,7 @@
                 <mat-form-field class="grid__item">
                   <mat-select placeholder="Выберите Контрагента"
                               formControlName="agentId" disableRipple>
+                    <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
                     <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                       {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                     </mat-option>
@@ -52,6 +56,17 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
+              </div>
+              <div class="product__item" *ngIf="newAgentProp">
+                <div class="title__block">
+                  <mat-icon
+                    style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                    assignment
+                  </mat-icon>
+                  <span class="product__title_left">Создание нового контрагента</span>
+                </div>
+                <app-add-agent [newAgentProp]="newAgentProp"
+                               (newAgentFromDocuments)="newAgentFromDocuments($event)"></app-add-agent>
               </div>
               <div formArrayName="products">
                 <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
@@ -127,11 +142,23 @@
               <mat-form-field class="grid__item">
                 <mat-select placeholder="Выберите Контрагента"
                             formControlName="agentId" disableRipple>
+                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
                   <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                     {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+              <div class="product__item" *ngIf="newAgentProp">
+                <div class="title__block">
+                  <mat-icon
+                    style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                    assignment
+                  </mat-icon>
+                  <span class="product__title_left">Создание нового контрагента</span>
+                </div>
+                <app-add-agent [newAgentProp]="newAgentProp"
+                               (newAgentFromDocuments)="newAgentFromDocuments($event)"></app-add-agent>
+              </div>
               <div formArrayName="products">
                 <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
                   <div class="title__block">
@@ -195,11 +222,23 @@
               <mat-form-field class="grid__item">
                 <mat-select placeholder="Выберите Контрагента"
                             formControlName="agentId" disableRipple>
+                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
                   <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                     {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+              <div class="product__item" *ngIf="newAgentProp">
+                <div class="title__block">
+                  <mat-icon
+                    style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                    assignment
+                  </mat-icon>
+                  <span class="product__title_left">Создание нового контрагента</span>
+                </div>
+                <app-add-agent [newAgentProp]="newAgentProp"
+                               (newAgentFromDocuments)="newAgentFromDocuments($event)"></app-add-agent>
+              </div>
               <div formArrayName="works">
                 <div class="product__item" *ngFor="let element of works.controls; let i=index" [formGroupName]="i">
                   <div class="title__block">
@@ -243,11 +282,23 @@
               <mat-form-field class="grid__item">
                 <mat-select placeholder="Выберите Контрагента"
                             formControlName="agentId" disableRipple>
+                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
                   <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                     {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+              <div class="product__item" *ngIf="newAgentProp">
+                <div class="title__block">
+                  <mat-icon
+                    style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                    assignment
+                  </mat-icon>
+                  <span class="product__title_left">Создание нового контрагента</span>
+                </div>
+                <app-add-agent [newAgentProp]="newAgentProp"
+                               (newAgentFromDocuments)="newAgentFromDocuments($event)"></app-add-agent>
+              </div>
               <div formArrayName="products">
                 <div class="product__item" *ngFor="let element of products.controls; let i=index" [formGroupName]="i">
                   <div class="title__block">
@@ -363,111 +414,8 @@
               </div>
             </div>
           </div>
-          <!--  <mat-card class="newDocumentCard" *ngIf="visibleDocument">
-              <mat-card-header style="background: #f7f7f8;">
-          &lt;!&ndash;      <button mat-icon-button [matMenuTriggerFor]="menu"
-                        style="background: #f7f7f8; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);   border: 1px solid #e3e3e3;">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item>
-                    <mat-icon>dialpad</mat-icon>
-                    <span>Скачать</span>
-                  </button>
-                  <button mat-menu-item>
-                    <mat-icon>voicemail</mat-icon>
-                    <span>Печать</span>
-                  </button>
-                  <button mat-menu-item>
-                    <mat-icon>notifications_off</mat-icon>
-                    <span>Удалить</span>
-                  </button>
-                </mat-menu>&ndash;&gt;
-                <mat-card-title>Мои Документы</mat-card-title>
-                <mat-card-subtitle>Создание нового документа</mat-card-subtitle>
-              </mat-card-header>
-              <div style="background: #f5f5f5">
-                <pdf-viewer [src]="pageurl" [original-size]="true"></pdf-viewer>
-              </div>
-              <mat-card-content style="background: #f5f5f5">
-                TEST
-              </mat-card-content>
-            </mat-card>-->
         </form>
-        <!-- <button class="grid__item" mat-button color="primary" (click)="downloadDocumentInPdf()">Скачать .pdf</button>
-         <button class="grid__item" mat-button color="primary" (click)="showDocumentInPng()">Показать</button>
-        &lt;!&ndash; <div class="testDocDiv">
-           <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
-         </div>&ndash;&gt;
-        <img src="{{url}}" style="width: 300px; height: 500px;" >
-          <form [formGroup]="thirdStepGroup">
-            <mat-form-field class="grid__item">
-              <input matInput placeholder="Цена" type="number" formControlName="testContr" required>
-            </mat-form-field>
-          </form>-->
       </mat-step>
-
-      <!--
-           <mat-step label="Шаг 2" [stepControl]="secondStepGroup">
-             <form [formGroup]="secondStepGroup">
-               <app-tn-document [fixedFG]="secondStepGroup" (notify)="onNotify($event)"></app-tn-document> <!--[secondStepGroup]="secondStepGroup"
-         <div class="grid__row grid__row&#45;&#45;md">
-            <mat-form-field class="grid__item">
-              <mat-select placeholder="Выбор контрагента" formControlName="agent_id" disableRipple required>
-                <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
-                  {{agent.firstName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="grid__row grid__row&#45;&#45;md">
-            <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="Название товара" formControlName="name" required/>
-            </mat-form-field>
-            <mat-form-field class="grid__item">
-              <input matInput placeholder="Цена" type="number" formControlName="price" required>
-              &lt;!&ndash;[(ngModel)]="user.username"&ndash;&gt;
-              <span matPrefix>б.р.&nbsp;</span>
-              <span matSuffix>.00</span>
-            </mat-form-field>
-            <mat-form-field class="grid__item">
-              <mat-select placeholder="Выбор единицы измерения" [formControl]="unitsControl" required>
-                <mat-optgroup *ngFor="let unit of units_" [label]="unit.name">
-                  <mat-option *ngFor="let pokemon of unit.pokemon" [value]="pokemon.value">
-                    {{ pokemon.viewValue }}
-                  </mat-option>
-                </mat-optgroup>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="grid__item">
-              <input matInput placeholder="Количество" type="number" formControlName="number">
-              <span matSuffix>шт.&nbsp;</span>
-            </mat-form-field>
-          </div>
-          <div class="grid__row grid__row&#45;&#45;md">
-            <mat-form-field class="grid__item">
-              <input matInput placeholder="Примечание" type="text" formControlName="note" [(ngModel)]="product.note">
-            </mat-form-field>
-          </div>&ndash;&gt;-->
-      <!--</form>
-    </mat-step>-->
-
-      <!-- <mat-step label="Шаг 3">
-         <div style="margin-top: 7px;">
-           <button class="add__button" mat-button color="primary" (click)="addDocumentTN()">СОЗДАТЬ ДОКУМЕНТ</button>
-         </div>
-         <div class="grid__row grid__row&#45;&#45;md" *ngIf="onSelect">
-           <button class="grid__item" mat-button color="primary"
-                   (click)="saveDocumentInPdf()">Скачать .pdf
-           </button>
-           <button class="grid__item" mat-button color="primary" (click)="printDocument()">Печать .pdf</button>
-           <button class="grid__item" mat-button color="primary" (click)="showDocumentInPdf()">Показать</button>
-         </div>
-         <div class="testDocDiv">
-           <pdf-viewer [src]="pageurl" [original-size]="true" [show-all]="true"></pdf-viewer>
-         </div>
-       </mat-step>-->
-
     </mat-vertical-stepper>
   </mat-card-content>
 </mat-card>

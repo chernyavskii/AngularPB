@@ -3,8 +3,12 @@
     <span class="example-fill-remaining-space"></span>
     <div class="navigation-panel">
       <ul class="list-items-navigation">
-        <li class="list-item-nav"><a><mat-icon>power</mat-icon></a></li>
-        <li class="list-item-nav"><a><mat-icon>person</mat-icon></a></li>
+        <li class="list-item-nav"><a>
+          <mat-icon>power</mat-icon>
+        </a></li>
+        <li class="list-item-nav"><a>
+          <mat-icon>person</mat-icon>
+        </a></li>
       </ul>
     </div>
   </mat-toolbar>
@@ -59,15 +63,17 @@
     </mat-sidenav>
 
     <div class="dashboard-main-content">
-      <app-profile [user]="currentUser"></app-profile>
+      <!--
+            <app-profile [user]="currentUser"></app-profile>
+      -->
 <!--
-      <app-documents [user]="currentUser"></app-documents>
+            <app-documents [user]="currentUser"></app-documents>
 -->
+      <!-- add Form находится в <app-document> вставил просто для теста ! -->
+      <app-add-form [user]="currentUser"></app-add-form>
+
 <!--
-      <app-agents [user]="currentUser"></app-agents>
--->
-<!--
-      <app-test-feauture [user]="currentUser"></app-test-feauture>
+            <app-agents [user]="currentUser"></app-agents>
 -->
 
       <!--     <router-outlet>

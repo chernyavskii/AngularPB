@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AgentService} from '../../../../services/agent/agent.service';
 import {User} from '../../../../models/User';
@@ -10,7 +10,7 @@ import {Product} from '../../../../models/Product';
 import {DocumentService} from '../../../../services/document/document.service';
 import {DriverService} from '../../../../services/driver/driver.service';
 import {Driver} from '../../../../models/Driver';
-import {MatButton, MatSnackBar} from '@angular/material';
+import {MatButton, MatSnackBar, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-add-form',
@@ -37,12 +37,11 @@ export class AddFormComponent {
 
   createdDocument = {id: null, name: '', type: '', date: ''};
   pageurl: Uint8Array;
-  //url: any[] = [];
 
   onLoad = false;
   visibleDocument = false;
   disableButton = false;
-
+  newAgentProp = false;
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
@@ -70,6 +69,7 @@ export class AddFormComponent {
 
 
     this.firstStepGroup = this.fb.group({
+      documentName: ['', Validators.required],
       typeOfDocument: ['', Validators.required],
       elementOfType: ['', Validators.required]
     });
@@ -103,6 +103,7 @@ export class AddFormComponent {
 
   }
 
+
   get products(): FormArray {
     return this.secondStepGroup.get('products') as FormArray;
   }
@@ -128,6 +129,7 @@ export class AddFormComponent {
   }
 
   searchTypeById() {
+    this.newAgentProp = false;
     this.firstStepGroup.get('elementOfType').setValue('');
     const nameControl = this.firstStepGroup.get('typeOfDocument');
     this.index_ = nameControl.value;
@@ -136,6 +138,7 @@ export class AddFormComponent {
   }
 
   searchElementOfTypeById() {
+    this.newAgentProp = false;
     this.agentId.setValue('');
     this.visibleDocument = false;
     this.pageurl = null;
@@ -246,13 +249,14 @@ export class AddFormComponent {
   }
 
   addNewDocument() {
+    this.newAgentProp = false;
     this.disableButton = true;
     this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
     this.thirdStepGroup.get('successButton').setValue('setValue');
 
     switch (this.document_id) {
       case 1:
-        this.documentService.addDocumentTTN(this.agentId.value, this.driverId.value, this.products.value)
+        this.documentService.addDocumentTTN(this.firstStepGroup.value.documentName, this.agentId.value, this.driverId.value, this.products.value)
           .then(data => {
             if (data) {
               this.createdDocument = data;
@@ -275,7 +279,7 @@ export class AddFormComponent {
 
           saveArrayOfProducts.push(product);
         }
-        this.documentService.addDocumentTN(this.agentId.value, saveArrayOfProducts)
+        this.documentService.addDocumentTN(this.firstStepGroup.value.documentName, this.agentId.value, saveArrayOfProducts)
           .then(data => {
             if (data) {
               this.createdDocument = data;
@@ -287,7 +291,7 @@ export class AddFormComponent {
           });
         break;
       case 3:
-        this.documentService.addDocumentASPR(this.agentId.value, this.works.value)
+        this.documentService.addDocumentASPR(this.firstStepGroup.value.documentName, this.agentId.value, this.works.value)
           .then(data => {
             if (data) {
               this.createdDocument = data;
@@ -299,7 +303,7 @@ export class AddFormComponent {
           });
         break;
       case 4:
-        this.documentService.addDocumentTN(this.agentId.value, this.products.value)
+        this.documentService.addDocumentTN(this.firstStepGroup.value.documentName, this.agentId.value, this.products.value)
           .then(data => {
             if (data) {
               this.createdDocument = data;
@@ -310,7 +314,8 @@ export class AddFormComponent {
       default:
         alert('Problems');
     }
-    const disableSuccessButton = this.secondStepGroup.valueChanges.subscribe(data => {
+
+    const disableSuccessButton0 = this.firstStepGroup.valueChanges.subscribe(data => {
       if (data) {
         this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
         this.thirdStepGroup.get('successButton').setValue('');
@@ -318,7 +323,18 @@ export class AddFormComponent {
         this.pageurl = null;
         this.disableButton = false;
       }
-      disableSuccessButton.unsubscribe();
+      disableSuccessButton1.unsubscribe();
+    });
+
+    const disableSuccessButton1 = this.secondStepGroup.valueChanges.subscribe(data => {
+      if (data) {
+        this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
+        this.thirdStepGroup.get('successButton').setValue('');
+        this.visibleDocument = false;
+        this.pageurl = null;
+        this.disableButton = false;
+      }
+      disableSuccessButton1.unsubscribe();
     });
   }
 
@@ -361,15 +377,6 @@ export class AddFormComponent {
       });
   }
 
-  // showDocumentInPng() {
-  //   this.documentService.showDocumentInPng(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
-  //     .then(res => {
-  //       console.log(res);
-  //       this.url.push('data:image/png;base64,' + res);
-  //     })
-  //     .catch(err => err.toString());
-  // }
-
   showDocumentInPdf() {
     this.onLoad = true;
     this.documentService.showDocumentInPdf(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
@@ -400,4 +407,18 @@ export class AddFormComponent {
         console.log(err);
       });
   }
+
+  addNewAgent(event: any) {
+    this.newAgentProp = true;
+  }
+
+  newAgentFromDocuments(event: any) {
+    const result = typeof event;
+    if (result == 'boolean') {
+      this.newAgentProp = false;
+    } else {
+      this.allAgents.push(event);
+    }
+  }
+
 }
