@@ -126,25 +126,24 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   onVoted(updateDataArray: any) {
-  /*  console.log('dA');
-    console.log(updateDataArray);
+    /*  console.log('dA');
+      console.log(updateDataArray);
+      for (let i = 0; i < updateDataArray.length; i++) {
+        const result = this.checkId(updateDataArray[i].id);
+        console.log(result);
+        if (result) {
+          this.testFindddddd(updateDataArray[i].id);
+        }
+      }
+      console.log('muc');
+      console.log(this.selectedAgents);*/
+    ////  НИЖЕ ИДЕТ РАБОЧИЙ КОД, Я ТЕСТИРУЮ ЗАКрЫТИЕ ВКлАДКИ РЕДАКТИРОВАНИЯ АГЕНТА И УМЕНЬШЕНИЕ СЧЕТЧИКА У АГЕНТОВ ( не items )
     for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
-      console.log(result);
       if (result) {
-        this.testFindddddd(updateDataArray[i].id);
+        this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
       }
-
     }
-    console.log('muc');
-    console.log(this.selectedAgents);*/
-    ////  НИЖЕ ИДЕТ РАБОЧИЙ КОД, Я ТЕСТИРУЮ ЗАКрЫТИЕ ВКлАДКИ РЕДАКТИРОВАНИЯ АГЕНТА И УМЕНЬШЕНИЕ СЧЕТЧИКА У АГЕНТОВ ( не items )
-     for (let i = 0; i < updateDataArray.length; i++) {
-       const result = this.checkId(updateDataArray[i].id);
-       if (result) {
-         this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
-       }
-     }
   }
 
   newItem(event: any) {

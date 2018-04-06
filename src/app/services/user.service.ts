@@ -44,13 +44,13 @@ export class UserService {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ' + btoa(user.username + ':' + user.password),
-        'X-Requested-With': 'XMLHttpRequest',
-        'Access-Control-Allow-Origin': '*',
-        /*   'Access-Control-Allow-Credentials': 'true',*/
+        'X-Requested-With': 'XMLHttpRequest'
+ /*       'Access-Control-Allow-Origin': '*',
+        /!*   'Access-Control-Allow-Credentials': 'true',*!/
         'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
         'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
         ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
-        ' Access-Control-Request-Headers'
+        ' Access-Control-Request-Headers'*/
       });
       this.http
         .get(AppComponent.API_URL + '/login', {headers: headers}) //// withCredentials: true

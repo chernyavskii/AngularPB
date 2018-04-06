@@ -66,6 +66,15 @@ export class UpdateAgentComponent implements OnChanges {
     return false;
   }
 
+  removeItem(array: FormArray) {
+    for (let i = 0; i < array.length; i++) {
+      if (this.changes.agents.currentValue[i].id !== array.at(i).value.id) {
+        console.log('ii');
+        array.removeAt(i);
+      }
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
     this.changes = changes;
@@ -76,6 +85,7 @@ export class UpdateAgentComponent implements OnChanges {
         for (let i = 0; i < changes.agents.currentValue.length; i++) {
           const result = this.checkIdCurrent(changes.agents.currentValue[i].id);
           if (!result) {
+            this.removeItem(this.items);
             this.items.push(this.fb.group({
               id: changes.agents.currentValue[i].id,
               firstName: changes.agents.currentValue[i].firstName,
@@ -102,8 +112,15 @@ export class UpdateAgentComponent implements OnChanges {
                 this.items.removeAt(k);
               }
             }
+          } else {
+            for (let k = 0; k < this.items.length; k++) {
+              if (this.items.at(k).value.id === changes.agents.previousValue[i].id) {
+                this.items.removeAt(k);
+              }
+            }
           }
         }
+        this.pushItem();
       }
     }
   }

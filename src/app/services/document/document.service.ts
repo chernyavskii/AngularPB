@@ -9,7 +9,7 @@ import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class DocumentService {
-  secret = '2gTZPz2PE5RymLZS';
+  secret = 'TuWH0yE7fRtW47HQ';
 
   constructor(private http: HttpClient) {
   }
@@ -34,6 +34,8 @@ export class DocumentService {
         .then(data => {
           blobUtil.base64StringToBlob(data['Files'][0].FileData)
             .then(blob => {
+              console.log('blo');
+              console.log(blob);
               resolve(blob);
             })
             .catch(error => {

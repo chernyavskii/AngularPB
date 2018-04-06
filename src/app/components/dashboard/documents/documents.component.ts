@@ -37,10 +37,7 @@ export class DocumentsComponent implements OnInit {
         this.documentService.showAllDocumentInPdf(this.allDocuments)
           .then(result => {
             for (let doc of this.allDocuments) {
-/*
-              this.showDocumentInPdf(doc.id, doc.name, doc.type);
-*/
-this.showDocumentInPng(doc.id, doc.name, doc.type);
+              this.showDocumentInPng(doc.id, doc.name, doc.type);
             }
           })
           .catch(err => {
