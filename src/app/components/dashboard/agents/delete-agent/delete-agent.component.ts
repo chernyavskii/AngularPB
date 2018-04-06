@@ -17,6 +17,9 @@ export class DeleteAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    console.log('ll');
+    console.log(this.agents);
     if (changes.agents) {
       this.agentService.deleteAllAgents(this.agents)
         .then(data => {

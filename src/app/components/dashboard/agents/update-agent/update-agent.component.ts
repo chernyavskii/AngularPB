@@ -13,9 +13,6 @@ export class UpdateAgentComponent implements OnChanges {
   @Input()
   agents: Agent[] = [];
   @Output() onVoted = new EventEmitter<Agent[]>();
-  /*
-    @Output() onVoted1 = new EventEmitter<any>();
-  */
 
   updateAgentForm: FormGroup;
   onLoad = false;
@@ -69,14 +66,12 @@ export class UpdateAgentComponent implements OnChanges {
   removeItem(array: FormArray) {
     for (let i = 0; i < array.length; i++) {
       if (this.changes.agents.currentValue[i].id !== array.at(i).value.id) {
-        console.log('ii');
         array.removeAt(i);
       }
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();

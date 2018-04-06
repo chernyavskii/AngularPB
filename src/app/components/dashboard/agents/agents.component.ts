@@ -60,6 +60,8 @@ export class AgentsComponent implements AfterViewInit {
     this.agentService.getAllAgents()
       .then(data => {
         if (data) {
+          //  this.selectedAgents = this.selection.selected;
+
           this.allAgents = data;
           this.dataSource = new MatTableDataSource<Agent>(data);
         }
@@ -89,6 +91,8 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   isSelect(raw: any) {
+    console.log(raw);
+    console.log('qqqwerrrr');
     this.selection.toggle(raw);
   }
 
@@ -116,34 +120,41 @@ export class AgentsComponent implements AfterViewInit {
     return false;
   }
 
-  testFindddddd(id: number) {
+  selectedAgentsCheckId(id: number): boolean {
+    console.log(this.selectedAgents);
     for (let i = 0; i < this.selectedAgents.length; i++) {
-      console.log(this.selectedAgents[i]);
-      /*if (id !== this.selectedAgents[i].id) {
-        this.selectedAgents.splice(i);
-      }*/
+      if (id === this.selectedAgents[i].id) {
+        return true;
+      }
     }
+    return false;
   }
 
   onVoted(updateDataArray: any) {
-    /*  console.log('dA');
-      console.log(updateDataArray);
-      for (let i = 0; i < updateDataArray.length; i++) {
-        const result = this.checkId(updateDataArray[i].id);
-        console.log(result);
-        if (result) {
-          this.testFindddddd(updateDataArray[i].id);
-        }
-      }
-      console.log('muc');
-      console.log(this.selectedAgents);*/
-    ////  НИЖЕ ИДЕТ РАБОЧИЙ КОД, Я ТЕСТИРУЮ ЗАКрЫТИЕ ВКлАДКИ РЕДАКТИРОВАНИЯ АГЕНТА И УМЕНЬШЕНИЕ СЧЕТЧИКА У АГЕНТОВ ( не items )
+   /* this.dataSource.data.forEach(row => {
+      console.log('qq');
+      console.log(row);
+      /!* if(row.id === updateDataArray[i].id)*!/
+    });*/
     for (let i = 0; i < updateDataArray.length; i++) {
+      const checkId = this.selectedAgentsCheckId(updateDataArray[i].id);
+      if (!checkId) {
+        console.log('rtt');
+        //this.selection.clear();
+        this.selection.toggle(updateDataArray[i]);
+      }
+
+    }
+
+
+
+
+    /*for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
       if (result) {
         this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
       }
-    }
+    }*/
   }
 
   newItem(event: any) {
@@ -155,6 +166,7 @@ export class AgentsComponent implements AfterViewInit {
       this.dataSource = new MatTableDataSource<Agent>(this.allAgents);
     }
   }
+
 
   deleteArray(updateDataArray: any) {
     for (let i = 0; i < updateDataArray.length; i++) {
