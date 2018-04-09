@@ -303,8 +303,9 @@ export class AddFormComponent {
           });
         break;
       case 4:
-        this.documentService.addDocumentTN(this.firstStepGroup.value.documentName, this.agentId.value, this.products.value)
+        this.documentService.addDocumentSF(this.firstStepGroup.value.documentName, this.agentId.value, this.products.value)
           .then(data => {
+            console.log('ggg');
             if (data) {
               this.createdDocument = data;
               this.showDocumentInPdf();
@@ -326,6 +327,7 @@ export class AddFormComponent {
       disableSuccessButton1.unsubscribe();
     });
 
+
     const disableSuccessButton1 = this.secondStepGroup.valueChanges.subscribe(data => {
       if (data) {
         this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
@@ -340,7 +342,7 @@ export class AddFormComponent {
 
   downloadDocumentInPdf() {
     this.onLoad = true;
-    this.documentService.getDocumentByIdInPDF(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+    this.documentService.downloadPDF(this.createdDocument.id, this.createdDocument.name)
       .then(data => {
         if (data) {
           this.onLoad = false;
@@ -353,7 +355,7 @@ export class AddFormComponent {
 
   downloadDocumentInExcel() {
     this.onLoad = true;
-    this.documentService.getDocumentByIdInExcel(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+    this.documentService.downloadExcel(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
       .then(data => {
         if (data) {
           this.onLoad = false;
@@ -366,7 +368,7 @@ export class AddFormComponent {
 
   printDocument() {
     this.onLoad = true;
-    this.documentService.printDocument(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+    this.documentService.printDocument(this.createdDocument.id)
       .then(data => {
         if (data) {
           this.onLoad = false;
@@ -379,7 +381,7 @@ export class AddFormComponent {
 
   showDocumentInPdf() {
     this.onLoad = true;
-    this.documentService.showDocumentInPdf(this.createdDocument.id, this.createdDocument.name, this.createdDocument.type)
+    this.documentService.showPdf(this.createdDocument.id)
       .then(res => {
         this.pageurl = res;
         this.onLoad = false;
@@ -392,6 +394,7 @@ export class AddFormComponent {
       })
       .catch(err => err.toString());
   }
+
 
   deleteDocument() {
     this.onLoad = true;
