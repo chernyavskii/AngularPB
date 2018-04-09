@@ -1,0 +1,58 @@
+<mat-card *ngIf="items.length > 0">
+  <mat-card-header>
+    <mat-card-title>Редактирование</mat-card-title>
+    <mat-card-subtitle>изменение существующих водителей</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="grid__item" style="margin-top: 20px;">
+    <form [formGroup]="updateDriverForm">
+      <div formArrayName="items">
+        <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
+          <button mat-icon-button (click)="closeWindow(i)" style="float: right;">
+            <mat-icon style="float: right; color: red; margin: 3px;">clear</mat-icon>
+          </button>
+          <div class="grid__row grid__row--md" style="margin-top: 30px;">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Отчество" formControlName="middleName"/>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Фамилия" formControlName="lastName"/>
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Марка транспортного средства" formControlName="carModel"/>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Номерной знак транспортного средства" formControlName="carNumber"/>
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Марка прицепа" formControlName="trailerModel"/>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Номерной знак прицепа" formControlName="trailerNumber"/>
+            </mat-form-field>
+          </div>
+          <div>
+            <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
+                    mat-raised-button
+                    color="accent" (click)="updateDriver(element)">Обновить
+            </button>
+          </div>
+        </div>
+        <div>
+          <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;" mat-raised-button
+                  color="accent" (click)="updateAllDrivers()">Обновить всё
+          </button>
+        </div>
+        <div class="progress-bar">
+          <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

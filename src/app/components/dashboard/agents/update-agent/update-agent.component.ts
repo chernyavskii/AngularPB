@@ -81,7 +81,6 @@ export class UpdateAgentComponent implements OnChanges {
         for (let i = 0; i < changes.agents.currentValue.length; i++) {
           const result = this.checkIdCurrent(changes.agents.currentValue[i].id);
           if (!result) {
-            console.log('yyy');
             this.removeItem(this.items);
             this.items.push(this.fb.group({
               id: changes.agents.currentValue[i].id,
@@ -99,7 +98,6 @@ export class UpdateAgentComponent implements OnChanges {
               rs: changes.agents.currentValue[i].rs,
             }));
           } else {
-            console.log('iii');
             this.removeItem(this.items);
             this.items.push(this.fb.group({
               id: changes.agents.currentValue[i].id,

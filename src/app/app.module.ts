@@ -38,6 +38,10 @@ import { UpdateAgentComponent } from './components/dashboard/agents/update-agent
 import { DeleteAgentComponent } from './components/dashboard/agents/delete-agent/delete-agent.component';
 import { AddAgentComponent } from './components/dashboard/agents/add-agent/add-agent.component';
 import { DocumentDetailComponent } from './components/dashboard/documents/document-detail/document-detail.component';
+import { DriversComponent } from './components/dashboard/drivers/drivers.component';
+import { AddDriverComponent } from './components/dashboard/drivers/add-driver/add-driver.component';
+import { DeleteDriverComponent } from './components/dashboard/drivers/delete-driver/delete-driver.component';
+import { UpdateDriverComponent } from './components/dashboard/drivers/update-driver/update-driver.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +60,11 @@ import { DocumentDetailComponent } from './components/dashboard/documents/docume
     UpdateAgentComponent,
     DeleteAgentComponent,
     AddAgentComponent,
-    DocumentDetailComponent
+    DocumentDetailComponent,
+    DriversComponent,
+    AddDriverComponent,
+    DeleteDriverComponent,
+    UpdateDriverComponent
   ],
   imports: [
     routing,

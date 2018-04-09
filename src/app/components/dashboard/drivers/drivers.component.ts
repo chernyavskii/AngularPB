@@ -1,44 +1,46 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {User} from '../../../models/User';
-import {MatTableDataSource} from '@angular/material';
-import {AgentService} from '../../../services/agent/agent.service';
-import {Agent} from '../../../models/Agent';
+import {Driver} from '../../../models/Driver';
+import {DriverService} from '../../../services/driver/driver.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Error} from '../../../models/Error';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
-  selector: 'app-agents',
-  templateUrl: './agents.component.html',
-  styleUrls: ['./agents.component.css']
+  selector: 'app-drivers',
+  templateUrl: './drivers.component.html',
+  styleUrls: ['./drivers.component.css']
 })
-export class AgentsComponent implements AfterViewInit {
-  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName'/*, 'options'*/];
+export class DriversComponent implements AfterViewInit {
+
+
+  displayedColumns = ['select', 'carNumber', 'firstName', 'lastName', 'middleName'];
 
   @Input()
   user = new User();
-  allAgents: Agent[];
-  selectedAgents: Agent[];
-  selectedAgentsForDeleted: Agent[];
+  allDrivers: Driver[];
+  selectedDrivers: Driver[];
+  selectedDriversForDeleted: Driver[];
   error = new Error();
 
   loadData = false;
   allSelect = false;
 
   dataSource = null;
-  selection = new SelectionModel<Agent>(true, []);
+  selection = new SelectionModel<Driver>(true, []);
 
   createnewprop = false;
   errorProp = false;
 
-  constructor(private agentService: AgentService) {
+  constructor(private driverService: DriverService) {
     this.loadData = true;
 
-    this.agentService.getAllAgents()
+    this.driverService.getAllDrivers()
       .then(data => {
         if (data) {
           this.loadData = false;
-          this.allAgents = data;
-          this.dataSource = new MatTableDataSource<Agent>(data);
+          this.allDrivers = data;
+          this.dataSource = new MatTableDataSource<Driver>(data);
         }
       })
       .catch(err => {
@@ -49,15 +51,14 @@ export class AgentsComponent implements AfterViewInit {
         this.error.status = err.error.status;
         console.log(err);
       });
-    console.log(this.selection.hasValue());
   }
 
   ngAfterViewInit(): void {
-    this.agentService.getAllAgents()
+    this.driverService.getAllDrivers()
       .then(data => {
         if (data) {
-          this.allAgents = data;
-          this.dataSource = new MatTableDataSource<Agent>(data);
+          this.allDrivers = data;
+          this.dataSource = new MatTableDataSource<Driver>(data);
         }
       })
       .catch(err => {
@@ -89,11 +90,11 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   editElements() {
-    this.selectedAgents = this.selection.selected;
+    this.selectedDrivers = this.selection.selected;
   }
 
   deleteElements() {
-    this.selectedAgentsForDeleted = this.selection.selected;
+    this.selectedDriversForDeleted = this.selection.selected;
   }
 
   isAllSelected() {
@@ -135,11 +136,10 @@ export class AgentsComponent implements AfterViewInit {
     if (result == 'boolean') {
       this.createnewprop = false;
     } else {
-      this.allAgents.push(event);
-      this.dataSource = new MatTableDataSource<Agent>(this.allAgents);
+      this.allDrivers.push(event);
+      this.dataSource = new MatTableDataSource<Driver>(this.allDrivers);
     }
   }
-
 
   deleteArray(updateDataArray: any) {
     for (let i = 0; i < updateDataArray.length; i++) {
@@ -148,7 +148,7 @@ export class AgentsComponent implements AfterViewInit {
         this.updateDataSourceAfterDeleted(updateDataArray[i].id);
       }
     }
-    this.selectedAgents = null;
+    this.selectedDrivers = null;
   }
 
   updateDataSourceAfterDeleted(id: number) {
@@ -161,21 +161,16 @@ export class AgentsComponent implements AfterViewInit {
     this.ngAfterViewInit();
   }
 
-  updateDataSource(id: number, data: Agent) {
+  updateDataSource(id: number, data: Driver) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;
         this.dataSource.data[i].middleName = data.middleName;
         this.dataSource.data[i].lastName = data.lastName;
-        this.dataSource.data[i].unp = data.unp;
-        this.dataSource.data[i].organization = data.organization;
-        this.dataSource.data[i].position = data.position;
-        this.dataSource.data[i].address = data.address;
-        this.dataSource.data[i].rs = data.rs;
-        this.dataSource.data[i].ks = data.ks;
-        this.dataSource.data[i].bank = data.bank;
-        this.dataSource.data[i].bik = data.bik;
-        this.dataSource.data[i].phone = data.phone;
+        this.dataSource.data[i].carModel = data.carModel;
+        this.dataSource.data[i].carNumber = data.carNumber;
+        this.dataSource.data[i].trailerModel = data.trailerModel;
+        this.dataSource.data[i].trailerNumber = data.trailerNumber;
       }
     }
   }
@@ -183,4 +178,5 @@ export class AgentsComponent implements AfterViewInit {
   createNew() {
     this.createnewprop = true;
   }
+
 }
