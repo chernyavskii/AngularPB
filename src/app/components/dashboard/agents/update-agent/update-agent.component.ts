@@ -72,6 +72,7 @@ export class UpdateAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();
@@ -80,6 +81,25 @@ export class UpdateAgentComponent implements OnChanges {
         for (let i = 0; i < changes.agents.currentValue.length; i++) {
           const result = this.checkIdCurrent(changes.agents.currentValue[i].id);
           if (!result) {
+            console.log('yyy');
+            this.removeItem(this.items);
+            this.items.push(this.fb.group({
+              id: changes.agents.currentValue[i].id,
+              firstName: changes.agents.currentValue[i].firstName,
+              middleName: changes.agents.currentValue[i].middleName,
+              lastName: changes.agents.currentValue[i].lastName,
+              address: changes.agents.currentValue[i].address,
+              bank: changes.agents.currentValue[i].bank,
+              bik: changes.agents.currentValue[i].bik,
+              ks: changes.agents.currentValue[i].ks,
+              organization: changes.agents.currentValue[i].organization,
+              phone: changes.agents.currentValue[i].phone,
+              position: changes.agents.currentValue[i].position,
+              unp: changes.agents.currentValue[i].unp,
+              rs: changes.agents.currentValue[i].rs,
+            }));
+          } else {
+            console.log('iii');
             this.removeItem(this.items);
             this.items.push(this.fb.group({
               id: changes.agents.currentValue[i].id,

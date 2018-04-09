@@ -1,6 +1,9 @@
-<form [formGroup]="addNewAgentGroup">
-  <span (click)="closeWindow()"><mat-icon style="float: right; color: red;">clear</mat-icon></span>
-  <div class="grid__row grid__row--md" style="margin-top: 10px;">
+<button mat-icon-button (click)="closeWindow()" style=" position: absolute;
+    top: 0;
+    right: 0;">
+  <mat-icon style="float: right; color: red; margin: 3px;">clear</mat-icon>
+</button><form [formGroup]="addNewAgentGroup">
+  <div class="grid__row grid__row--md" style="margin-top: 15px;">
     <mat-form-field class="grid__item">
       <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
     </mat-form-field>

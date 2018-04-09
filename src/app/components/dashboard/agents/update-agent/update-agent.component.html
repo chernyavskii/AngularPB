@@ -7,7 +7,9 @@
     <form [formGroup]="updateAgentForm">
       <div formArrayName="items">
         <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
-          <span (click)="closeWindow(i)"><mat-icon style="float: right; color: red; margin: 2px;">clear</mat-icon></span> <!--(click)="testHH()"-->
+          <button mat-icon-button (click)="closeWindow(i)" style="float: right;">
+            <mat-icon style="float: right; color: red; margin: 3px;">clear</mat-icon>
+          </button>
           <div class="grid__row grid__row--md" style="margin-top: 30px;">
             <mat-form-field class="grid__item">
               <input type="text" matInput placeholder="Имя" formControlName="firstName"/>

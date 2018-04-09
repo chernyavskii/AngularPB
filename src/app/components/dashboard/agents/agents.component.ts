@@ -13,8 +13,8 @@ import {Error} from '../../../models/Error';
 })
 export class AgentsComponent implements AfterViewInit {
   /*
-    displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'organization', 'position', 'address', 'phone', 'bank', 'rs', 'ks', 'bik'];
-  */
+   displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'organization', 'position', 'address', 'phone', 'bank', 'rs', 'ks', 'bik'];
+   */
   displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName'/*, 'options'*/];
 
   @Input()
@@ -54,14 +54,13 @@ export class AgentsComponent implements AfterViewInit {
         this.error.status = err.error.status;
         console.log(err);
       });
+    console.log(this.selection.hasValue());
   }
 
   ngAfterViewInit(): void {
     this.agentService.getAllAgents()
       .then(data => {
         if (data) {
-          //  this.selectedAgents = this.selection.selected;
-
           this.allAgents = data;
           this.dataSource = new MatTableDataSource<Agent>(data);
         }
@@ -91,8 +90,6 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   isSelect(raw: any) {
-    console.log(raw);
-    console.log('qqqwerrrr');
     this.selection.toggle(raw);
   }
 
@@ -102,6 +99,7 @@ export class AgentsComponent implements AfterViewInit {
 
   deleteElements() {
     this.selectedAgentsForDeleted = this.selection.selected;
+    this.selection.selected.length;
   }
 
   isAllSelected() {
@@ -120,41 +118,22 @@ export class AgentsComponent implements AfterViewInit {
     return false;
   }
 
-  selectedAgentsCheckId(id: number): boolean {
-    console.log(this.selectedAgents);
-    for (let i = 0; i < this.selectedAgents.length; i++) {
-      if (id === this.selectedAgents[i].id) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   onVoted(updateDataArray: any) {
-   /* this.dataSource.data.forEach(row => {
-      console.log('qq');
-      console.log(row);
-      /!* if(row.id === updateDataArray[i].id)*!/
-    });*/
+    this.selection.clear();
     for (let i = 0; i < updateDataArray.length; i++) {
-      const checkId = this.selectedAgentsCheckId(updateDataArray[i].id);
-      if (!checkId) {
-        console.log('rtt');
-        //this.selection.clear();
-        this.selection.toggle(updateDataArray[i]);
-      }
-
+      this.dataSource.data.forEach(row => {
+        if (row.id == updateDataArray[i].id) {
+          this.selection.select(row);
+        }
+      });
     }
 
-
-
-
-    /*for (let i = 0; i < updateDataArray.length; i++) {
+    for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
       if (result) {
         this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
       }
-    }*/
+    }
   }
 
   newItem(event: any) {
