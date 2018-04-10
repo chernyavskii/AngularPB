@@ -24,7 +24,6 @@ import {MatCardModule} from '@angular/material/card';
 import { RegistrationComponent } from './components/index/registration/registration.component';
 import {routing} from './app.routing';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
-import { DestroyFormComponent } from './components/dashboard/profile/destroy-form/destroy-form.component';
 import { ChangePasswordComponent } from './components/dashboard/profile/change-password/change-password.component';
 import { DocumentsComponent } from './components/dashboard/documents/documents.component';
 import {DocumentService} from './services/document/document.service';
@@ -51,7 +50,6 @@ import { UpdateDriverComponent } from './components/dashboard/drivers/update-dri
     UpdateFormComponent,
     RegistrationComponent,
     ProfileComponent,
-    DestroyFormComponent,
     ChangePasswordComponent,
     DocumentsComponent,
     PdfViewerComponent,

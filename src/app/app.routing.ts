@@ -6,6 +6,8 @@ import {AuthGuard} from './utils/AuthGuard';
 import {ProfileComponent} from './components/dashboard/profile/profile.component';
 import {DocumentsComponent} from './components/dashboard/documents/documents.component';
 import {AgentsComponent} from './components/dashboard/agents/agents.component';
+import {DriversComponent} from './components/dashboard/drivers/drivers.component';
+import {AddFormComponent} from './components/dashboard/documents/add-form/add-form.component';
 
 const appRoutes: Routes = [
   {
@@ -14,7 +16,9 @@ const appRoutes: Routes = [
       [
         {path: 'profile', component: ProfileComponent},
         {path: 'documents', component: DocumentsComponent},
-        {path: 'agents', component: AgentsComponent}
+        {path: 'new', component: AddFormComponent},
+        {path: 'agents', component: AgentsComponent},
+        {path: 'drivers', component: DriversComponent}
       ]
   },
   {path: 'login', component: LoginComponent},

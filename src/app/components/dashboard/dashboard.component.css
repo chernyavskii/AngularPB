@@ -8,12 +8,6 @@
   background: #f7f7f8;
 }
 
-/*.mat-button-toggle {
-  background-color: #FAFAFA;
-  margin-left: -15px;
-  height: 53px;
-  border: none;
-}*/
 .dashboard-sidenav {
   display: flex;
   width: 270px;
@@ -49,9 +43,6 @@
   right: 0;
   height: 52px;
   background: #f7f7f8;
-  /*
-  border-bottom: 1px solid #dfdfdf;
-  */
 }
 
 .dashboard-footer {
@@ -102,12 +93,9 @@
 }
 
 .dashboard-main-content {
-  /*
-  margin: auto;
-  */
   margin-left: auto;
   margin-right: auto;
-  margin-top:auto;
+  margin-top: auto;
   margin-bottom: 50px;
   width: 95%;
   padding-top: 30px;
@@ -140,14 +128,13 @@
 .list-item-nav a {
   display: block;
   text-align: center;
-  padding: 10px;
   text-decoration: none;
   color: #757575;
 }
 
 .list-item-nav a hover {
   background-color: red;
-  color: #ffe; /* Цвет текста активного пункта */
+  color: #ffe;
 }
 
 .mat-button-toggle {
@@ -176,9 +163,11 @@
   margin: 7px;
   color: #a9afbb;
 }
+
 .left-menu-item a:hover {
   background: #f3f3f3;
 }
+
 .active {
   background: linear-gradient(to right, #834d9b, #d04ed6);
   box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);

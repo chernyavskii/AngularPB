@@ -305,7 +305,6 @@ export class AddFormComponent {
       case 4:
         this.documentService.addDocumentSF(this.firstStepGroup.value.documentName, this.agentId.value, this.products.value)
           .then(data => {
-            console.log('ggg');
             if (data) {
               this.createdDocument = data;
               this.showDocumentInPdf();

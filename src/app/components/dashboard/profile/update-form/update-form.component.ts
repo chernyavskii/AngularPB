@@ -17,8 +17,6 @@ export class UpdateFormComponent implements OnInit {
   user = new User();
   firstFormGroup: FormGroup;
 
-  step = 0;
-
   constructor(private authService: AuthService,
               private userService: UserService,
               private snackBar: MatSnackBar,
@@ -78,10 +76,6 @@ export class UpdateFormComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
-  }
-
-  setStep(index: number) {
-    this.step = index;
   }
 
 }
