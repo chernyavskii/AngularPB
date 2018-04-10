@@ -15,42 +15,32 @@ export class UserService {
   private resourceURL = 'http://localhost:8081/';
   private agentsURL = 'http://localhost:8081/agents/';
 
-
-  checkAuth = false;
-
-  isLoggedIn = false;
-  redirectUrl: string;
-
   constructor(private http: HttpClient,
               private router: Router,
               private authService: AuthService) {
   }
 
-  /*findById(id): Promise<any> {
-    id = this.authService.getUserId();
+  getAllUsers(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http
-        .get(`${this.usersURL}/${id}`)
-        .toPromise()
-        .then(result => {
-          console.log(result);
-          resolve(result);
-        })
-        .catch(error => reject(error));
+      const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
+      this.http.get(this.usersURL, {headers: headers}).toPromise()
+        .then(data => resolve(data))
+        .catch(err => reject(err));
     });
-  }*/
+  }
+
   login(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ' + btoa(user.username + ':' + user.password),
         'X-Requested-With': 'XMLHttpRequest'
- /*       'Access-Control-Allow-Origin': '*',
-        /!*   'Access-Control-Allow-Credentials': 'true',*!/
-        'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
-        ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
-        ' Access-Control-Request-Headers'*/
+        /*       'Access-Control-Allow-Origin': '*',
+               /!*   'Access-Control-Allow-Credentials': 'true',*!/
+               'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+               'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
+               ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
+               ' Access-Control-Request-Headers'*/
       });
       this.http
         .get(AppComponent.API_URL + '/login', {headers: headers}) //// withCredentials: true
@@ -104,33 +94,6 @@ export class UserService {
           resolve(result);
         })
         .catch(error => reject(error));
-    });
-  }
-
-  testFindAll(): Promise<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-      'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
-      ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
-      ' Access-Control-Request-Headers',
-      /*
-            'Authorization': 'Basic dmFnYWJ1bmQxOnZhZ2FidW5kMQ=='
-      */
-    });
-    return new Promise((resolve, reject) => {
-      this.http
-        .get(this.usersURL)
-        .toPromise()
-        .then(result => {
-          console.log(JSON.stringify(result));
-        })
-        .catch(err => {
-          console.log(JSON.stringify(err));
-        });
     });
   }
 

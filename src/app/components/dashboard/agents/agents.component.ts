@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {User} from '../../../models/User';
 import {MatTableDataSource} from '@angular/material';
 import {AgentService} from '../../../services/agent/agent.service';

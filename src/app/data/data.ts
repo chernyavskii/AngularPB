@@ -59,3 +59,11 @@ export const typeOfDocument = [
       ]
   }
 ];
+
+export const tableLabels = [
+  {name: 'Первая страница'},
+  {name: 'Последняя страница'},
+  {name: 'Предыдущая страница'},
+  {name: 'Следующая страница'},
+  {name: 'Элементов на странице'},
+];
