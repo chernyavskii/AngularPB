@@ -1,10 +1,8 @@
-<button mat-icon-button (click)="closeWindow()" style=" position: absolute;
-    top: 0;
-    right: 0;">
-  <mat-icon style="float: right; color: red; margin: 3px;">clear</mat-icon>
-</button>
+<div style="height: 26px;">
+  <mat-icon style="float: right; color: red; margin-left: 10px; position: relative;" (click)="closeWindow()">clear</mat-icon>
+</div>
 <form [formGroup]="addNewDriverGroup">
-  <div class="grid__row grid__row--md" style="margin-top: 15px;">
+  <div class="grid__row grid__row--md">
     <mat-form-field class="grid__item">
       <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
     </mat-form-field>

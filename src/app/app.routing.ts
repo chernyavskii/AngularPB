@@ -8,6 +8,7 @@ import {DocumentsComponent} from './components/dashboard/documents/documents.com
 import {AgentsComponent} from './components/dashboard/agents/agents.component';
 import {DriversComponent} from './components/dashboard/drivers/drivers.component';
 import {AddFormComponent} from './components/dashboard/documents/add-form/add-form.component';
+import {AdminComponent} from './components/admin/admin.component';
 
 const appRoutes: Routes = [
   {
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
         {path: 'drivers', component: DriversComponent}
       ]
   },
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'}

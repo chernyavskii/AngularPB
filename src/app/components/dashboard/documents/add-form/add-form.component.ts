@@ -42,6 +42,7 @@ export class AddFormComponent {
   visibleDocument = false;
   disableButton = false;
   newAgentProp = false;
+  newDriverProp = false;
 
   constructor(private fb: FormBuilder,
               private snackBar: MatSnackBar,
@@ -130,6 +131,7 @@ export class AddFormComponent {
 
   searchTypeById() {
     this.newAgentProp = false;
+    this.newDriverProp = false;
     this.firstStepGroup.get('elementOfType').setValue('');
     const nameControl = this.firstStepGroup.get('typeOfDocument');
     this.index_ = nameControl.value;
@@ -139,7 +141,10 @@ export class AddFormComponent {
 
   searchElementOfTypeById() {
     this.newAgentProp = false;
+    this.newDriverProp = false;
     this.agentId.setValue('');
+    this.driverId.setValue('');
+
     this.visibleDocument = false;
     this.pageurl = null;
     this.thirdStepGroup.controls.successButton.setValidators(Validators.required);
@@ -259,6 +264,7 @@ export class AddFormComponent {
         this.documentService.addDocumentTTN(this.firstStepGroup.value.documentName, this.agentId.value, this.driverId.value, this.products.value)
           .then(data => {
             if (data) {
+              this.onLoad = true;
               this.createdDocument = data;
               this.showDocumentInPdf();
             }
@@ -282,6 +288,7 @@ export class AddFormComponent {
         this.documentService.addDocumentTN(this.firstStepGroup.value.documentName, this.agentId.value, saveArrayOfProducts)
           .then(data => {
             if (data) {
+              this.onLoad = true;
               this.createdDocument = data;
               this.showDocumentInPdf();
             }
@@ -294,6 +301,7 @@ export class AddFormComponent {
         this.documentService.addDocumentASPR(this.firstStepGroup.value.documentName, this.agentId.value, this.works.value)
           .then(data => {
             if (data) {
+              this.onLoad = true;
               this.createdDocument = data;
               this.showDocumentInPdf();
             }
@@ -306,6 +314,7 @@ export class AddFormComponent {
         this.documentService.addDocumentSF(this.firstStepGroup.value.documentName, this.agentId.value, this.products.value)
           .then(data => {
             if (data) {
+              this.onLoad = true;
               this.createdDocument = data;
               this.showDocumentInPdf();
             }
@@ -379,7 +388,6 @@ export class AddFormComponent {
   }
 
   showDocumentInPdf() {
-    this.onLoad = true;
     this.documentService.showPdf(this.createdDocument.id)
       .then(res => {
         this.pageurl = res;
@@ -414,12 +422,25 @@ export class AddFormComponent {
     this.newAgentProp = true;
   }
 
+  addNewDriver(event: any) {
+    this.newDriverProp = true;
+  }
+
   newAgentFromDocuments(event: any) {
     const result = typeof event;
     if (result == 'boolean') {
       this.newAgentProp = false;
     } else {
       this.allAgents.push(event);
+    }
+  }
+
+  newDriverFromDocuments(event: any) {
+    const result = typeof event;
+    if (result == 'boolean') {
+      this.newDriverProp = false;
+    } else {
+      this.allDrivers.push(event);
     }
   }
 

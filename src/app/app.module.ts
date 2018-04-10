@@ -41,6 +41,7 @@ import { DriversComponent } from './components/dashboard/drivers/drivers.compone
 import { AddDriverComponent } from './components/dashboard/drivers/add-driver/add-driver.component';
 import { DeleteDriverComponent } from './components/dashboard/drivers/delete-driver/delete-driver.component';
 import { UpdateDriverComponent } from './components/dashboard/drivers/update-driver/update-driver.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { UpdateDriverComponent } from './components/dashboard/drivers/update-dri
     DriversComponent,
     AddDriverComponent,
     DeleteDriverComponent,
-    UpdateDriverComponent
+    UpdateDriverComponent,
+    AdminComponent
   ],
   imports: [
     routing,

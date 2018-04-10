@@ -42,7 +42,8 @@
                 <mat-form-field class="grid__item">
                   <mat-select placeholder="Выберите Контрагента"
                               formControlName="agentId" disableRipple>
-                    <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
+                    <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...
+                    </mat-option>
                     <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                       {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                     </mat-option>
@@ -51,17 +52,31 @@
                 <mat-form-field class="grid__item">
                   <mat-select placeholder="Выберите Водителя"
                               formControlName="driverId" disableRipple>
+                    <mat-option style="background: #9e9e9e; color: white;" (click)="addNewDriver($event)">Создать ...
+                    </mat-option>
                     <mat-option *ngFor="let driver of allDrivers" [value]="driver.id">
                       {{driver.lastName}} {{driver.firstName}} {{driver.middleName}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
+
+              <div class="product__item" *ngIf="newDriverProp">
+                <div class="title__block">
+                  <mat-icon
+                    style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
+                    account_box
+                  </mat-icon>
+                  <span class="product__title_left">Создание нового водителя</span>
+                </div>
+                <app-add-driver [newDriverProp]="newDriverProp"
+                                (newDriverFromDocuments)="newDriverFromDocuments($event)"></app-add-driver>
+              </div>
               <div class="product__item" *ngIf="newAgentProp">
                 <div class="title__block">
                   <mat-icon
                     style="font-size: 28px; float: left; margin-left: 10px; margin-top: 11px; height: 30px; width: 30px;color: #a9afbb;">
-                   account_box
+                    account_box
                   </mat-icon>
                   <span class="product__title_left">Создание нового контрагента</span>
                 </div>
@@ -142,7 +157,8 @@
               <mat-form-field class="grid__item">
                 <mat-select placeholder="Выберите Контрагента"
                             formControlName="agentId" disableRipple>
-                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
+                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...
+                  </mat-option>
                   <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                     {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                   </mat-option>
@@ -222,7 +238,8 @@
               <mat-form-field class="grid__item">
                 <mat-select placeholder="Выберите Контрагента"
                             formControlName="agentId" disableRipple>
-                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
+                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...
+                  </mat-option>
                   <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                     {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                   </mat-option>
@@ -282,7 +299,8 @@
               <mat-form-field class="grid__item">
                 <mat-select placeholder="Выберите Контрагента"
                             formControlName="agentId" disableRipple>
-                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...</mat-option>
+                  <mat-option style="background: #9e9e9e; color: white;" (click)="addNewAgent($event)">Создать ...
+                  </mat-option>
                   <mat-option *ngFor="let agent of allAgents" [value]="agent.id">
                     {{agent.lastName}} {{agent.firstName}} {{agent.middleName}}
                   </mat-option>
