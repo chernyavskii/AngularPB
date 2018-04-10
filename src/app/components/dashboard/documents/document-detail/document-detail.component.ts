@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Document} from '../../../../models/Document';
 import {DocumentService} from '../../../../services/document/document.service';
-import {Driver} from '../../../../models/Driver';
 
 @Component({
   selector: 'app-document-detail',
@@ -74,6 +73,10 @@ export class DocumentDetailComponent implements OnInit {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  closeWindow() {
+    this.document.info = '';
   }
 
 }

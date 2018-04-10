@@ -1,5 +1,5 @@
 <app-document-detail *ngIf="selectedDocument" [document]="selectedDocument" (deleteElement)="deleteElement($event)"></app-document-detail>
-
+<span><p style="font-size: 35px; font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0; padding-bottom: 15px;">Список всех файлов</p></span>
 <div class="cards">
   <mat-card class="card" *ngFor="let document of allDocuments; let i=index;" style=" margin: 10px;">
     <mat-card-header>

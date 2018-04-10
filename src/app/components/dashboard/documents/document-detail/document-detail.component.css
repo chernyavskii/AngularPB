@@ -3,10 +3,12 @@
 
 .grid__row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+/*  flex-wrap: wrap;*/
 }
 
 .grid__item {
+
 }
 
 @media all and ( min-width: 480px ) {
@@ -88,6 +90,7 @@
   border-radius: 2px;
   font-family: 'Open Sans Condensed', sans-serif;
 }
+
 
 .product__title_left {
   font-size: 26px;

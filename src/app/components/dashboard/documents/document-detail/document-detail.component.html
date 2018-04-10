@@ -1,50 +1,18 @@
-<div class="product__item" *ngIf="document.info !== ''">
-  <div class="grid__row grid__row--md">
-    <!-- <span class="product__title_left">
-       <button mat-icon-button [matMenuTriggerFor]="menu">
-         <mat-icon>more_vert</mat-icon>
-       </button>
-       <mat-menu #menu="matMenu">
-         <button mat-menu-item [matMenuTriggerFor]="download">
-           <mat-icon>file_download</mat-icon>
-           <span>Скачать</span>
-         </button>
-         <button mat-menu-item (click)="printDocument()">
-           <mat-icon>print</mat-icon>
-           <span>Печать</span>
-         </button>
-         <button mat-menu-item (click)="deleteDocument()">
-           <mat-icon>delete</mat-icon>
-           <span>Удалить</span>
-         </button>
-       </mat-menu>
-       <mat-menu #download="matMenu">
-          <button mat-menu-item (click)="downloadDocumentInPdf()">
-           <mat-icon>label</mat-icon>
-           <span>.pdf</span>
-         </button>
-         <button mat-menu-item (click)="downloadDocumentInExcel()">
-           <mat-icon>label</mat-icon>
-           <span>.xlsx</span>
-         </button>
-       </mat-menu>
-     </span>-->
-    <div class="grid__item">
-      <button mat-menu-item [matMenuTriggerFor]="download">
-        <mat-icon>file_download</mat-icon>
-        <span>Скачать</span>
+<div *ngIf="document.info !== ''">
+    <span><p style="font-size: 35px; font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0; padding-bottom: 15px;">Информация о файле</p></span>
+  <div class="product__item" *ngIf="document.info !== ''">
+    <div class="block-main">
+      <button style="width: 74px; float: left;" mat-menu-item [matMenuTriggerFor]="download">
+        <mat-icon style="margin-left: 8px;">file_download</mat-icon>
       </button>
-    </div>
-    <div class="grid__item">
-      <button mat-menu-item (click)="printDocument()">
-        <mat-icon>print</mat-icon>
-        <span>Печать</span>
+      <button style="width: 74px; float: left;" mat-menu-item (click)="printDocument()">
+        <mat-icon style="margin-left: 8px;">print</mat-icon>
       </button>
-    </div>
-    <div class="grid__item">
-      <button mat-menu-item (click)="deleteDocument()">
-        <mat-icon>delete</mat-icon>
-        <span>Удалить</span>
+      <button style="width: 74px; float: left;" mat-menu-item (click)="deleteDocument()">
+        <mat-icon style="margin-left: 8px;">delete</mat-icon>
+      </button>
+      <button mat-menu-item (click)="closeWindow()" style="float: right; width: 74px;">
+        <mat-icon style="margin-left: 8px; color: red;">clear</mat-icon>
       </button>
     </div>
     <mat-menu #download="matMenu">
@@ -57,17 +25,11 @@
         <span>.xlsx</span>
       </button>
     </mat-menu>
-    <div class="grid__item" style="float: right;">
-      <button mat-menu-item (click)="downloadDocumentInExcel()">
-        <mat-icon>label</mat-icon>
-        <span>.testtest</span>
-      </button>
+
+    <div class="progress-bar">
+      <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
     </div>
-
-  </div>
-  <div class="progress-bar">
-    <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
-  </div>
     <pdf-viewer [src]="document.documentUrl" [original-size]="true"></pdf-viewer>
-</div>
+  </div>
 
+</div>
