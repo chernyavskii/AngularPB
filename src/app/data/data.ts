@@ -60,10 +60,7 @@ export const typeOfDocument = [
   }
 ];
 
-export const tableLabels = [
-  {name: 'Первая страница'},
-  {name: 'Последняя страница'},
-  {name: 'Предыдущая страница'},
-  {name: 'Следующая страница'},
-  {name: 'Элементов на странице'},
+export const typeOfRole = [
+  {id: 1, name: 'Администратор', value: 'ROLE_ADMIN'},
+  {id: 2, name: 'Пользователь', value: 'ROLE_USER'}
 ];

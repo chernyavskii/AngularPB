@@ -16,6 +16,7 @@ export class AgentsComponent implements AfterViewInit {
 
   @Input()
   user = new User();
+
   allAgents: Agent[];
   selectedAgents: Agent[];
   selectedAgentsForDeleted: Agent[];
@@ -36,9 +37,9 @@ export class AgentsComponent implements AfterViewInit {
     this.agentService.getAllAgents()
       .then(data => {
         if (data) {
-          this.loadData = false;
           this.allAgents = data;
           this.dataSource = new MatTableDataSource<Agent>(data);
+          this.loadData = false;
         }
       })
       .catch(err => {

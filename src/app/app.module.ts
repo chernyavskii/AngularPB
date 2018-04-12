@@ -45,6 +45,11 @@ import {UpdateDriverComponent} from './components/dashboard/drivers/update-drive
 import {AdminComponent} from './components/admin/admin.component';
 import {UtilsComponent} from './components/utils/utils.component';
 import {UsersComponent} from './components/admin/users/users.component';
+import { AddUserComponent } from './components/admin/users/add-user/add-user.component';
+import { UpdateUserComponent } from './components/admin/users/update-user/update-user.component';
+import { DeleteUserComponent } from './components/admin/users/delete-user/delete-user.component';
+import { MessageComponent } from './components/admin/message/message.component';
+import {MessageService} from './services/message/message.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,11 @@ import {UsersComponent} from './components/admin/users/users.component';
     UpdateDriverComponent,
     AdminComponent,
     UtilsComponent,
-    UsersComponent
+    UsersComponent,
+    AddUserComponent,
+    UpdateUserComponent,
+    DeleteUserComponent,
+    MessageComponent
   ],
   imports: [
     routing,
@@ -108,7 +117,7 @@ import {UsersComponent} from './components/admin/users/users.component';
     MatAutocompleteModule,
     MatPaginatorModule
   ],
-  providers: [UserService, DriverService, AgentService, DocumentService, AuthService, CookieService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
+  providers: [UserService, DriverService, AgentService, DocumentService, AuthService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })
 

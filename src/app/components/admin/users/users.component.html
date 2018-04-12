@@ -1,4 +1,3 @@
-<!--<div class="example-container mat-elevation-z8">-->
 <mat-card>
   <mat-card-header>
     <mat-card-title>Пользователи</mat-card-title>
@@ -10,6 +9,26 @@
     </mat-form-field>
     <div class="progress-bar" *ngIf="loadData">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="product__item">
+      <div class="navigation_panel">
+        <button mat-button class="navigation_panel__item" (click)="editElements()"
+                [disabled]="this.selection.selected.length === 0">
+          <mat-icon>create</mat-icon>
+          {{selection.selected.length | json}}
+        </button>
+
+        <button mat-button class="navigation_panel__item" (click)="deleteElements()"
+                [disabled]="this.selection.selected.length === 0">
+          <mat-icon>delete</mat-icon>
+          {{selection.selected.length | json}}
+        </button>
+        <button mat-button class="navigation_panel__item" (click)="createNew()"
+                [disabled]="createnewprop">
+
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
     </div>
     <mat-table #table [dataSource]="dataSource">
 
@@ -54,57 +73,26 @@
         <mat-cell *matCellDef="let element"> {{element.unp}}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="organization">
-        <mat-header-cell *matHeaderCellDef> Организация</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.organization}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> Должность</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="address">
-        <mat-header-cell *matHeaderCellDef> Адрес</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.address}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="rs">
-        <mat-header-cell *matHeaderCellDef> РС</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.rs}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="ks">
-        <mat-header-cell *matHeaderCellDef> КС</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.ks}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="bank">
-        <mat-header-cell *matHeaderCellDef> Банк</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.bank}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="bik">
-        <mat-header-cell *matHeaderCellDef> БИК</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.bik}}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="phone">
-        <mat-header-cell *matHeaderCellDef> Телефон</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.phone}}</mat-cell>
-      </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
-    <mat-paginator #paginator
-                   [pageSize]="10"
-                   [pageSizeOptions]="[5, 10, 20]"
-                   [showFirstLastButtons]="true">
-    </mat-paginator>
   </mat-card-content>
 </mat-card>
-<!--
+<div class="grid__item" *ngIf="createnewprop" style="margin-top: 30px;">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Новая запись</mat-card-title>
+      <mat-card-subtitle>добавление нового пользователя</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="grid__item" style="margin-top: 20px;">
+      <app-add-user [createnewprop]="createnewprop" (newItem)="newItem($event)"></app-add-user>
+    </mat-card-content>
+  </mat-card>
 </div>
--->
+<div class="grid__item" *ngIf="selectedUsers" style="margin-top: 30px;">
+  <app-update-user [users]="selectedUsers" (onVoted)="onVoted($event)"></app-update-user>
+</div>
+<div class="grid__item" *ngIf="selectedUsersForDeleted">
+  <app-delete-user [users]="selectedUsersForDeleted" (deleteArray)="deleteArray($event)"></app-delete-user>
+</div>

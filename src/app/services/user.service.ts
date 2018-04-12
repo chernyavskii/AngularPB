@@ -7,6 +7,7 @@ import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
+import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class UserService {
@@ -57,7 +58,7 @@ export class UserService {
   }
 
 
-  updateById(user: User): Promise<any> {
+  /*updateById(user: User): Promise<any> {
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
       this.http
@@ -70,8 +71,36 @@ export class UserService {
         })
         .catch(error => reject(error));
     });
+  }*/
+  updateUser(id: number, user: User): Promise<any> {
+    const url = 'http://localhost:8081/users/' + id;
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
+    return new Promise((resolve, reject) => {
+      this.http.put(url, user, {headers: headers}).toPromise()
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 
+  updateAllUsers(array: FormArray): Promise<any> {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.updateUser(array[i].id, array[i]));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
 
   registration(user: User): Promise<any> {
     const headers = new HttpHeaders({
@@ -109,6 +138,53 @@ export class UserService {
           Cookie.delete('token');
           const userObject: User = <User>result;
           Cookie.set('token', 'Basic ' + btoa(userObject.username + ':' + passwordCredentials.newPassword));
+          resolve(result);
+        })
+        .catch(error => reject(error));
+    });
+  }
+
+  deleteUser(id: number): Promise<any> {
+    const url = 'http://localhost:8081/users/' + id;
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
+    return new Promise((resolve, reject) => {
+      this.http.delete(url, {headers: headers}).toPromise()
+        .then(response => {
+          console.log(response);
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  deleteAllUsers(array: any) {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.deleteUser(array[i].id));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  addUser(user: User, role: string): Promise<any> {
+    const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'});
+
+    const body = {user: user, role: role};
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(AppComponent.API_URL + '/users/', body, {headers: headers})
+        .toPromise()
+        .then(result => {
           resolve(result);
         })
         .catch(error => reject(error));

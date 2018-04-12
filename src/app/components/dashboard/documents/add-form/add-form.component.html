@@ -91,7 +91,7 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i)"><mat-icon
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i, products)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
@@ -183,7 +183,7 @@
                       account_box
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i)"><mat-icon
+                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i, products)"><mat-icon
                       style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
                   </div>
                   <div class="grid__row grid__row--md">
