@@ -122,6 +122,8 @@ export class UsersComponent implements AfterViewInit {
   }
 
   newItem(event: any) {
+    console.log(event);
+    console.log('tttt');
     const result = typeof event;
     if (result == 'boolean') {
       this.createnewprop = false;
@@ -152,7 +154,9 @@ export class UsersComponent implements AfterViewInit {
     this.ngAfterViewInit();
   }
 
-  updateDataSource(id: number, data: User) {
+  updateDataSource(id: number, data: any) {
+    console.log('rrrr');
+    console.log(this.dataSource);
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;
@@ -167,6 +171,12 @@ export class UsersComponent implements AfterViewInit {
         this.dataSource.data[i].bank = data.bank;
         this.dataSource.data[i].bik = data.bik;
         this.dataSource.data[i].phone = data.phone;
+        this.dataSource.data[i].roles[0].name = data.role;
+
+        /*
+                this.dataSource.data[i].roles[0].name = data.role;
+        */
+
       }
     }
 

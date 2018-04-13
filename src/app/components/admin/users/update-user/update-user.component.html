@@ -23,15 +23,17 @@
           </div>
           <div class="grid__row grid__row--md">
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="222" formControlName="role"/>
+              <mat-select placeholder="Роль" formControlName="role" disableRipple>
+                <mat-option *ngFor="let type of typeOfRole" [value]="type.value">
+                  <p *ngIf="type.value == items.value.role">
+                    {{type.name}}
+                  </p>
+                  <p *ngIf="type.value !== items.value.role">
+                    {{type.name}}
+                  </p>
+                </mat-option>
+              </mat-select>
             </mat-form-field>
-           <!-- <mat-select (change)="searchElementOfTypeById()"
-                        placeholder="Выберите документ из категории - {{elementOfType.name}}"
-                        formControlName="elementOfType" disableRipple>
-              <mat-option *ngFor="let type of elementOfType.documents" [value]="type">
-                {{type.document}}
-              </mat-option>
-            </mat-select>-->
           </div>
           <div class="grid__row grid__row--md">
             <mat-form-field class="grid__item">
@@ -77,7 +79,7 @@
         </div>
         <div>
           <button
-            style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;"
+            style="background: linear-gradient(to right, #56ab2f, #a8e063); margin-top: 5px; margin-left: 5px; float: right;"
             mat-raised-button
             color="accent" (click)="updateAllUsers()">Обновить всё
           </button>

@@ -57,22 +57,6 @@ export class UserService {
     });
   }
 
-
-  /*updateById(user: User): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
-      this.http
-        .put(`${this.usersURL}${user.id}`, user, {headers: headers})
-        .toPromise()
-        .then(result => {
-          localStorage.clear();
-          localStorage.setItem('currentUser', JSON.stringify(result));
-          resolve(result);
-        })
-        .catch(error => reject(error));
-    });
-  }*/
-
   updateUser(id: number, user: User, role: string): Promise<any> {
     const url = 'http://localhost:8081/users/' + id;
     const body_ = {user: user, role: role}
@@ -91,7 +75,7 @@ export class UserService {
   updateAllUsers(array: FormArray): Promise<any> {
     const promises = [];
     for (let i = 0; i < array.length; i++) {
-      /*promises.push(this.updateUser(array[i].id, array[i]));*/
+      promises.push(this.updateUser(array[i].id, array[i], array[i].role));
     }
     return new Promise((resolve, reject) => {
       Promise.all(promises)

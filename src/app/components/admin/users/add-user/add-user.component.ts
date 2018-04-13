@@ -44,7 +44,6 @@ export class AddUserComponent implements OnInit {
   }
 
   addNewUser() {
-    console.log(this.addNewUserGroup.value.role);
     if (this.addNewUserGroup.status !== 'INVALID') {
       const newUser: User = {
         id: null,
@@ -64,11 +63,33 @@ export class AddUserComponent implements OnInit {
         rs: this.addNewUserGroup.value.rs,
       };
 
+
       const role: string = this.addNewUserGroup.value.role;
       this.userService.addUser(newUser, role)
         .then(data => {
           if (data) {
-            this.newItem.emit(data);
+            const newEmit: any = {
+              id: data.id,
+              username: this.addNewUserGroup.value.username,
+              password: this.addNewUserGroup.value.password,
+              firstName: this.addNewUserGroup.value.firstName,
+              middleName: this.addNewUserGroup.value.middleName,
+              lastName: this.addNewUserGroup.value.lastName,
+              address: this.addNewUserGroup.value.address,
+              bank: this.addNewUserGroup.value.bank,
+              bik: this.addNewUserGroup.value.bik,
+              ks: this.addNewUserGroup.value.ks,
+              organization: this.addNewUserGroup.value.organization,
+              phone: this.addNewUserGroup.value.phone,
+              position: this.addNewUserGroup.value.position,
+              unp: this.addNewUserGroup.value.unp,
+              rs: this.addNewUserGroup.value.rs,
+              roles: [{
+                id: null,
+                name: this.addNewUserGroup.value.role
+              }]
+            };
+            this.newItem.emit(newEmit);
             this.snackBar.open('Новый пользователь успешно добавлен', 'Закрыть', {
               duration: 3000
             });

@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {User} from '../../../../models/User';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {UserService} from '../../../../services/user.service';
 import {MessageService} from '../../../../services/message/message.service';
+import {typeOfRole} from '../../../../data/data';
 
 @Component({
   selector: 'app-update-user',
@@ -18,6 +19,7 @@ export class UpdateUserComponent implements OnChanges {
   updateUserForm: FormGroup;
   onLoad = false;
   changes: SimpleChanges;
+  typeOfRole = typeOfRole;
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
@@ -152,6 +154,10 @@ export class UpdateUserComponent implements OnChanges {
 
   get items(): FormArray {
     return this.updateUserForm.get('items') as FormArray;
+  }
+
+  get role(): FormControl {
+    return this.updateUserForm.get('role') as FormControl;
   }
 
   updateUser(formValue: FormGroup) {

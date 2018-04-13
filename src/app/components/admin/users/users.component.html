@@ -77,7 +77,6 @@
         <mat-header-cell *matHeaderCellDef> Роль</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.roles[0].name}}</mat-cell>
       </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
