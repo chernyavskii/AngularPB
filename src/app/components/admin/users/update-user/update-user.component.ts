@@ -29,6 +29,7 @@ export class UpdateUserComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.users.currentValue[0].roles);
     this.changes = changes;
     if (changes.users.firstChange) {
       this.pushItem();
@@ -54,6 +55,7 @@ export class UpdateUserComponent implements OnChanges {
               position: changes.users.currentValue[i].position,
               unp: changes.users.currentValue[i].unp,
               rs: changes.users.currentValue[i].rs,
+              role: changes.users.currentValue[i].roles[0].name
             }));
           } else {
             this.removeItem(this.items);
@@ -73,6 +75,7 @@ export class UpdateUserComponent implements OnChanges {
               position: changes.users.currentValue[i].position,
               unp: changes.users.currentValue[i].unp,
               rs: changes.users.currentValue[i].rs,
+              role: changes.users.currentValue[i].roles[0].name
             }));
           }
         }
@@ -115,7 +118,8 @@ export class UpdateUserComponent implements OnChanges {
         phone: this.users[i].phone,
         position: this.users[i].position,
         unp: this.users[i].unp,
-        rs: this.users[i].rs
+        rs: this.users[i].rs,
+        role: this.changes.users.currentValue[i].roles[0].name
       }));
     }
   }
@@ -170,10 +174,11 @@ export class UpdateUserComponent implements OnChanges {
       unp: formValue.value.unp,
       rs: formValue.value.rs,
     };
-    this.userService.updateUser(formValue.value.id, updateUser)
+    this.userService.updateUser(formValue.value.id, updateUser, formValue.value.role)
       .then(data => {
-        const array: User[] = [formValue.value];
-        this.onVoted.emit(array);
+       // const array: User[] = [formValue.value];
+      //  this.onVoted.emit(array);
+        this.onVoted.emit(this.items.value);
         this.onLoad = false;
         this.messageService.add('test');
       })

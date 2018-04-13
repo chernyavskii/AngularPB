@@ -11,7 +11,7 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class UsersComponent implements AfterViewInit {
 
-  displayedColumns = ['select', 'username', 'firstName', 'lastName', 'middleName', 'unp'];
+  displayedColumns = ['select', 'username', 'firstName', 'lastName', 'middleName', 'unp', 'role'];
 
   allUsers: User[];
   selectedUsers: User[];

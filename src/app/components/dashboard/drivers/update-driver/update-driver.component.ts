@@ -140,8 +140,9 @@ export class UpdateDriverComponent implements OnChanges {
     };
     this.driverService.updateDriver(formValue.value.id, updateDriver)
       .then(data => {
-        const array: Driver[] = [formValue.value];
-        this.onVoted.emit(array);
+        //const array: Driver[] = [formValue.value];
+        //this.onVoted.emit(array);
+        this.onVoted.emit(this.items.value);
         this.onLoad = false;
       })
       .catch(err => {

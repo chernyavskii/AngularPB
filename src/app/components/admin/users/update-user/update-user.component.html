@@ -23,6 +23,18 @@
           </div>
           <div class="grid__row grid__row--md">
             <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="222" formControlName="role"/>
+            </mat-form-field>
+           <!-- <mat-select (change)="searchElementOfTypeById()"
+                        placeholder="Выберите документ из категории - {{elementOfType.name}}"
+                        formControlName="elementOfType" disableRipple>
+              <mat-option *ngFor="let type of elementOfType.documents" [value]="type">
+                {{type.document}}
+              </mat-option>
+            </mat-select>-->
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
               <input type="text" matInput placeholder="Организация" formControlName="organization"/>
             </mat-form-field>
             <mat-form-field class="grid__item">
@@ -64,8 +76,10 @@
           </div>
         </div>
         <div>
-          <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;" mat-raised-button
-                  color="accent" (click)="updateAllUsers()">Обновить всё
+          <button
+            style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;"
+            mat-raised-button
+            color="accent" (click)="updateAllUsers()">Обновить всё
           </button>
         </div>
         <div class="progress-bar">

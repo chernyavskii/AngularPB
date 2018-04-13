@@ -161,8 +161,9 @@ export class UpdateAgentComponent implements OnChanges {
     };
     this.agentService.updateAgent(formValue.value.id, updateAgent)
       .then(data => {
-        const array: Agent[] = [formValue.value];
-        this.onVoted.emit(array);
+        //const array: Agent[] = [formValue.value];
+       // this.onVoted.emit(array);
+        this.onVoted.emit(this.items.value);
         this.onLoad = false;
       })
       .catch(err => {

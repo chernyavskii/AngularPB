@@ -65,7 +65,7 @@ export class UpdateFormComponent implements OnInit {
       bik: this.firstFormGroup.value.bik,
       phone: this.firstFormGroup.value.phone,
     };
-    this.userService.updateUser(this.firstFormGroup.value.id, updateUser)
+   /* this.userService.updateUser(this.firstFormGroup.value.id, updateUser)
       .then(res => {
         if (res) {
           this.snackBar.open('Профиль успешно изменён', 'Закрыть', {
@@ -75,7 +75,7 @@ export class UpdateFormComponent implements OnInit {
       })
       .catch(err => {
         console.log(err);
-      });
+      });*/
   }
 
 }

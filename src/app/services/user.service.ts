@@ -72,11 +72,13 @@ export class UserService {
         .catch(error => reject(error));
     });
   }*/
-  updateUser(id: number, user: User): Promise<any> {
+
+  updateUser(id: number, user: User, role: string): Promise<any> {
     const url = 'http://localhost:8081/users/' + id;
+    const body_ = {user: user, role: role}
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
-      this.http.put(url, user, {headers: headers}).toPromise()
+      this.http.put(url, body_, {headers: headers}).toPromise()
         .then(response => {
           resolve(response);
         })
@@ -89,7 +91,7 @@ export class UserService {
   updateAllUsers(array: FormArray): Promise<any> {
     const promises = [];
     for (let i = 0; i < array.length; i++) {
-      promises.push(this.updateUser(array[i].id, array[i]));
+      /*promises.push(this.updateUser(array[i].id, array[i]));*/
     }
     return new Promise((resolve, reject) => {
       Promise.all(promises)
