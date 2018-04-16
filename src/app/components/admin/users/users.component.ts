@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service';
 import {User} from '../../../models/User';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material';
+import {Agent} from '../../../models/Agent';
 
 @Component({
   selector: 'app-users',
@@ -16,9 +17,14 @@ export class UsersComponent implements AfterViewInit {
   allUsers: User[];
   selectedUsers: User[];
   selectedUsersForDeleted: User[];
+/*
+  selectedUsersForAgents: User[];
+*/
+
+  arrayOfAgents: Agent[] = [];
 
   dataSource = null;
-  selection = new SelectionModel<User>(true, []);
+  selection = new SelectionModel<any>(true, []);
 
   loadData = false;
   allSelect = false;
@@ -44,6 +50,8 @@ export class UsersComponent implements AfterViewInit {
         if (data) {
           this.allUsers = data;
           this.dataSource = new MatTableDataSource<User>(data);
+          console.log('mmm');
+          console.log(this.dataSource);
         }
       })
       .catch(err => {
@@ -80,6 +88,12 @@ export class UsersComponent implements AfterViewInit {
     const numRows = this.dataSource.data.length;
 
     return numSelected === numRows;
+  }
+
+  agentsCheck() {
+    for (let i = 0; i < this.selection.selected.length; i++) {
+      this.arrayOfAgents.push(this.selection.selected[i]);
+    }
   }
 
   editElements() {
@@ -122,8 +136,6 @@ export class UsersComponent implements AfterViewInit {
   }
 
   newItem(event: any) {
-    console.log(event);
-    console.log('tttt');
     const result = typeof event;
     if (result == 'boolean') {
       this.createnewprop = false;
@@ -155,8 +167,6 @@ export class UsersComponent implements AfterViewInit {
   }
 
   updateDataSource(id: number, data: any) {
-    console.log('rrrr');
-    console.log(this.dataSource);
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;
@@ -172,14 +182,9 @@ export class UsersComponent implements AfterViewInit {
         this.dataSource.data[i].bik = data.bik;
         this.dataSource.data[i].phone = data.phone;
         this.dataSource.data[i].roles[0].name = data.role;
-
-        /*
-                this.dataSource.data[i].roles[0].name = data.role;
-        */
-
       }
     }
-
   }
+
 
 }

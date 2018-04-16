@@ -50,6 +50,8 @@ import { UpdateUserComponent } from './components/admin/users/update-user/update
 import { DeleteUserComponent } from './components/admin/users/delete-user/delete-user.component';
 import { MessageComponent } from './components/admin/message/message.component';
 import {MessageService} from './services/message/message.service';
+import { AdminAgentsComponent } from './components/admin/admin-agents/admin-agents.component';
+import { AdminUpdateAgentsComponent } from './components/admin/admin-agents/admin-update-agents/admin-update-agents.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import {MessageService} from './services/message/message.service';
     AddUserComponent,
     UpdateUserComponent,
     DeleteUserComponent,
-    MessageComponent
+    MessageComponent,
+    AdminAgentsComponent,
+    AdminUpdateAgentsComponent
   ],
   imports: [
     routing,
