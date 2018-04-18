@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Agent} from '../../../models/Agent';
-import {MatTableDataSource} from '@angular/material';
+import {MatInput, MatTableDataSource} from '@angular/material';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-admin-agents',
@@ -23,10 +24,9 @@ export class AdminAgentsComponent implements OnInit {
 
   selectedAgentsForUpdate: Agent[] = [];
 
-  testDS: MatTableDataSource<Agent>;
+  fG: FormGroup;
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
     for (let i = 0; i < this.users.length; i++) {
@@ -55,69 +55,75 @@ export class AdminAgentsComponent implements OnInit {
       });
   }
 
-  editElements(index: number) {
-    // this.selectedAgentsForUpdate = this.selections[index].selected;
- /*   this.selections.forEach(select => {
-      this.selectedAgentsForUpdate.push(select.selected);
-    });*/
+  editElements() {
+    const arrayAgents: Agent[] = [];
 
-   /* for (let i = 0; i < this.selections.length; i++) {
-      this.selectedAgentsForUpdate.push(this.selections[i].selected);
-    }*/
-/* Я ИНДЕКС УБРАЛ, Т.е. КОНКрЕТНОГО ИНДЕКСА selection & DATASOURCE нету, просто все сразу перекидываем на компонент UpdateAgent, но что то пока что не идет
-* потому что надо Один массив а тут получается больше чем один*/
-    console.log(this.selectedAgentsForUpdate);
+    for (let i = 0; i < this.selections.length; i++) {
+      if (this.selections[i].selected.length > 0) {
+        for (let k = 0; k < this.selections[i].selected.length; k++) {
+          arrayAgents.push(this.selections[i].selected[k]);
+        }
+      }
+    }
+    this.selectedAgentsForUpdate = arrayAgents;
   }
 
   checkId(id: number): boolean {
-    /* for (let i = 0; i < this.dataSource.data.length; i++) {
-       if (id === this.dataSource.data[i].id) {
-         return true;
-       }
-     }*/
-    for (let i = 0; i < this.testDS.data.length; i++) {
-      if (id === this.testDS.data[i].id) {
+    for (let i = 0; i < this.dataSource.length; i++) {
+      for (let k = 0; k < this.dataSource[i].data.length; k++) {
+        if (id === this.dataSource[i].data[k].id) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  checkEquals(arr: Agent[], id) {
+    for (let i = 0; i < arr.length; i++) {
+      if (id == arr[i].id) {
         return true;
       }
     }
     return false;
   }
 
-  updateDataSource(id: number, data: Agent) {
-    for (let i = 0; i < this.testDS.data.length; i++) {
-      if (id === this.testDS.data[i].id) {
-        this.testDS.data[i].firstName = data.firstName;
-        this.testDS.data[i].middleName = data.middleName;
-        this.testDS.data[i].lastName = data.lastName;
-        this.testDS.data[i].unp = data.unp;
-        this.testDS.data[i].organization = data.organization;
-        this.testDS.data[i].position = data.position;
-        this.testDS.data[i].address = data.address;
-        this.testDS.data[i].rs = data.rs;
-        this.testDS.data[i].ks = data.ks;
-        this.testDS.data[i].bank = data.bank;
-        this.testDS.data[i].bik = data.bik;
-        this.testDS.data[i].phone = data.phone;
-      }
-    }
-  }
-
-
-  onVotedAgentsAdmin(updateDataArray: any, index: number, choiceDS) {
-    this.testDS = choiceDS;
-    this.selections[index].clear();
-    for (let i = 0; i < updateDataArray.length; i++) {
-      choiceDS.data.forEach(row => {
-        if (row.id == updateDataArray[i].id) {
-          this.selections[index].select(row);
+  onVotedAgentsAdmin(updateDataArray: Agent[]) {
+    this.selections.forEach(select => {
+      select.selected.forEach(sel => {
+        const result = this.checkEquals(updateDataArray, sel.id);
+        if (!result) {
+          select.deselect(sel);
         }
       });
-    }
+    });
+
     for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
       if (result) {
         this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
       }
     }
+  }
+
+  updateDataSource(id: number, data: Agent) {
+    this.dataSource.forEach(result => {
+      result.data.forEach(raw => {
+        if (id === raw.id) {
+          raw.firstName = data.firstName;
+          raw.middleName = data.middleName;
+          raw.lastName = data.lastName;
+          raw.unp = data.unp;
+          raw.organization = data.organization;
+          raw.position = data.position;
+          raw.address = data.address;
+          raw.rs = data.rs;
+          raw.ks = data.ks;
+          raw.bank = data.bank;
+          raw.bik = data.bik;
+          raw.phone = data.phone;
+        }
+      });
+    });
   }
 }

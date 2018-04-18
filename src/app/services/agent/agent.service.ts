@@ -65,8 +65,6 @@ export class AgentService {
     const url = 'http://localhost:8081/agents/' + id;
     const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
-      console.log(id);
-      console.log(agent);
       this.http.put(url, agent, {headers: headers}).toPromise()
         .then(response => {
           resolve(response);

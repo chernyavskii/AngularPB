@@ -11,27 +11,27 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>-->
 
-<!--    <div class="product__item">
-      <div class="navigation_panel">
-        <button mat-button class="navigation_panel__item" (click)="editElements(i)"
-                [disabled]="this.selections[i].selected.length === 0">
-          <mat-icon>create</mat-icon>
-          {{selections[i].selected.length | json}}
-        </button>
+    <!--    <div class="product__item">
+          <div class="navigation_panel">
+            <button mat-button class="navigation_panel__item" (click)="editElements(i)"
+                    [disabled]="this.selections[i].selected.length === 0">
+              <mat-icon>create</mat-icon>
+              {{selections[i].selected.length | json}}
+            </button>
 
-        <button mat-button class="navigation_panel__item" (click)="deleteElements()"
-                [disabled]="this.selections[i].selected.length === 0">
-          <mat-icon>delete</mat-icon>
-          {{selections[i].selected.length | json}}
-        </button>
-        <button mat-button class="navigation_panel__item" (click)="createNew()"
-                [disabled]="createnewprop">
+            <button mat-button class="navigation_panel__item" (click)="deleteElements()"
+                    [disabled]="this.selections[i].selected.length === 0">
+              <mat-icon>delete</mat-icon>
+              {{selections[i].selected.length | json}}
+            </button>
+            <button mat-button class="navigation_panel__item" (click)="createNew()"
+                    [disabled]="createnewprop">
 
-          <mat-icon>add</mat-icon>
-        </button>
+              <mat-icon>add</mat-icon>
+            </button>
 
-      </div>
-    </div>-->
+          </div>
+        </div>-->
 
 
     <div class="product__item">
@@ -39,17 +39,17 @@
         <button mat-button class="navigation_panel__item" (click)="editElements()"
                 [disabled]="this.selections.length === 0">
           <mat-icon>create</mat-icon>
-<!--
-          {{selections[i].selected.length | json}}
--->
+          <!--
+                    {{selections[i].selected.length | json}}
+          -->
         </button>
 
         <button mat-button class="navigation_panel__item" (click)="deleteElements()"
                 [disabled]="this.selections.length === 0">
           <mat-icon>delete</mat-icon>
-<!--
-          {{selections[i].selected.length | json}}
--->
+          <!--
+                    {{selections | json}}
+          -->
         </button>
         <button mat-button class="navigation_panel__item" (click)="createNew()"
                 [disabled]="createnewprop">
@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div *ngFor="let user of users; let i=index" style="margin: 30px;">
+    <div *ngFor="let user of users; let i = index" [attr.data-index]="i" style="margin: 30px;">
       <h2>пользователь: {{user.username}}</h2>
       <mat-table #table [dataSource]="dataSource[i]">
         <ng-container matColumnDef="select">
@@ -101,18 +101,23 @@
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
       </mat-table>
 
     </div>
-   <!-- <app-update-agent *ngIf="selectedAgentsForUpdate" [agents]="selectedAgentsForUpdate"
-                      (onVotedAgentsAdmin)="onVotedAgentsAdmin($event, i, dataSource[i])"></app-update-agent>-->
-    <app-update-agent [agents]="selectedAgentsForUpdate"></app-update-agent>
+
+    <!--  <app-update-agent *ngIf="selectedAgentsForUpdate" [agents]="selectedAgentsForUpdate"
+                        (onVotedAgentsAdmin)="onVotedAgentsAdmin($event, i, dataSource[i])"></app-update-agent>-->
     <!--
-    ТУТ OnVOTEDAGENTSADMIN НЕ правильно
+        <app-update-agent [agents]="selectedAgentsForUpdate" (onVotedAgentsAdmin)="onVotedAgentsAdmin($event, i, dataSource[i])"></app-update-agent>
     -->
     <!--
-        там нужно изменить ответ от второго комп к первому
+        {{selectedAgentsForUpdate.length | json}}
     -->
+    <!--
+        <div class="grid__item" *ngIf="selectedAgentsForUpdate.length > 0" style="margin-top: 30px;">
+    -->
+
+    <app-update-agent [agents]="selectedAgentsForUpdate" *ngIf="selectedAgentsForUpdate.length > 0"
+                      (onVotedAgentsAdmin)="onVotedAgentsAdmin($event)"></app-update-agent>
   </mat-card-content>
 </mat-card>

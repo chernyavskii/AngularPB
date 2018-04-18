@@ -74,7 +74,6 @@ export class UpdateAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();
@@ -164,7 +163,7 @@ export class UpdateAgentComponent implements OnChanges {
     this.agentService.updateAgent(formValue.value.id, updateAgent)
       .then(data => {
         this.onVoted.emit(this.items.value);
-        this.onVotedAgentsAdmin.emit(this.items.value)
+        this.onVotedAgentsAdmin.emit(this.items.value);
         this.onLoad = false;
       })
       .catch(err => {
@@ -188,6 +187,6 @@ export class UpdateAgentComponent implements OnChanges {
   closeWindow(i: number) {
     this.items.removeAt(i);
     this.onVoted.emit(this.items.value);
-    this.onVotedAgentsAdmin.emit(this.items.value)
+    this.onVotedAgentsAdmin.emit(this.items.value);
   }
 }
