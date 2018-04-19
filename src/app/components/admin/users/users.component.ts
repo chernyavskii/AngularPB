@@ -21,7 +21,11 @@ export class UsersComponent implements AfterViewInit {
   selectedUsersForAgents: User[];
 */
 
+/*
   arrayOfAgents: Agent[] = [];
+*/
+  arrayOfAgents: Agent[];
+
 
   dataSource = null;
   selection = new SelectionModel<any>(true, []);
@@ -50,8 +54,6 @@ export class UsersComponent implements AfterViewInit {
         if (data) {
           this.allUsers = data;
           this.dataSource = new MatTableDataSource<User>(data);
-          console.log('mmm');
-          console.log(this.dataSource);
         }
       })
       .catch(err => {
@@ -91,9 +93,12 @@ export class UsersComponent implements AfterViewInit {
   }
 
   agentsCheck() {
+    const array: Agent[] = [];
     for (let i = 0; i < this.selection.selected.length; i++) {
-      this.arrayOfAgents.push(this.selection.selected[i]);
+      array.push(this.selection.selected[i]);
     }
+    this.arrayOfAgents = array;
+    console.log(this.arrayOfAgents);
   }
 
   editElements() {

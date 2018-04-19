@@ -74,6 +74,8 @@ export class UpdateAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    console.log('agenti');
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();
@@ -188,5 +190,6 @@ export class UpdateAgentComponent implements OnChanges {
     this.items.removeAt(i);
     this.onVoted.emit(this.items.value);
     this.onVotedAgentsAdmin.emit(this.items.value);
+    console.log(this.items.value.length);
   }
 }

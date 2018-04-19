@@ -1,15 +1,14 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Agent} from '../../../models/Agent';
-import {MatInput, MatTableDataSource} from '@angular/material';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-admin-agents',
   templateUrl: './admin-agents.component.html',
   styleUrls: ['./admin-agents.component.css']
 })
-export class AdminAgentsComponent implements OnInit {
+export class AdminAgentsComponent implements OnChanges {
 
   @Input()
   users: any[] = [];
@@ -23,17 +22,29 @@ export class AdminAgentsComponent implements OnInit {
   allSelect = false;
 
   selectedAgentsForUpdate: Agent[] = [];
+  selectedAgentsForDeleted: Agent[] = [];
 
-  fG: FormGroup;
+  constructor() {
+  }
 
-  constructor() { }
-
-  ngOnInit() {
-    for (let i = 0; i < this.users.length; i++) {
-      this.selections.push(new SelectionModel<Agent>(true, []));
-      this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.users.firstChange) {
+      for (let i = 0; i < this.users.length; i++) {
+        this.selections.push(new SelectionModel<Agent>(true, []));
+        this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+      }
+    } else {
+      for (let i = 0; i < this.dataSource.length; i++) {
+        this.dataSource.splice(i);
+        this.selections.splice(i);
+      }
+      for (let i = 0; i < this.users.length; i++) {
+        this.selections.push(new SelectionModel<Agent>(true, []));
+        this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+      }
     }
   }
+
 
   isSelect(raw: any, index: number) {
     this.selections[index].toggle(raw);
@@ -68,6 +79,19 @@ export class AdminAgentsComponent implements OnInit {
     this.selectedAgentsForUpdate = arrayAgents;
   }
 
+  deleteElements() {
+    const arrayAgents: Agent[] = [];
+
+    for (let i = 0; i < this.selections.length; i++) {
+      if (this.selections[i].selected.length > 0) {
+        for (let k = 0; k < this.selections[i].selected.length; k++) {
+          arrayAgents.push(this.selections[i].selected[k]);
+        }
+      }
+    }
+    this.selectedAgentsForDeleted = arrayAgents;
+  }
+
   checkId(id: number): boolean {
     for (let i = 0; i < this.dataSource.length; i++) {
       for (let k = 0; k < this.dataSource[i].data.length; k++) {
@@ -89,6 +113,11 @@ export class AdminAgentsComponent implements OnInit {
   }
 
   onVotedAgentsAdmin(updateDataArray: Agent[]) {
+    if (updateDataArray.length === 0) {
+      for (let i = 0; i < this.selectedAgentsForUpdate.length; i++) {
+        this.selectedAgentsForUpdate.splice(i);
+      }
+    }
     this.selections.forEach(select => {
       select.selected.forEach(sel => {
         const result = this.checkEquals(updateDataArray, sel.id);
@@ -125,5 +154,25 @@ export class AdminAgentsComponent implements OnInit {
         }
       });
     });
+  }
+
+  deleteArray(updateDataArray: any) {
+    for (let i = 0; i < updateDataArray.length; i++) {
+      for (let j = 0; j < this.dataSource.length; j++) {
+        for (let k = 0; k < this.dataSource[j].data.length; k++) {
+          if (this.dataSource[j].data[k].id === updateDataArray[i].id) {
+            this.dataSource[j].data.splice(k, 1);
+          }
+        }
+      }
+    }
+    for (let i = 0; i < this.dataSource.length; i++) {
+      this.dataSource.splice(i);
+      this.selections.splice(i);
+    }
+    for (let i = 0; i < this.users.length; i++) {
+      this.selections.push(new SelectionModel<Agent>(true, []));
+      this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+    }
   }
 }

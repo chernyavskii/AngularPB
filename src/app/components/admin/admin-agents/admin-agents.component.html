@@ -51,11 +51,6 @@
                     {{selections | json}}
           -->
         </button>
-        <button mat-button class="navigation_panel__item" (click)="createNew()"
-                [disabled]="createnewprop">
-
-          <mat-icon>add</mat-icon>
-        </button>
 
       </div>
     </div>
@@ -65,9 +60,10 @@
       <mat-table #table [dataSource]="dataSource[i]">
         <ng-container matColumnDef="select">
           <mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle(i, dataSource[i]) : null"
-                          [checked]="selections[i].hasValue() && isAllSelected(i, dataSource[i])"
-                          [indeterminate]="selections[i].hasValue() && !isAllSelected(i, dataSource[i])">
+             <mat-checkbox (change)="$event ? masterToggle(i, dataSource[i]) : null"
+                           [checked]="selections[i].hasValue() && isAllSelected(i, dataSource[i])"
+                           [indeterminate]="selections[i].hasValue() && !isAllSelected(i, dataSource[i])">
+
 
             </mat-checkbox>
           </mat-header-cell>
@@ -116,7 +112,9 @@
     <!--
         <div class="grid__item" *ngIf="selectedAgentsForUpdate.length > 0" style="margin-top: 30px;">
     -->
-
+    <div class="grid__item" *ngIf="selectedAgentsForDeleted.length > 0">
+      <app-delete-agent [agents]="selectedAgentsForDeleted" (deleteArray)="deleteArray($event)"></app-delete-agent>
+    </div>
     <app-update-agent [agents]="selectedAgentsForUpdate" *ngIf="selectedAgentsForUpdate.length > 0"
                       (onVotedAgentsAdmin)="onVotedAgentsAdmin($event)"></app-update-agent>
   </mat-card-content>

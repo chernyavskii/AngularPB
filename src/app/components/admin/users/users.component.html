@@ -115,8 +115,9 @@
     <div class="grid__item" *ngIf="selectedUsersForDeleted">
       <app-delete-user [users]="selectedUsersForDeleted" (deleteArray)="deleteArray($event)"></app-delete-user>
     </div>
-     <div class="grid__item" *ngIf="arrayOfAgents.length > 0">
+    <!-- <div class="grid__item" *ngIf="arrayOfAgents.length > 0">
        <app-admin-agents [users]="arrayOfAgents"></app-admin-agents>
-     </div>
+     </div>-->
+    <app-admin-agents *ngIf="arrayOfAgents" [users]="arrayOfAgents"></app-admin-agents>
   </div>
 </ng-container>

@@ -12,6 +12,8 @@ export class DeleteAgentComponent implements OnChanges {
   agents: Agent[] = [];
 
   @Output() deleteArray = new EventEmitter<any>();
+  @Output() deleteArrayAdmin = new EventEmitter<any>();
+
 
   constructor(private agentService: AgentService) {
   }
@@ -21,6 +23,7 @@ export class DeleteAgentComponent implements OnChanges {
       this.agentService.deleteAllAgents(this.agents)
         .then(data => {
           this.deleteArray.emit(data);
+          this.deleteArrayAdmin.emit(data);
         })
         .catch(err => {
           console.log(err);
