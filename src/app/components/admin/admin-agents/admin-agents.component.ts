@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Agent} from '../../../models/Agent';
 import {MatTableDataSource} from '@angular/material';
@@ -44,7 +44,6 @@ export class AdminAgentsComponent implements OnChanges {
       }
     }
   }
-
 
   isSelect(raw: any, index: number) {
     this.selections[index].toggle(raw);
@@ -157,6 +156,41 @@ export class AdminAgentsComponent implements OnChanges {
   }
 
   deleteArray(updateDataArray: any) {
+   /* this.selectedAgentsForUpdate.forEach((data, index) => {
+      updateDataArray.forEach(updated => {
+        if (updated.id == data.id) {
+          this.selectedAgentsForUpdate.splice(index, 1);
+        }
+      });
+    });*/
+/*
+    const arrayAgents: Agent[] = [];
+*/
+
+    for (let i = 0; i < this.selectedAgentsForUpdate.length; i++) {
+      updateDataArray.forEach(updated => {
+        if (updated.id == this.selectedAgentsForUpdate[i].id) {
+          this.selectedAgentsForUpdate.splice(i, 1);
+        } else {
+/*
+          arrayAgents.push(this.selectedAgentsForUpdate[i]);
+*/
+        }
+      });
+    }
+/*
+    console.log(arrayAgents);
+*/
+/*
+    this.selectedAgentsForUpdate = arrayAgents;
+*/
+/*
+    this.selectedAgentsForUpdate
+*/
+    console.log(this.selectedAgentsForUpdate);
+    /*Выше код тестинруется, когда выбрал несколько агентов - нажал редактировать - а потом удалить, они должны тоже удалиться*/
+
+
     for (let i = 0; i < updateDataArray.length; i++) {
       for (let j = 0; j < this.dataSource.length; j++) {
         for (let k = 0; k < this.dataSource[j].data.length; k++) {

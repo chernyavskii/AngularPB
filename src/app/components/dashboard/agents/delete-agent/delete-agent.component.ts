@@ -14,9 +14,7 @@ export class DeleteAgentComponent implements OnChanges {
   @Output() deleteArray = new EventEmitter<any>();
   @Output() deleteArrayAdmin = new EventEmitter<any>();
 
-
-  constructor(private agentService: AgentService) {
-  }
+  constructor(private agentService: AgentService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.agents) {
