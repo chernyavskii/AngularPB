@@ -12,7 +12,9 @@ export class UpdateDriverComponent implements OnChanges {
 
   @Input()
   drivers: Driver[] = [];
+
   @Output() onVoted = new EventEmitter<Driver[]>();
+  @Output() onVotedDriversAdmin = new EventEmitter<Driver[]>();
 
   updateDriverForm: FormGroup;
   onLoad = false;
@@ -140,9 +142,8 @@ export class UpdateDriverComponent implements OnChanges {
     };
     this.driverService.updateDriver(formValue.value.id, updateDriver)
       .then(data => {
-        //const array: Driver[] = [formValue.value];
-        //this.onVoted.emit(array);
         this.onVoted.emit(this.items.value);
+        this.onVotedDriversAdmin.emit(this.items.value);
         this.onLoad = false;
       })
       .catch(err => {
@@ -155,6 +156,7 @@ export class UpdateDriverComponent implements OnChanges {
     this.driverService.updateAllDrivers(this.items.value)
       .then(data => {
         this.onVoted.emit(this.items.value);
+        this.onVotedDriversAdmin.emit(this.items.value);
         this.onLoad = false;
       })
       .catch(err => {
@@ -165,6 +167,7 @@ export class UpdateDriverComponent implements OnChanges {
   closeWindow(i: number) {
     this.items.removeAt(i);
     this.onVoted.emit(this.items.value);
+    this.onVotedDriversAdmin.emit(this.items.value);
   }
 
 }

@@ -4,6 +4,8 @@ import {User} from '../../../models/User';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material';
 import {Agent} from '../../../models/Agent';
+import {Driver} from '../../../models/Driver';
+import {Document} from '../../../models/Document';
 
 @Component({
   selector: 'app-users',
@@ -17,15 +19,10 @@ export class UsersComponent implements AfterViewInit {
   allUsers: User[];
   selectedUsers: User[];
   selectedUsersForDeleted: User[];
-/*
-  selectedUsersForAgents: User[];
-*/
 
-/*
-  arrayOfAgents: Agent[] = [];
-*/
   arrayOfAgents: Agent[];
-
+  arrayOfDrivers: Driver[];
+  arrayOfDocuments: Document[];
 
   dataSource = null;
   selection = new SelectionModel<any>(true, []);
@@ -41,7 +38,6 @@ export class UsersComponent implements AfterViewInit {
         this.allUsers = result;
         this.dataSource = new MatTableDataSource<User>(result);
         this.loadData = false;
-        console.log(this.dataSource);
       })
       .catch(err => {
         console.log(err);
@@ -98,7 +94,22 @@ export class UsersComponent implements AfterViewInit {
       array.push(this.selection.selected[i]);
     }
     this.arrayOfAgents = array;
-    console.log(this.arrayOfAgents);
+  }
+
+  driversCheck() {
+    const array: Driver[] = [];
+    for (let i = 0; i < this.selection.selected.length; i++) {
+      array.push(this.selection.selected[i]);
+    }
+    this.arrayOfDrivers = array;
+  }
+
+  documentsCheck() {
+    const array: Document[] = [];
+    for (let i = 0; i < this.selection.selected.length; i++) {
+      array.push(this.selection.selected[i]);
+    }
+    this.arrayOfDocuments = array;
   }
 
   editElements() {

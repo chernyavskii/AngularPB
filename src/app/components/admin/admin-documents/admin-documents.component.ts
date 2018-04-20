@@ -1,37 +1,42 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Agent} from '../../../models/Agent';
+import {Document} from '../../../models/Document';
 import {MatTableDataSource} from '@angular/material';
+import {Agent} from '../../../models/Agent';
+import {DocumentService} from '../../../services/document/document.service';
 
 @Component({
-  selector: 'app-admin-agents',
-  templateUrl: './admin-agents.component.html',
-  styleUrls: ['./admin-agents.component.css']
+  selector: 'app-admin-documents',
+  templateUrl: './admin-documents.component.html',
+  styleUrls: ['./admin-documents.component.css']
 })
-export class AdminAgentsComponent implements OnChanges {
+export class AdminDocumentsComponent implements OnChanges {
 
   @Input()
   users: any[] = [];
 
-  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName'];
+  displayedColumns = ['select', 'name', 'date'];
 
   dataSource: any[] = [];
   selections: any[] = [];
-  selection = new SelectionModel<Agent>(true, []);
+  selection = new SelectionModel<Document>(true, []);
 
   allSelect = false;
 
-  selectedAgentsForUpdate: Agent[] = [];
-  selectedAgentsForDeleted: Agent[] = [];
+  /*
+    selectedDocumentsForUpdate: Document[] = [];
+  */
+  selectedDocumentsForDownload: Document[] = [];
+  selectedDocumentsForDeleted: Document[] = [];
 
-  constructor() {
+  constructor(private documentService: DocumentService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.users.firstChange) {
       for (let i = 0; i < this.users.length; i++) {
-        this.selections.push(new SelectionModel<Agent>(true, []));
-        this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+        this.selections.push(new SelectionModel<Document>(true, []));
+        this.dataSource.push(new MatTableDataSource<Document>(this.users[i].documents));
       }
     } else {
       for (let i = 0; i < this.dataSource.length; i++) {
@@ -39,8 +44,8 @@ export class AdminAgentsComponent implements OnChanges {
         this.selections.splice(i);
       }
       for (let i = 0; i < this.users.length; i++) {
-        this.selections.push(new SelectionModel<Agent>(true, []));
-        this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+        this.selections.push(new SelectionModel<Document>(true, []));
+        this.dataSource.push(new MatTableDataSource<Document>(this.users[i].documents));
       }
     }
   }
@@ -49,14 +54,14 @@ export class AdminAgentsComponent implements OnChanges {
     this.selections[index].toggle(raw);
   }
 
-  isAllSelected(index: number, choiceDS: MatTableDataSource<Agent>) {
+  isAllSelected(index: number, choiceDS: MatTableDataSource<Document>) {
     const numSelected = this.selections[index].selected.length;
     const numRows = choiceDS.data.length;
 
     return numSelected === numRows;
   }
 
-  masterToggle(index: number, choiceDS: MatTableDataSource<Agent>) {
+  masterToggle(index: number, choiceDS: MatTableDataSource<Document>) {
     this.isAllSelected(index, choiceDS) ?
       this.selections[index].clear() :
       choiceDS.data.forEach(row => {
@@ -65,30 +70,31 @@ export class AdminAgentsComponent implements OnChanges {
       });
   }
 
-  editElements() {
-    const arrayAgents: Agent[] = [];
+  /*editElements() {
+    const arrayDocuments: Document[] = [];
 
     for (let i = 0; i < this.selections.length; i++) {
       if (this.selections[i].selected.length > 0) {
         for (let k = 0; k < this.selections[i].selected.length; k++) {
-          arrayAgents.push(this.selections[i].selected[k]);
+          arrayDocuments.push(this.selections[i].selected[k]);
         }
       }
     }
-    this.selectedAgentsForUpdate = arrayAgents;
-  }
+    this.selectedDocumentsForUpdate = arrayDocuments;
+  }*/
+
 
   deleteElements() {
-    const arrayAgents: Agent[] = [];
+    const arrayDocuments: Document[] = [];
 
     for (let i = 0; i < this.selections.length; i++) {
       if (this.selections[i].selected.length > 0) {
         for (let k = 0; k < this.selections[i].selected.length; k++) {
-          arrayAgents.push(this.selections[i].selected[k]);
+          arrayDocuments.push(this.selections[i].selected[k]);
         }
       }
     }
-    this.selectedAgentsForDeleted = arrayAgents;
+    this.selectedDocumentsForDeleted = arrayDocuments;
   }
 
   checkId(id: number): boolean {
@@ -102,7 +108,7 @@ export class AdminAgentsComponent implements OnChanges {
     return false;
   }
 
-  checkEquals(arr: Agent[], id) {
+  checkEquals(arr: Document[], id) {
     for (let i = 0; i < arr.length; i++) {
       if (id == arr[i].id) {
         return true;
@@ -111,10 +117,10 @@ export class AdminAgentsComponent implements OnChanges {
     return false;
   }
 
-  onVotedAgentsAdmin(updateDataArray: Agent[]) {
+  /*onVotedDocumentsAdmin(updateDataArray: Document[]) {
     if (updateDataArray.length === 0) {
-      for (let i = 0; i < this.selectedAgentsForUpdate.length; i++) {
-        this.selectedAgentsForUpdate.splice(i);
+      for (let i = 0; i < this.selectedDocumentsForUpdate.length; i++) {
+        this.selectedDocumentsForUpdate.splice(i);
       }
     }
     this.selections.forEach(select => {
@@ -132,34 +138,25 @@ export class AdminAgentsComponent implements OnChanges {
         this.updateDataSource(updateDataArray[i].id, updateDataArray[i]);
       }
     }
-  }
+  }*/
 
-  updateDataSource(id: number, data: Agent) {
+  updateDataSource(id: number, data: Document) {
     this.dataSource.forEach(result => {
       result.data.forEach(raw => {
         if (id === raw.id) {
-          raw.firstName = data.firstName;
-          raw.middleName = data.middleName;
-          raw.lastName = data.lastName;
-          raw.unp = data.unp;
-          raw.organization = data.organization;
-          raw.position = data.position;
-          raw.address = data.address;
-          raw.rs = data.rs;
-          raw.ks = data.ks;
-          raw.bank = data.bank;
-          raw.bik = data.bik;
-          raw.phone = data.phone;
+          raw.name = data.name;
+          raw.type = data.type;
+          raw.date = data.date;
         }
       });
     });
   }
 
   deleteArray(updateDataArray: any) {
-    /*for (let i = 0; i < this.selectedAgentsForUpdate.length; i++) {
+    /*for (let i = 0; i < this.selectedDocumentsForUpdate.length; i++) {
       updateDataArray.forEach(updated => {
-        if (updated.id == this.selectedAgentsForUpdate[i].id) {
-          this.selectedAgentsForUpdate.splice(i, 1);
+        if (updated.id == this.selectedDocumentsForUpdate[i].id) {
+          this.selectedDocumentsForUpdate.splice(i, 1);
         }
       });
     }*/
@@ -180,8 +177,55 @@ export class AdminAgentsComponent implements OnChanges {
       this.selections.splice(i);
     }
     for (let i = 0; i < this.users.length; i++) {
-      this.selections.push(new SelectionModel<Agent>(true, []));
-      this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+      this.selections.push(new SelectionModel<Document>(true, []));
+      this.dataSource.push(new MatTableDataSource<Document>(this.users[i].documents));
     }
   }
+
+  downloadDocumentInPdf() {
+    const arrayDocuments: Document[] = [];
+
+    for (let i = 0; i < this.selections.length; i++) {
+      if (this.selections[i].selected.length > 0) {
+        for (let k = 0; k < this.selections[i].selected.length; k++) {
+          arrayDocuments.push(this.selections[i].selected[k]);
+        }
+      }
+    }
+    this.selectedDocumentsForDownload = arrayDocuments;
+    this.documentService.downloadAllDocumentsPDF(this.selectedDocumentsForDownload)
+      .then(data => {
+        if (data) {
+          console.log('run!');
+          //this.onLoad = false;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  downloadDocumentInExcel() {
+    const arrayDocuments: Document[] = [];
+
+    for (let i = 0; i < this.selections.length; i++) {
+      if (this.selections[i].selected.length > 0) {
+        for (let k = 0; k < this.selections[i].selected.length; k++) {
+          arrayDocuments.push(this.selections[i].selected[k]);
+        }
+      }
+    }
+    this.selectedDocumentsForDownload = arrayDocuments;
+
+    this.documentService.downloadAllDocumentsExcel(this.selectedDocumentsForDownload)
+      .then(data => {
+        if (data) {
+          console.log('run! exc');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
 }

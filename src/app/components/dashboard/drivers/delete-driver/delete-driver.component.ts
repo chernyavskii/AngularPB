@@ -11,7 +11,9 @@ export class DeleteDriverComponent implements OnChanges {
 
   @Input()
   drivers: Driver[] = [];
+
   @Output() deleteArray = new EventEmitter<any>();
+  @Output() deleteArrayAdmin = new EventEmitter<any>();
 
   constructor(private driverService: DriverService) {
   }
@@ -21,6 +23,7 @@ export class DeleteDriverComponent implements OnChanges {
       this.driverService.deleteAllDrivers(this.drivers)
         .then(data => {
           this.deleteArray.emit(data);
+          this.deleteArrayAdmin.emit(data);
         })
         .catch(err => {
           console.log(err);

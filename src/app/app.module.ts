@@ -51,6 +51,9 @@ import { DeleteUserComponent } from './components/admin/users/delete-user/delete
 import { MessageComponent } from './components/admin/message/message.component';
 import {MessageService} from './services/message/message.service';
 import { AdminAgentsComponent } from './components/admin/admin-agents/admin-agents.component';
+import { AdminDriversComponent } from './components/admin/admin-drivers/admin-drivers.component';
+import { AdminDocumentsComponent } from './components/admin/admin-documents/admin-documents.component';
+import { DeleteDocumentComponent } from './components/dashboard/documents/delete-document/delete-document.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,10 @@ import { AdminAgentsComponent } from './components/admin/admin-agents/admin-agen
     UpdateUserComponent,
     DeleteUserComponent,
     MessageComponent,
-    AdminAgentsComponent
+    AdminAgentsComponent,
+    AdminDriversComponent,
+    AdminDocumentsComponent,
+    DeleteDocumentComponent
   ],
   imports: [
     routing,

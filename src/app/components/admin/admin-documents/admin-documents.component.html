@@ -1,0 +1,116 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Документы</mat-card-title>
+    <mat-card-subtitle>список всех документов выбранных пользователей</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- <mat-form-field class="data_filter">
+       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Введите ...">
+     </mat-form-field>-->
+    <!--  <div class="progress-bar" *ngIf="loadData">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>-->
+
+    <!--    <div class="product__item">
+          <div class="navigation_panel">
+            <button mat-button class="navigation_panel__item" (click)="editElements(i)"
+                    [disabled]="this.selections[i].selected.length === 0">
+              <mat-icon>create</mat-icon>
+              {{selections[i].selected.length | json}}
+            </button>
+
+            <button mat-button class="navigation_panel__item" (click)="deleteElements()"
+                    [disabled]="this.selections[i].selected.length === 0">
+              <mat-icon>delete</mat-icon>
+              {{selections[i].selected.length | json}}
+            </button>
+            <button mat-button class="navigation_panel__item" (click)="createNew()"
+                    [disabled]="createnewprop">
+
+              <mat-icon>add</mat-icon>
+            </button>
+
+          </div>
+        </div>-->
+
+
+    <div class="product__item">
+      <div class="navigation_panel">
+       <!-- <button mat-button class="navigation_panel__item" (click)="downloadElements()"
+                [disabled]="this.selections.length === 0">
+          <mat-icon>file_download</mat-icon>
+          &lt;!&ndash;
+                    {{selections[i].selected.length | json}}
+          &ndash;&gt;
+        </button>-->
+
+        <button style="width: 74px; float: left;" mat-menu-item [matMenuTriggerFor]="download">
+          <mat-icon style="margin-left: 8px;">file_download</mat-icon>
+        </button>
+
+        <button mat-button class="navigation_panel__item" (click)="deleteElements()"
+                [disabled]="this.selections.length === 0">
+          <mat-icon>delete</mat-icon>
+          <!--
+                    {{selections | json}}
+          -->
+        </button>
+
+      </div>
+      <mat-menu #download="matMenu">
+        <button mat-menu-item (click)="downloadDocumentInPdf()">
+          <mat-icon>label</mat-icon>
+          <span>.pdf</span>
+        </button>
+        <button mat-menu-item (click)="downloadDocumentInExcel()">
+          <mat-icon>label</mat-icon>
+          <span>.xlsx</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div *ngFor="let user of users; let i = index" [attr.data-index]="i" style="margin: 30px;">
+      <h2>пользователь: {{user.username}}</h2>
+      <mat-table #table [dataSource]="dataSource[i]">
+        <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle(i, dataSource[i]) : null"
+                          [checked]="selections[i].hasValue() && isAllSelected(i, dataSource[i])"
+                          [indeterminate]="selections[i].hasValue() && !isAllSelected(i, dataSource[i])">
+
+
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="isSelect(row, i)"
+                          [checked]="selections[i].isSelected(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Название</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Дата создания</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.date}}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+    </div>
+    <div class="grid__item" *ngIf="selectedDocumentsForDeleted.length > 0">
+      <app-delete-document [documents]="selectedDocumentsForDeleted" (deleteArray)="deleteArray($event)"></app-delete-document>
+    </div>
+    <!--<div class="grid__item" *ngIf="selectedAgentsForDeleted.length > 0">
+      <app-delete-agent [agents]="selectedAgentsForDeleted" (deleteArray)="deleteArray($event)"></app-delete-agent>
+    </div>
+    <app-update-agent [agents]="selectedAgentsForUpdate" *ngIf="selectedAgentsForUpdate.length > 0"
+                      (onVotedAgentsAdmin)="onVotedAgentsAdmin($event)"></app-update-agent>-->
+  </mat-card-content>
+</mat-card>

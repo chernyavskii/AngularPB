@@ -1,37 +1,37 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {Agent} from '../../../models/Agent';
+import {Driver} from '../../../models/Driver';
 import {MatTableDataSource} from '@angular/material';
 
 @Component({
-  selector: 'app-admin-agents',
-  templateUrl: './admin-agents.component.html',
-  styleUrls: ['./admin-agents.component.css']
+  selector: 'app-admin-drivers',
+  templateUrl: './admin-drivers.component.html',
+  styleUrls: ['./admin-drivers.component.css']
 })
-export class AdminAgentsComponent implements OnChanges {
+export class AdminDriversComponent implements OnChanges {
+
 
   @Input()
   users: any[] = [];
 
-  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName'];
+  displayedColumns = ['select', 'carNumber', 'firstName', 'lastName', 'middleName'];
 
   dataSource: any[] = [];
   selections: any[] = [];
-  selection = new SelectionModel<Agent>(true, []);
+  selection = new SelectionModel<Driver>(true, []);
 
   allSelect = false;
 
-  selectedAgentsForUpdate: Agent[] = [];
-  selectedAgentsForDeleted: Agent[] = [];
+  selectedDriversForUpdate: Driver[] = [];
+  selectedDriversForDeleted: Driver[] = [];
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.users.firstChange) {
       for (let i = 0; i < this.users.length; i++) {
-        this.selections.push(new SelectionModel<Agent>(true, []));
-        this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+        this.selections.push(new SelectionModel<Driver>(true, []));
+        this.dataSource.push(new MatTableDataSource<Driver>(this.users[i].drivers));
       }
     } else {
       for (let i = 0; i < this.dataSource.length; i++) {
@@ -39,8 +39,8 @@ export class AdminAgentsComponent implements OnChanges {
         this.selections.splice(i);
       }
       for (let i = 0; i < this.users.length; i++) {
-        this.selections.push(new SelectionModel<Agent>(true, []));
-        this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+        this.selections.push(new SelectionModel<Driver>(true, []));
+        this.dataSource.push(new MatTableDataSource<Driver>(this.users[i].drivers));
       }
     }
   }
@@ -49,14 +49,14 @@ export class AdminAgentsComponent implements OnChanges {
     this.selections[index].toggle(raw);
   }
 
-  isAllSelected(index: number, choiceDS: MatTableDataSource<Agent>) {
+  isAllSelected(index: number, choiceDS: MatTableDataSource<Driver>) {
     const numSelected = this.selections[index].selected.length;
     const numRows = choiceDS.data.length;
 
     return numSelected === numRows;
   }
 
-  masterToggle(index: number, choiceDS: MatTableDataSource<Agent>) {
+  masterToggle(index: number, choiceDS: MatTableDataSource<Driver>) {
     this.isAllSelected(index, choiceDS) ?
       this.selections[index].clear() :
       choiceDS.data.forEach(row => {
@@ -66,29 +66,29 @@ export class AdminAgentsComponent implements OnChanges {
   }
 
   editElements() {
-    const arrayAgents: Agent[] = [];
+    const arrayDrivers: Driver[] = [];
 
     for (let i = 0; i < this.selections.length; i++) {
       if (this.selections[i].selected.length > 0) {
         for (let k = 0; k < this.selections[i].selected.length; k++) {
-          arrayAgents.push(this.selections[i].selected[k]);
+          arrayDrivers.push(this.selections[i].selected[k]);
         }
       }
     }
-    this.selectedAgentsForUpdate = arrayAgents;
+    this.selectedDriversForUpdate = arrayDrivers;
   }
 
   deleteElements() {
-    const arrayAgents: Agent[] = [];
+    const arrayDrivers: Driver[] = [];
 
     for (let i = 0; i < this.selections.length; i++) {
       if (this.selections[i].selected.length > 0) {
         for (let k = 0; k < this.selections[i].selected.length; k++) {
-          arrayAgents.push(this.selections[i].selected[k]);
+          arrayDrivers.push(this.selections[i].selected[k]);
         }
       }
     }
-    this.selectedAgentsForDeleted = arrayAgents;
+    this.selectedDriversForDeleted = arrayDrivers;
   }
 
   checkId(id: number): boolean {
@@ -102,7 +102,7 @@ export class AdminAgentsComponent implements OnChanges {
     return false;
   }
 
-  checkEquals(arr: Agent[], id) {
+  checkEquals(arr: Driver[], id) {
     for (let i = 0; i < arr.length; i++) {
       if (id == arr[i].id) {
         return true;
@@ -111,10 +111,10 @@ export class AdminAgentsComponent implements OnChanges {
     return false;
   }
 
-  onVotedAgentsAdmin(updateDataArray: Agent[]) {
+  onVotedDriversAdmin(updateDataArray: Driver[]) {
     if (updateDataArray.length === 0) {
-      for (let i = 0; i < this.selectedAgentsForUpdate.length; i++) {
-        this.selectedAgentsForUpdate.splice(i);
+      for (let i = 0; i < this.selectedDriversForUpdate.length; i++) {
+        this.selectedDriversForUpdate.splice(i);
       }
     }
     this.selections.forEach(select => {
@@ -134,32 +134,27 @@ export class AdminAgentsComponent implements OnChanges {
     }
   }
 
-  updateDataSource(id: number, data: Agent) {
+  updateDataSource(id: number, data: Driver) {
     this.dataSource.forEach(result => {
       result.data.forEach(raw => {
         if (id === raw.id) {
           raw.firstName = data.firstName;
           raw.middleName = data.middleName;
           raw.lastName = data.lastName;
-          raw.unp = data.unp;
-          raw.organization = data.organization;
-          raw.position = data.position;
-          raw.address = data.address;
-          raw.rs = data.rs;
-          raw.ks = data.ks;
-          raw.bank = data.bank;
-          raw.bik = data.bik;
-          raw.phone = data.phone;
+          raw.carModel = data.carModel;
+          raw.carNumber = data.carNumber;
+          raw.trailerModel = data.trailerModel;
+          raw.trailerNumber = data.trailerNumber;
         }
       });
     });
   }
 
   deleteArray(updateDataArray: any) {
-    /*for (let i = 0; i < this.selectedAgentsForUpdate.length; i++) {
+    /*for (let i = 0; i < this.selectedDriversForUpdate.length; i++) {
       updateDataArray.forEach(updated => {
-        if (updated.id == this.selectedAgentsForUpdate[i].id) {
-          this.selectedAgentsForUpdate.splice(i, 1);
+        if (updated.id == this.selectedDriversForUpdate[i].id) {
+          this.selectedDriversForUpdate.splice(i, 1);
         }
       });
     }*/
@@ -180,8 +175,9 @@ export class AdminAgentsComponent implements OnChanges {
       this.selections.splice(i);
     }
     for (let i = 0; i < this.users.length; i++) {
-      this.selections.push(new SelectionModel<Agent>(true, []));
-      this.dataSource.push(new MatTableDataSource<Agent>(this.users[i].agents));
+      this.selections.push(new SelectionModel<Driver>(true, []));
+      this.dataSource.push(new MatTableDataSource<Driver>(this.users[i].drivers));
     }
   }
+
 }

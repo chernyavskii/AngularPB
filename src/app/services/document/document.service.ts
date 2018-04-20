@@ -83,6 +83,22 @@ export class DocumentService {
     });
   }
 
+  downloadAllDocumentsPDF(array: any) {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.downloadPDF(array[i].id, array[i].name));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
   downloadExcel(id: number, filename: string, type: string): Promise<any> {
     const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
@@ -90,6 +106,22 @@ export class DocumentService {
         .then(response => {
           FileSaver.saveAs(new Blob([response]), filename + '.' + type);
           resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  downloadAllDocumentsExcel(array: any) {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.downloadExcel(array[i].id, array[i].name, array[i].type));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
         })
         .catch(error => {
           reject(error);
@@ -354,6 +386,22 @@ export class DocumentService {
           resolve(response);
         })
         .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  deleteAllDocuments(array: any) {
+    const promises = [];
+    for (let i = 0; i < array.length; i++) {
+      promises.push(this.deleteDocument(array[i].id));
+    }
+    return new Promise((resolve, reject) => {
+      Promise.all(promises)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(error => {
           reject(error);
         });
     });

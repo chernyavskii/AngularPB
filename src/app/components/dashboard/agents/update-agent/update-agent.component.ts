@@ -12,8 +12,8 @@ export class UpdateAgentComponent implements OnChanges {
 
   @Input()
   agents: Agent[] = [];
-  @Output() onVoted = new EventEmitter<Agent[]>();
 
+  @Output() onVoted = new EventEmitter<Agent[]>();
   @Output() onVotedAgentsAdmin = new EventEmitter<Agent[]>();
 
   updateAgentForm: FormGroup;
@@ -190,6 +190,5 @@ export class UpdateAgentComponent implements OnChanges {
     this.items.removeAt(i);
     this.onVoted.emit(this.items.value);
     this.onVotedAgentsAdmin.emit(this.items.value);
-    console.log(this.items.value.length);
   }
 }
