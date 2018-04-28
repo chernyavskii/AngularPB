@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-
+//testString
   hide = true;
   ////
   @Output() newUserEvent = new EventEmitter();
