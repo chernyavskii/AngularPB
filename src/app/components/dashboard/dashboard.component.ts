@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewChecked, ChangeDetectorRef  } from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
@@ -11,22 +11,25 @@ import {UtilsComponent} from '../utils/utils.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   currentUser: User;
   selected = false;
 
+  screenWidth: number;
 
   animal: string;
   name: string;
 
   constructor(private userService: UserService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private cdRef:ChangeDetectorRef) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(this.currentUser);
-  }
-
-  ngOnInit() {
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+      this.screenWidth = window.innerWidth;
+    };
   }
 
   onSelect() {

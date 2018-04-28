@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, EventEmitter, AfterViewInit} from '@angular/core';
 import {User} from '../../../models/User';
 import {Document} from '../../../models/Document';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatTableDataSource} from '@angular/material';
 
 import {FormBuilder} from '@angular/forms';
 import {DocumentService} from '../../../services/document/document.service';
@@ -10,8 +12,7 @@ import {DocumentService} from '../../../services/document/document.service';
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
-export class DocumentsComponent {
-
+export class DocumentsComponent implements AfterViewInit{
 
   @Input()
   user = new User();
@@ -24,6 +25,12 @@ export class DocumentsComponent {
 
   waitProp = false;
   onLoad = false;
+  listView = false;
+
+  displayedColumns = ['name', 'date', 'more'];
+
+  dataSource = null;
+  selection = new SelectionModel<Document>(true, []);
 
   constructor(private documentService: DocumentService,
               private fb: FormBuilder) {
@@ -32,10 +39,23 @@ export class DocumentsComponent {
     this.documentService.getAllDocuments()
       .then(data => {
         this.allDocuments = data;
+        this.listView = false;
         for (let doc of this.allDocuments) {
           this.showDocumentInPng(doc.id);
           this.elements = this.allDocuments.concat(this.url);
         }
+        this.dataSource = new MatTableDataSource<Document>(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.documentService.getAllDocuments()
+      .then(data => {
+        this.allDocuments = data;
+        this.dataSource = new MatTableDataSource<Document>(data);
       })
       .catch(err => {
         console.log(err);
@@ -71,11 +91,38 @@ export class DocumentsComponent {
   }
 
   deleteElement(event: any) {
-    for (let i = 0; i < this.allDocuments.length; i++) {
-      if (this.allDocuments[i].id == event.id) {
-        this.allDocuments.splice(i, 1);
+    const document: Document[] = [];
+    document.push(event);
+    console.log(document);
+    for (let i = 0; i < document.length; i++) {
+      const result = this.checkId(document[i].id);
+      if (result) {
+        this.updateDataSourceAfterDeleted(document[i].id);
       }
     }
+    this.selectedDocument = {info: '', documentUrl: ''};
+  }
+
+  updateDataSourceAfterDeleted(id: number) {
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (id === this.dataSource.data[i].id) {
+        this.dataSource.data.splice(i);
+      }
+    }
+    this.ngAfterViewInit();
+  }
+
+  checkId(id: number): boolean {
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (id === this.dataSource.data[i].id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  changeView() {
+    this.listView ? this.listView = false : this.listView = true;
   }
 }
 
