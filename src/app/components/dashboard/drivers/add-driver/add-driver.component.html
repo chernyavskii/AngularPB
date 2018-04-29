@@ -1,36 +1,40 @@
-<div style="height: 26px;">
-  <mat-icon style="float: right; color: red; margin-left: 10px; position: relative;" (click)="closeWindow()">clear</mat-icon>
-</div>
 <form [formGroup]="addNewDriverGroup">
-  <div class="grid__row grid__row--md">
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
-    </mat-form-field>
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Отчество" formControlName="middleName"/>
-    </mat-form-field>
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Фамилия" formControlName="lastName"/>
-    </mat-form-field>
+  <div class="product__item">
+    <div style=" height: 40px;">
+      <button mat-icon-button (click)="closeWindow()" style="float: right;">
+        <mat-icon style="color: red; position: relative;">clear</mat-icon>
+      </button>
+    </div>
+    <div class="grid__row grid__row--md">
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
+      </mat-form-field>
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Отчество" formControlName="middleName"/>
+      </mat-form-field>
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Фамилия" formControlName="lastName"/>
+      </mat-form-field>
+    </div>
+    <div class="grid__row grid__row--md">
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Марка транспортного средства" formControlName="carModel"/>
+      </mat-form-field>
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Номерной знак транспортного средства" formControlName="carNumber"/>
+      </mat-form-field>
+    </div>
+    <div class="grid__row grid__row--md">
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Марка прицепа" formControlName="trailerModel"/>
+      </mat-form-field>
+      <mat-form-field class="grid__item">
+        <input type="text" matInput placeholder="Номерной знак прицепа" formControlName="trailerNumber"/>
+      </mat-form-field>
+    </div>
+    <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
+            mat-raised-button
+            color="accent" (click)="addNewDriver()">Добавить
+    </button>
   </div>
-  <div class="grid__row grid__row--md">
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Марка транспортного средства" formControlName="carModel"/>
-    </mat-form-field>
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Номерной знак транспортного средства" formControlName="carNumber"/>
-    </mat-form-field>
-  </div>
-  <div class="grid__row grid__row--md">
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Марка прицепа" formControlName="trailerModel"/>
-    </mat-form-field>
-    <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="Номерной знак прицепа" formControlName="trailerNumber"/>
-    </mat-form-field>
-  </div>
-  <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
-          mat-raised-button
-          color="accent" (click)="addNewDriver()">Добавить
-  </button>
 </form>

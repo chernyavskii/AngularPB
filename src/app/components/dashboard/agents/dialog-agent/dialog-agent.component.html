@@ -1,0 +1,17 @@
+<h1 mat-dialog-title >{{data.lastName}} {{data.firstName}} {{data.middleName}}</h1>
+<mat-dialog-content>
+  <ul>
+    <li><label for="unp">УНП: </label><span id="unp">{{data.unp}}</span></li>
+    <li><label for="organization">Организация: </label><span id="organization">{{data.organization}}</span></li>
+    <li><label for="position">Должность: </label><span id="position">{{data.position}}</span></li>
+    <li><label for="address">Адрес: </label><span id="address">{{data.address}}</span></li>
+    <li><label for="ks">Номер телефона: </label><span id="phone">{{data.phone}}</span></li>
+    <li><label for="rs">РС: </label><span id="rs">{{data.rs}}</span></li>
+    <li><label for="ks">КС: </label><span id="ks">{{data.ks}}</span></li>
+    <li><label for="ks">Банк: </label><span id="bank">{{data.bank}}</span></li>
+    <li><label for="ks">БИК: </label><span id="bik">{{data.bik}}</span></li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Закрыть</button>
+</mat-dialog-actions>

@@ -1,25 +1,28 @@
-import {AfterViewInit, Component, Input} from '@angular/core';
+import {AfterViewInit, Component, Input, NgZone} from '@angular/core';
 import {User} from '../../../models/User';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatDialog} from '@angular/material';
 import {AgentService} from '../../../services/agent/agent.service';
 import {Agent} from '../../../models/Agent';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Error} from '../../../models/Error';
-
+import {DialogAgentComponent} from '../agents/dialog-agent/dialog-agent.component'
 @Component({
   selector: 'app-agents',
   templateUrl: './agents.component.html',
   styleUrls: ['./agents.component.css']
 })
 export class AgentsComponent implements AfterViewInit {
-  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName'/*, 'options'*/];
+  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'more'];
 
   @Input()
   user = new User();
 
-  allAgents: Agent[];
-  selectedAgents: Agent[];
-  selectedAgentsForDeleted: Agent[];
+  width:number;
+  height:number;
+
+  allAgents:Agent[];
+  selectedAgents:Agent[];
+  selectedAgentsForDeleted:Agent[];
   error = new Error();
 
   loadData = false;
@@ -31,7 +34,8 @@ export class AgentsComponent implements AfterViewInit {
   createnewprop = false;
   errorProp = false;
 
-  constructor(private agentService: AgentService) {
+  constructor(private agentService:AgentService,
+              public dialog:MatDialog) {
     this.loadData = true;
 
     this.agentService.getAllAgents()
@@ -50,10 +54,9 @@ export class AgentsComponent implements AfterViewInit {
         this.error.status = err.error.status;
         console.log(err);
       });
-    console.log(this.selection.hasValue());
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit():void {
     this.agentService.getAllAgents()
       .then(data => {
         if (data) {
@@ -70,7 +73,7 @@ export class AgentsComponent implements AfterViewInit {
       });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue:string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
@@ -85,7 +88,7 @@ export class AgentsComponent implements AfterViewInit {
       });
   }
 
-  isSelect(raw: any) {
+  isSelect(raw:any) {
     this.selection.toggle(raw);
   }
 
@@ -104,7 +107,7 @@ export class AgentsComponent implements AfterViewInit {
     return numSelected === numRows;
   }
 
-  checkId(id: number): boolean {
+  checkId(id:number):boolean {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         return true;
@@ -113,7 +116,7 @@ export class AgentsComponent implements AfterViewInit {
     return false;
   }
 
-  onVoted(updateDataArray: any) {
+  onVoted(updateDataArray:any) {
     this.selection.clear();
     for (let i = 0; i < updateDataArray.length; i++) {
       this.dataSource.data.forEach(row => {
@@ -131,7 +134,7 @@ export class AgentsComponent implements AfterViewInit {
     }
   }
 
-  newItem(event: any) {
+  newItem(event:any) {
     const result = typeof event;
     if (result == 'boolean') {
       this.createnewprop = false;
@@ -142,7 +145,7 @@ export class AgentsComponent implements AfterViewInit {
   }
 
 
-  deleteArray(updateDataArray: any) {
+  deleteArray(updateDataArray:any) {
     for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
       if (result) {
@@ -152,7 +155,7 @@ export class AgentsComponent implements AfterViewInit {
     this.selectedAgents = null;
   }
 
-  updateDataSourceAfterDeleted(id: number) {
+  updateDataSourceAfterDeleted(id:number) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data.splice(i);
@@ -162,7 +165,7 @@ export class AgentsComponent implements AfterViewInit {
     this.ngAfterViewInit();
   }
 
-  updateDataSource(id: number, data: Agent) {
+  updateDataSource(id:number, data:Agent) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;
@@ -183,5 +186,16 @@ export class AgentsComponent implements AfterViewInit {
 
   createNew() {
     this.createnewprop = true;
+  }
+
+  agentInfo(element:Agent) {
+    const dialogRef = this.dialog.open(DialogAgentComponent, {
+      data: element,
+      height: '350px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

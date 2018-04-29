@@ -4,18 +4,14 @@
     <div class="navigation-panel">
       <ul class="list-items-navigation">
         <li class="list-item-nav">
-          <div *ngIf="!sidenav.opened" [ngStyle]="{'display' : (screenWidth > 840) ? 'none' : 'block'}">
-            <button  mat-icon-button type="button" (click)="sidenav.toggle()">
-              <mat-icon >menu</mat-icon>
-            </button>
-          </div>
-
-          <div *ngIf="sidenav.opened" [ngStyle]="{'display' : (screenWidth > 840) ? 'none' : 'block'}">
-            <button  mat-icon-button type="button" (click)="sidenav.toggle()">
-              <mat-icon >close</mat-icon>
+          <div [ngStyle]="{'display' : (screenWidth > 840) ? 'none' : 'block'}">
+            <button mat-icon-button type="button" (click)="sidenavToggle()" >
+              <mat-icon *ngIf="!viewProp">menu</mat-icon>
+              <mat-icon *ngIf="viewProp">close</mat-icon>
             </button>
           </div>
         </li>
+
         <li class="list-item-nav">
           <h3>админ</h3>
           <button mat-icon-button (click)="openDialog()">

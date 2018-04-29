@@ -67,11 +67,11 @@
 }
 .submit--button {
   background: linear-gradient(to right, #834d9b, #d04ed6);
-  height: 50px;
-  width: 135px;
+  /*height: 50px;
+  width: 135px;*/
   margin-top: 10px;
   margin-left: 5px;
   color: white;
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 1.7em;
+  font-size: 1.5em;
 }

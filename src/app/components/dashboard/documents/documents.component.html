@@ -8,8 +8,9 @@
  font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0;
   padding-bottom: 15px;">Список всех документов
   <span style="float: right;">
-    <button mat-button (click)="listView = false"><mat-icon>view_module</mat-icon></button>
-    <button mat-button (click)="listView = true"><mat-icon>list</mat-icon></button>
+    <span style="font-size: 17px;">Вид: </span>
+    <button mat-icon-button (click)="listView = false"><mat-icon>view_module</mat-icon></button>
+    <button mat-icon-button (click)="listView = true"><mat-icon>list</mat-icon></button>
   </span>
   </p>
 </span>

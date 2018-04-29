@@ -7,10 +7,12 @@
     <form [formGroup]="updateDriverForm">
       <div formArrayName="items">
         <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
-          <button mat-icon-button (click)="closeWindow(i)" style="float: right;">
-            <mat-icon style="float: right; color: red; margin: 3px;">clear</mat-icon>
-          </button>
-          <div class="grid__row grid__row--md" style="margin-top: 30px;">
+          <div style=" height: 40px;">
+            <button mat-icon-button (click)="closeWindow(i)" style="float: right;">
+              <mat-icon style="color: red; position: relative;">clear</mat-icon>
+            </button>
+          </div>
+          <div class="grid__row grid__row--md">
             <mat-form-field class="grid__item">
               <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
             </mat-form-field>
@@ -44,13 +46,13 @@
             </button>
           </div>
         </div>
+        <div class="progress-bar">
+          <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
+        </div>
         <div>
           <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;" mat-raised-button
                   color="accent" (click)="updateAllDrivers()">Обновить всё
           </button>
-        </div>
-        <div class="progress-bar">
-          <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
         </div>
       </div>
     </form>

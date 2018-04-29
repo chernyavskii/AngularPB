@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked, ChangeDetectorRef  } from '@angular/core';
+import { Component, AfterViewChecked, ChangeDetectorRef, ViewChild} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {User} from '../../models/User';
 import {UserService} from '../../services/user.service';
@@ -14,9 +14,13 @@ import {UtilsComponent} from '../utils/utils.component';
 export class DashboardComponent {
 
   currentUser: User;
+  
   selected = false;
+  viewProp = false;
 
   screenWidth: number;
+
+  @ViewChild('sidenav') sidenav: any;
 
   animal: string;
   name: string;
@@ -25,7 +29,7 @@ export class DashboardComponent {
               public dialog: MatDialog,
               private cdRef:ChangeDetectorRef) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.currentUser);
+
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
       this.screenWidth = window.innerWidth;
@@ -34,7 +38,6 @@ export class DashboardComponent {
 
   onSelect() {
     this.selected = true;
-    console.log(this.selected);
   }
 
   openDialog(): void {
@@ -47,5 +50,10 @@ export class DashboardComponent {
       console.log('The dialog was closed');
       this.animal = result;
     });
+  }
+
+  sidenavToggle() {
+    this.sidenav.toggle();
+    this.viewProp = this.sidenav.opened;
   }
 }
