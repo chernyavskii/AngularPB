@@ -1,0 +1,27 @@
+<div *ngIf="data.agentsDeleted">
+  <h1 mat-dialog-title>Вы действительно хотите удалить выбранных контрагентов?</h1>
+  <mat-dialog-content>
+    <ul *ngFor="let element of data.agentsDeleted; let i=index">
+      <li><span>{{element.lastName}} {{element.firstName}} {{element.middleName}}</span></li>
+    </ul>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>
+
+<div *ngIf="data.info">
+  <h1 mat-dialog-title >{{data.info.lastName}} {{data.info.firstName}} {{data.info.middleName}}</h1>
+  <mat-dialog-content>
+    <ul class="ul--inf">
+      <li class="li--inf"><label for="carModel">Марка транспортного средства: </label><span id="carModel">{{data.info.carModel}}</span></li>
+      <li class="li--inf"><label for="carNumber">Номерной знак транспортного средства: </label><span id="carNumber">{{data.info.carNumber}}</span></li>
+      <li class="li--inf"><label for="trailerModel">Марка прицепа: </label><span id="trailerModel">{{data.info.trailerModel}}</span></li>
+      <li class="li--inf"><label for="trailerNumber">Номерной знак прицепа: </label><span id="trailerNumber">{{data.info.trailerNumber}}</span></li>
+    </ul>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Закрыть</button>
+  </mat-dialog-actions>
+</div>

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {Agent} from '../../../../models/Agent';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {AgentService} from '../../../../services/agent/agent.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-update-agent',
@@ -21,7 +22,8 @@ export class UpdateAgentComponent implements OnChanges {
   changes: SimpleChanges;
 
   constructor(private fb: FormBuilder,
-              private agentService: AgentService) {
+              private agentService: AgentService,
+              private snackBar: MatSnackBar) {
     this.updateAgentForm = this.fb.group({
       items: this.fb.array([])
     });
@@ -74,8 +76,6 @@ export class UpdateAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-    console.log('agenti');
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();
@@ -167,6 +167,9 @@ export class UpdateAgentComponent implements OnChanges {
         this.onVoted.emit(this.items.value);
         this.onVotedAgentsAdmin.emit(this.items.value);
         this.onLoad = false;
+        this.snackBar.open('Обновление контрагента успешно выполнено', 'Закрыть', {
+          duration: 3000
+        });
       })
       .catch(err => {
         console.log(err);
@@ -180,6 +183,9 @@ export class UpdateAgentComponent implements OnChanges {
         this.onVoted.emit(this.items.value);
         this.onVotedAgentsAdmin.emit(this.items.value)
         this.onLoad = false;
+        this.snackBar.open('Обновление выбранных контрагентов успешно выполнено', 'Закрыть', {
+          duration: 3000
+        });
       })
       .catch(err => {
         console.log(err);

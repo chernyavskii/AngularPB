@@ -8,7 +8,7 @@
       <div formArrayName="items">
         <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
           <div style=" height: 40px;">
-            <button mat-icon-button (click)="closeWindow(i)" style="float: right;">
+            <button matTooltip="Закрыть" mat-icon-button (click)="closeWindow(i)" style="float: right;">
               <mat-icon style="color: red; position: relative;">clear</mat-icon>
             </button>
           </div>
@@ -44,18 +44,18 @@
               <input type="text" matInput placeholder="Банк" formControlName="bank"/>
             </mat-form-field>
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="БИК" formControlName="bik"/>
+              <input type="text" matInput placeholder="БИК" matTooltip="Банковский Идентификационный Код" formControlName="bik"/>
             </mat-form-field>
           </div>
           <div class="grid__row grid__row--md">
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="УНП" formControlName="unp"/>
+              <input type="text" matInput placeholder="УНП" matTooltip="Учётный Номер Плательщика" formControlName="unp"/>
             </mat-form-field>
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="РС" formControlName="rs"/>
+              <input type="text" matInput placeholder="РС" matTooltip="Расчетный Счет" formControlName="rs"/>
             </mat-form-field>
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="КС" formControlName="ks"/>
+              <input type="text" matInput placeholder="КС" matTooltip="Корреспондентский Счет" formControlName="ks"/>
             </mat-form-field>
           </div>
           <div>

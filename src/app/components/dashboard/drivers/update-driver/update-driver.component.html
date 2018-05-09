@@ -8,7 +8,7 @@
       <div formArrayName="items">
         <div class="product__item" *ngFor="let element of items.controls; let i=index" [formGroupName]="i">
           <div style=" height: 40px;">
-            <button mat-icon-button (click)="closeWindow(i)" style="float: right;">
+            <button matTooltip="Закрыть" mat-icon-button (click)="closeWindow(i)" style="float: right;">
               <mat-icon style="color: red; position: relative;">clear</mat-icon>
             </button>
           </div>

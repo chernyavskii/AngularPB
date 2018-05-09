@@ -97,7 +97,15 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   deleteElements() {
-    this.selectedAgentsForDeleted = this.selection.selected;
+    const dialogRef = this.dialog.open(DialogAgentComponent, {
+      data: {agentsDeleted: this.selection.selected}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.selectedAgentsForDeleted = this.selection.selected;
+      }
+    });
   }
 
   isAllSelected() {
@@ -190,8 +198,7 @@ export class AgentsComponent implements AfterViewInit {
 
   agentInfo(element:Agent) {
     const dialogRef = this.dialog.open(DialogAgentComponent, {
-      data: element,
-      height: '350px'
+      data: {info: element}
     });
 
     dialogRef.afterClosed().subscribe(result => {

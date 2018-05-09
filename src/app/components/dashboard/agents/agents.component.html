@@ -1,8 +1,5 @@
 <div class="grid" style="margin: 10px; ">
   <div class="grid__item">
-    <h2>Удаление диалог</h2>
-    <h2>ToolTip везде добавь</h2>
-    <h2>После обновления, сообщение "Обновление прошло успешно"</h2>
     <mat-card>
       <mat-card-header>
         <mat-card-title>Мои Контрагенты</mat-card-title>
@@ -104,6 +101,5 @@
 </div>
 <div class="grid__item" *ngIf="selectedAgentsForDeleted">
   <app-delete-agent [agents]="selectedAgentsForDeleted" (deleteArray)="deleteArray($event)"></app-delete-agent>
-
 </div>
 </div>

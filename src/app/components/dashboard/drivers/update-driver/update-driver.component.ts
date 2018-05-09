@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {Driver} from '../../../../models/Driver';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {DriverService} from '../../../../services/driver/driver.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-update-driver',
@@ -21,7 +22,8 @@ export class UpdateDriverComponent implements OnChanges {
   changes: SimpleChanges;
 
   constructor(private fb: FormBuilder,
-              private driverService: DriverService) {
+              private driverService: DriverService,
+              private snackBar: MatSnackBar) {
     this.updateDriverForm = this.fb.group({
       items: this.fb.array([])
     });
@@ -145,6 +147,9 @@ export class UpdateDriverComponent implements OnChanges {
         this.onVoted.emit(this.items.value);
         this.onVotedDriversAdmin.emit(this.items.value);
         this.onLoad = false;
+        this.snackBar.open('Обновление водителя успешно выполнено', 'Закрыть', {
+          duration: 3000
+        });
       })
       .catch(err => {
         console.log(err);
@@ -158,6 +163,9 @@ export class UpdateDriverComponent implements OnChanges {
         this.onVoted.emit(this.items.value);
         this.onVotedDriversAdmin.emit(this.items.value);
         this.onLoad = false;
+        this.snackBar.open('Обновление выбранных водителей успешно выполнено', 'Закрыть', {
+          duration: 3000
+        });
       })
       .catch(err => {
         console.log(err);

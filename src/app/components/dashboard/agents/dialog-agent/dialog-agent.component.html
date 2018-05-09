@@ -1,17 +1,32 @@
-<h1 mat-dialog-title >{{data.lastName}} {{data.firstName}} {{data.middleName}}</h1>
+<div *ngIf="data.agentsDeleted">
+<h1 mat-dialog-title>Вы действительно хотите удалить выбранных контрагентов?</h1>
 <mat-dialog-content>
-  <ul>
-    <li><label for="unp">УНП: </label><span id="unp">{{data.unp}}</span></li>
-    <li><label for="organization">Организация: </label><span id="organization">{{data.organization}}</span></li>
-    <li><label for="position">Должность: </label><span id="position">{{data.position}}</span></li>
-    <li><label for="address">Адрес: </label><span id="address">{{data.address}}</span></li>
-    <li><label for="ks">Номер телефона: </label><span id="phone">{{data.phone}}</span></li>
-    <li><label for="rs">РС: </label><span id="rs">{{data.rs}}</span></li>
-    <li><label for="ks">КС: </label><span id="ks">{{data.ks}}</span></li>
-    <li><label for="ks">Банк: </label><span id="bank">{{data.bank}}</span></li>
-    <li><label for="ks">БИК: </label><span id="bik">{{data.bik}}</span></li>
+  <ul *ngFor="let element of data.agentsDeleted; let i=index">
+    <li><span>{{element.lastName}} {{element.firstName}} {{element.middleName}}</span></li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-button color="warn" (click)="successButton()">Принять</button>
+</mat-dialog-actions>
+</div>
+
+<div *ngIf="data.info">
+<h1 mat-dialog-title >{{data.info.lastName}} {{data.info.firstName}} {{data.info.middleName}}</h1>
+<mat-dialog-content>
+  <ul class="ul--inf">
+    <li class="li--inf"><label for="unp">УНП: </label><span id="unp">{{data.info.unp}}</span></li>
+    <li class="li--inf"><label for="organization">Организация: </label><span id="organization">{{data.info.organization}}</span></li>
+    <li class="li--inf"><label for="position">Должность: </label><span id="position">{{data.info.position}}</span></li>
+    <li class="li--inf"><label for="address">Адрес: </label><span id="address">{{data.info.address}}</span></li>
+    <li class="li--inf"><label for="ks">Номер телефона: </label><span id="phone">{{data.info.phone}}</span></li>
+    <li class="li--inf"><label for="rs">РС: </label><span id="rs">{{data.info.rs}}</span></li>
+    <li class="li--inf"><label for="ks">КС: </label><span id="ks">{{data.info.ks}}</span></li>
+    <li class="li--inf"><label for="ks">Банк: </label><span id="bank">{{data.info.bank}}</span></li>
+    <li class="li--inf"><label for="ks">БИК: </label><span id="bik">{{data.info.bik}}</span></li>
   </ul>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Закрыть</button>
 </mat-dialog-actions>
+</div>

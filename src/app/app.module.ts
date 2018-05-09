@@ -55,6 +55,7 @@ import { AdminDriversComponent } from './components/admin/admin-drivers/admin-dr
 import { AdminDocumentsComponent } from './components/admin/admin-documents/admin-documents.component';
 import { DeleteDocumentComponent } from './components/dashboard/documents/delete-document/delete-document.component';
 import { DialogAgentComponent } from './components/dashboard/agents/dialog-agent/dialog-agent.component';
+import { DialogDriverComponent } from './components/dashboard/drivers/dialog-driver/dialog-driver.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { DialogAgentComponent } from './components/dashboard/agents/dialog-agent
     AdminDriversComponent,
     AdminDocumentsComponent,
     DeleteDocumentComponent,
-    DialogAgentComponent
+    DialogAgentComponent,
+    DialogDriverComponent
   ],
   imports: [
     routing,
@@ -127,7 +129,7 @@ import { DialogAgentComponent } from './components/dashboard/agents/dialog-agent
     MatAutocompleteModule,
     MatPaginatorModule,
   ],
-  entryComponents: [DialogAgentComponent],
+  entryComponents: [DialogAgentComponent, DialogDriverComponent],
   providers: [UserService, DriverService, AgentService, DocumentService, AuthService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })

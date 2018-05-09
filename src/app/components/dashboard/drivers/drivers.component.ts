@@ -4,7 +4,8 @@ import {Driver} from '../../../models/Driver';
 import {DriverService} from '../../../services/driver/driver.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Error} from '../../../models/Error';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatDialog} from '@angular/material';
+import {DialogDriverComponent} from '../drivers/dialog-driver/dialog-driver.component'
 
 @Component({
   selector: 'app-drivers',
@@ -14,13 +15,13 @@ import {MatTableDataSource} from '@angular/material';
 export class DriversComponent implements AfterViewInit {
 
 
-  displayedColumns = ['select', 'carNumber', 'firstName', 'lastName', 'middleName'];
+  displayedColumns = ['select', 'carNumber', 'firstName', 'lastName', 'middleName', 'more'];
 
   @Input()
   user = new User();
-  allDrivers: Driver[];
-  selectedDrivers: Driver[];
-  selectedDriversForDeleted: Driver[];
+  allDrivers:Driver[];
+  selectedDrivers:Driver[];
+  selectedDriversForDeleted:Driver[];
   error = new Error();
 
   loadData = false;
@@ -32,7 +33,8 @@ export class DriversComponent implements AfterViewInit {
   createnewprop = false;
   errorProp = false;
 
-  constructor(private driverService: DriverService) {
+  constructor(private driverService:DriverService,
+              public dialog:MatDialog) {
     this.loadData = true;
 
     this.driverService.getAllDrivers()
@@ -53,7 +55,7 @@ export class DriversComponent implements AfterViewInit {
       });
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit():void {
     this.driverService.getAllDrivers()
       .then(data => {
         if (data) {
@@ -70,7 +72,7 @@ export class DriversComponent implements AfterViewInit {
       });
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue:string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
@@ -85,7 +87,7 @@ export class DriversComponent implements AfterViewInit {
       });
   }
 
-  isSelect(raw: any) {
+  isSelect(raw:any) {
     this.selection.toggle(raw);
   }
 
@@ -94,7 +96,15 @@ export class DriversComponent implements AfterViewInit {
   }
 
   deleteElements() {
-    this.selectedDriversForDeleted = this.selection.selected;
+    const dialogRef = this.dialog.open(DialogDriverComponent, {
+      data: {agentsDeleted: this.selection.selected}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.selectedDriversForDeleted = this.selection.selected;
+      }
+    });
   }
 
   isAllSelected() {
@@ -104,7 +114,7 @@ export class DriversComponent implements AfterViewInit {
     return numSelected === numRows;
   }
 
-  checkId(id: number): boolean {
+  checkId(id:number):boolean {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         return true;
@@ -113,7 +123,7 @@ export class DriversComponent implements AfterViewInit {
     return false;
   }
 
-  onVoted(updateDataArray: any) {
+  onVoted(updateDataArray:any) {
     this.selection.clear();
     for (let i = 0; i < updateDataArray.length; i++) {
       this.dataSource.data.forEach(row => {
@@ -131,7 +141,7 @@ export class DriversComponent implements AfterViewInit {
     }
   }
 
-  newItem(event: any) {
+  newItem(event:any) {
     const result = typeof event;
     if (result == 'boolean') {
       this.createnewprop = false;
@@ -141,7 +151,7 @@ export class DriversComponent implements AfterViewInit {
     }
   }
 
-  deleteArray(updateDataArray: any) {
+  deleteArray(updateDataArray:any) {
     for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
       if (result) {
@@ -151,7 +161,7 @@ export class DriversComponent implements AfterViewInit {
     this.selectedDrivers = null;
   }
 
-  updateDataSourceAfterDeleted(id: number) {
+  updateDataSourceAfterDeleted(id:number) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data.splice(i);
@@ -161,7 +171,7 @@ export class DriversComponent implements AfterViewInit {
     this.ngAfterViewInit();
   }
 
-  updateDataSource(id: number, data: Driver) {
+  updateDataSource(id:number, data:Driver) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;
@@ -177,6 +187,16 @@ export class DriversComponent implements AfterViewInit {
 
   createNew() {
     this.createnewprop = true;
+  }
+
+  driverInfo(element: Driver) {
+    const dialogRef = this.dialog.open(DialogDriverComponent, {
+      data: {info: element}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

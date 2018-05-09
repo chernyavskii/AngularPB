@@ -1,7 +1,7 @@
 <form [formGroup]="addNewDriverGroup">
   <div class="product__item">
     <div style=" height: 40px;">
-      <button mat-icon-button (click)="closeWindow()" style="float: right;">
+      <button matTooltip="Закрыть" mat-icon-button (click)="closeWindow()" style="float: right;">
         <mat-icon style="color: red; position: relative;">clear</mat-icon>
       </button>
     </div>
@@ -32,7 +32,7 @@
         <input type="text" matInput placeholder="Номерной знак прицепа" formControlName="trailerNumber"/>
       </mat-form-field>
     </div>
-    <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
+    <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin: 20px;"
             mat-raised-button
             color="accent" (click)="addNewDriver()">Добавить
     </button>
