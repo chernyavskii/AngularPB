@@ -22,7 +22,7 @@ export class DriversComponent implements AfterViewInit {
   allDrivers:Driver[];
   selectedDrivers:Driver[];
   selectedDriversForDeleted:Driver[];
-  error = new Error();
+  error = new Error('','',0);
 
   loadData = false;
   allSelect = false;

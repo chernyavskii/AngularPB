@@ -6,15 +6,19 @@ import {Product} from '../../models/Product';
 import {Cookie} from 'ng2-cookies';
 import {Work} from '../../models/Work';
 import {FormArray} from '@angular/forms';
+import {Error} from "../../models/Error";
 
 @Injectable()
 export class DocumentService {
-  secret = 'DyICtw9Xr23J4zGU';
+  secret = 'BUVkEWCcEIOAMjnp';
   constructor(private http: HttpClient) { }
 
   getAllDocuments(): Promise<any> {
     const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {
+      if(!Cookie.get('token')) {
+        return reject(new Error('Unauthorized user','401 Unauthorized', 401));
+      }
       this.http.get('http://localhost:8081/documents/', {headers: headers}).toPromise()
         .then(response => {
           resolve(response);

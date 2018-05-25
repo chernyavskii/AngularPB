@@ -64,7 +64,7 @@
     <div style="height: 400px" *ngIf="!waitProp">
       <img *ngIf="!onLoad" class="zoom" style="height: 400px;" src="{{url[i]}}" width="250" height="400">
     </div>
-    <mat-card-actions>
+    <mat-card-actions style="border: 1px solid black;">
       <button mat-button class="button--next" (click)="documentInfo(document)">Подробнее</button>
     </mat-card-actions>
   </mat-card>
