@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AuthService} from '../../../../services/auth/auth.service';
 import {User} from '../../../../models/User';
 import {UserService} from '../../../../services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -17,8 +16,7 @@ export class UpdateFormComponent implements OnInit {
   user = new User();
   firstFormGroup: FormGroup;
 
-  constructor(private authService: AuthService,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private snackBar: MatSnackBar,
               private _formBuilder: FormBuilder) {
   }

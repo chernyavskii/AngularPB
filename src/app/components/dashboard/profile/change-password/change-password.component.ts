@@ -31,7 +31,7 @@ export class ChangePasswordComponent implements OnInit {
 
   }
 
-  areEqual(control: FormControl): ValidationErrors | null {
+  areEqual(control: FormControl): ValidationErrors {
     const keys: string[] = Object.keys(control.value);
     for (const i in keys) {
       if (i !== '0' && control.value[keys[+i - 1]] !== control.value[keys[i]]) {

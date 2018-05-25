@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, Input, NgZone} from '@angular/core';
-import {User} from '../../../models/User';
+import {AfterViewInit, Component} from '@angular/core';
 import {MatTableDataSource, MatDialog} from '@angular/material';
 import {AgentService} from '../../../services/agent/agent.service';
 import {Agent} from '../../../models/Agent';
@@ -13,9 +12,6 @@ import {DialogAgentComponent} from '../agents/dialog-agent/dialog-agent.componen
 })
 export class AgentsComponent implements AfterViewInit {
   displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'more'];
-
-  @Input()
-  user = new User();
 
   width:number;
   height:number;

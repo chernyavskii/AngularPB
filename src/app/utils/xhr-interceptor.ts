@@ -1,5 +1,4 @@
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {AuthService} from '../services/auth/auth.service';
 import {UserService} from '../services/user.service';
 import {User} from '../models/User';
 import {Injectable} from '@angular/core';
@@ -11,7 +10,7 @@ import 'rxjs/add/operator/do';
 export class XhrInterceptor implements HttpInterceptor {
 
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log(req.url);
    /* if (req.url === 'http://localhost:4200/login') {

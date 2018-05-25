@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/User';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
-import {AuthService} from './auth/auth.service';
 import {AppComponent} from '../app.component';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
@@ -17,38 +16,37 @@ export class UserService {
   private agentsURL = 'http://localhost:8081/agents/';
 
   constructor(private http: HttpClient,
-              private router: Router,
-              private authService: AuthService) {
+              private router: Router) {
   }
 
   getAllUsers(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json'});
+      const headers = new HttpHeaders({Authorization: Cookie.get('token'), 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'});
       this.http.get(this.usersURL, {headers: headers}).toPromise()
-        .then(data => resolve(data))
+        .then(data => {
+          console.log(data);
+          resolve(data);
+        })
         .catch(err => reject(err));
     });
   }
 
   login(user: User): Promise<any> {
+    Cookie.delete('token');
+    localStorage.clear();
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': 'Basic ' + btoa(user.username + ':' + user.password),
         'X-Requested-With': 'XMLHttpRequest'
-        /*       'Access-Control-Allow-Origin': '*',
-               /!*   'Access-Control-Allow-Credentials': 'true',*!/
-               'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-               'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
-               ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
-               ' Access-Control-Request-Headers'*/
       });
       this.http
-        .get(AppComponent.API_URL + '/login', {headers: headers}) //// withCredentials: true
+        .get(AppComponent.API_URL + '/login', {headers: headers}) 
         .toPromise()
         .then(result => {
           Cookie.set('token', 'Basic ' + btoa(user.username + ':' + user.password));
           localStorage.setItem('currentUser', JSON.stringify(result));
+          
           resolve(result);
         })
         .catch(error => {

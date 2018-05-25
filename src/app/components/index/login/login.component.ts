@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService} from '../../../services/auth/auth.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -11,18 +10,14 @@ import {MatSnackBar} from '@angular/material';
 })
 export class LoginComponent implements OnInit {
 
-  model: any = {username: '', password: ''};
-  returnURL: string;
+  model:any = {username: '', password: ''};
+  returnURL:string;
 
-  hide = true;
-
-  constructor(private authService: AuthService,
-              private userService: UserService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private snackBar: MatSnackBar) {
+  constructor(private userService:UserService,
+              private router:Router,
+              private route:ActivatedRoute,
+              private snackBar:MatSnackBar) {
   }
-
 
   ngOnInit() {
     this.returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -34,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.snackBar.open('Вход успешно выполнен', 'Закрыть', {
           duration: 3000
         });
-        this.router.navigate(['dashboard']);
+        this.router.navigateByUrl(this.returnURL);
       })
       .catch(err => {
         console.log(err);

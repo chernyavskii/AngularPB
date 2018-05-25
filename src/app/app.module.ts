@@ -10,7 +10,6 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {HttpModule} from '@angular/http';
 import {CookieService} from 'ng2-cookies';
 import {AuthGuard} from './utils/AuthGuard';
-import {AuthService} from './services/auth/auth.service';
 import {UpdateFormComponent} from './components/dashboard/profile/update-form/update-form.component';
 
 import {
@@ -130,7 +129,7 @@ import { DialogDriverComponent } from './components/dashboard/drivers/dialog-dri
     MatPaginatorModule,
   ],
   entryComponents: [DialogAgentComponent, DialogDriverComponent],
-  providers: [UserService, DriverService, AgentService, DocumentService, AuthService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
+  providers: [UserService, DriverService, AgentService, DocumentService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })
 
