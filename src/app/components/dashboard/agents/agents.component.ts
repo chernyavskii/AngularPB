@@ -16,8 +16,8 @@ export class AgentsComponent implements AfterViewInit {
   width:number;
   height:number;
 
-  allAgents:Agent[];
-  selectedAgents:Agent[];
+  allAgents:Agent[] = [];
+  selectedAgents:Agent[] = [];
   selectedAgentsForDeleted:Agent[];
   error = new Error('','',0);
 /*  public message: string;
@@ -57,6 +57,8 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit():void {
+    this.allAgents = [];
+    this.dataSource = null;
     this.agentService.getAllAgents()
       .then(data => {
         if (data) {
@@ -65,11 +67,7 @@ export class AgentsComponent implements AfterViewInit {
         }
       })
       .catch(err => {
-      /*  this.loadData = false;
-        this.errorProp = true;
-        this.error.code = err.error.code;
-        this.error.message = err.error.message;
-        this.error.status = err.error.status;*/
+        console.log(err);
       });
   }
 
@@ -86,6 +84,7 @@ export class AgentsComponent implements AfterViewInit {
         this.selection.select(row);
         this.allSelect = true;
       });
+    console.log(this.selection.selected);
   }
 
   isSelect(raw:any) {
@@ -174,6 +173,7 @@ export class AgentsComponent implements AfterViewInit {
   }
 
   updateDataSource(id:number, data:Agent) {
+    console.log(data);
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
         this.dataSource.data[i].firstName = data.firstName;

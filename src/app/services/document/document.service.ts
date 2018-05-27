@@ -148,7 +148,6 @@ export class DocumentService {
   }
 
   showPdf(id: number): Promise<Uint8Array> {
-    console.log('mivpdf');
     const url = 'http://localhost:8081/documents/' + id + '?type=pdf';
     const headers = new HttpHeaders({ Authorization : Cookie.get('token'), 'Content-Type': 'application/json'});
     return new Promise((resolve, reject) => {

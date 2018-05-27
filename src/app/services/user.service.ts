@@ -31,7 +31,7 @@ export class UserService {
     });
   }
 
-  login(user: User): Promise<any> {
+ /* login(user: User): Promise<any> {
     Cookie.delete('token');
     localStorage.clear();
     return new Promise((resolve, reject) => {
@@ -51,6 +51,36 @@ export class UserService {
         })
         .catch(error => {
           console.log(JSON.stringify(error));
+        });
+    });
+  }*/
+
+  login(user: User): Promise<any> {
+    Cookie.delete('token');
+    localStorage.clear();
+    return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers,' +
+        ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
+        ' Access-Control-Request-Headers'
+      });
+      
+      this.http
+        .post(AppComponent.API_URL + '/login',user, {headers: headers})
+        .toPromise()
+        .then(result => {
+          Cookie.set('token', 'Basic ' + btoa(user.username + ':' + user.password));
+          localStorage.setItem('currentUser', JSON.stringify(result));
+
+          resolve(result);
+        })
+        .catch(error => {
+          reject(error);
         });
     });
   }
@@ -97,7 +127,8 @@ export class UserService {
       ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
       ' Access-Control-Request-Headers'
     });
-
+    Cookie.delete('token');
+    localStorage.clear();
     return new Promise((resolve, reject) => {
       this.http
         .post(AppComponent.API_URL + '/registration', user, {headers: headers})

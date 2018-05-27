@@ -2,7 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {User} from '../../../models/User';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -31,7 +31,8 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       username: this.user.username,
-      password: this.user.password
+      password: this.user.password,
+      confirmPassword: new FormControl()
     });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -54,7 +55,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   registration() {
-    const saveUser: User = {
+    console.log(this.firstFormGroup.value.confirmPassword);
+    const saveUser: any = {
       id: null,
       username: this.firstFormGroup.value.username,
       password: this.firstFormGroup.value.password,
@@ -70,6 +72,7 @@ export class RegistrationComponent implements OnInit {
       bank: this.thirdFormGroup.value.bank,
       bik: this.thirdFormGroup.value.bik,
       phone: this.thirdFormGroup.value.phone,
+      confirmPassword: this.firstFormGroup.value.confirmPassword
     };
     this.userService.registration(saveUser)
       .then(res => {

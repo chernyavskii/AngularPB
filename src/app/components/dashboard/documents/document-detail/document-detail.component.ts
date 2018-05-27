@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Document} from '../../../../models/Document';
 import {DocumentService} from '../../../../services/document/document.service';
+import {ShareService} from "../../../../services/share/share.service";
 
 @Component({
   selector: 'app-document-detail',
@@ -10,11 +11,14 @@ import {DocumentService} from '../../../../services/document/document.service';
 export class DocumentDetailComponent implements OnInit {
 
   @Input()
-  document: any;
+  document:any;
   @Output() deleteElement = new EventEmitter<Document>();
+  @Output() deleteShareElement = new EventEmitter<Document>();
+
   onLoad = false;
 
-  constructor(private documentService: DocumentService) {
+  constructor(private documentService:DocumentService,
+              private shareService:ShareService) {
   }
 
   ngOnInit() {
@@ -35,19 +39,36 @@ export class DocumentDetailComponent implements OnInit {
 
   deleteDocument() {
     this.onLoad = true;
-    this.documentService.deleteDocument(this.document.info.id)
-      .then(data => {
-        if (data) {
-          const dropDocument: Document = this.document.info;
-          this.deleteElement.emit(dropDocument);
-          this.onLoad = false;
-          this.document.info = '';
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (this.document.action === 'share') {
+      this.shareService.deleteSharedDocument(this.document.info.id)
+        .then(data => {
+          if (data) {
+            const dropDocument:Document = this.document.info;
+            this.deleteShareElement.emit(dropDocument);
+            this.onLoad = false;
+            this.document.info = '';
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    if (this.document.action === 'document') {
+      this.documentService.deleteDocument(this.document.info.id)
+        .then(data => {
+          if (data) {
+            const dropDocument:Document = this.document.info;
+            this.deleteElement.emit(dropDocument);
+            this.onLoad = false;
+            this.document.info = '';
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
+
 
   downloadDocumentInPdf() {
     this.onLoad = true;

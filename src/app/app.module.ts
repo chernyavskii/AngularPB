@@ -11,6 +11,7 @@ import {HttpModule} from '@angular/http';
 import {CookieService} from 'ng2-cookies';
 import {AuthGuard} from './utils/AuthGuard';
 import {UpdateFormComponent} from './components/dashboard/profile/update-form/update-form.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 import {
   MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatToolbarModule,
@@ -55,6 +56,7 @@ import { AdminDocumentsComponent } from './components/admin/admin-documents/admi
 import { DeleteDocumentComponent } from './components/dashboard/documents/delete-document/delete-document.component';
 import { DialogAgentComponent } from './components/dashboard/agents/dialog-agent/dialog-agent.component';
 import { DialogDriverComponent } from './components/dashboard/drivers/dialog-driver/dialog-driver.component';
+import {ShareService} from "./services/share/share.service";
 
 @NgModule({
   declarations: [
@@ -127,9 +129,10 @@ import { DialogDriverComponent } from './components/dashboard/drivers/dialog-dri
     MatSortModule,
     MatAutocompleteModule,
     MatPaginatorModule,
+    MatChipsModule
   ],
   entryComponents: [DialogAgentComponent, DialogDriverComponent],
-  providers: [UserService, DriverService, AgentService, DocumentService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
+  providers: [UserService, DriverService, ShareService, AgentService, DocumentService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })
 

@@ -11,6 +11,7 @@ import {DocumentService} from '../../../../services/document/document.service';
 import {DriverService} from '../../../../services/driver/driver.service';
 import {Driver} from '../../../../models/Driver';
 import {MatSnackBar} from '@angular/material';
+import {ShareService} from "../../../../services/share/share.service";
 
 @Component({
   selector: 'app-add-form',
@@ -48,7 +49,8 @@ export class AddFormComponent {
               private snackBar: MatSnackBar,
               private agentService: AgentService,
               private documentService: DocumentService,
-              private driverService: DriverService) {
+              private driverService: DriverService,
+              private shareService: ShareService) {
     this.disableButton = false;
 
     this.driverService.getAllDrivers()
@@ -400,6 +402,18 @@ export class AddFormComponent {
 
       })
       .catch(err => err.toString());
+  }
+
+  shareDocument() {
+    this.shareService.shareDocument(this.agentId.value, this.createdDocument.id)
+      .then(data => {
+        this.snackBar.open('Файл успешно передан контрагенту', 'Закрыть', {
+          duration: 3000
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
 

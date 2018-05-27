@@ -413,6 +413,10 @@
                     <mat-icon>delete</mat-icon>
                     <span>Удалить</span>
                   </button>
+                   <button mat-menu-item (click)="shareDocument()">
+                    <mat-icon>share</mat-icon>
+                    <span>Поделиться</span>
+                  </button>
                 </mat-menu>
                 <mat-menu #download="matMenu">
                    <button mat-menu-item (click)="downloadDocumentInPdf()">

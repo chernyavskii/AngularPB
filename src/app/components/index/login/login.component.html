@@ -1,22 +1,64 @@
-<div class="login-component-container">
-  <mat-card-content>
-    <mat-card>
-      <mat-toolbar>
-        <h2 style="color: #FFFFFF">Вход</h2>
-      </mat-toolbar>
-    <form (submit)="login()">
-      <div class="form-group">
-        <mat-form-field>
-          <input type="text" matInput placeholder="Логин" name="username" [(ngModel)]="model.username" #username="ngModel"  />
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input type="text" matInput placeholder="Пароль" name="password" [(ngModel)]="model.password" #username="ngModel" [type]="hide ? 'password' : 'text'" required />
-          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-        </mat-form-field>
+<div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;">
+  <div style="height: 45%;  background: linear-gradient(to right, #834d9b, #d04ed6);   ">
+    <div class="login-component-container tested">
+      <div style=" margin: auto; text-align: center; top: 0; left: 0; bottom: 0; right: 0;">
+        <i class="material-icons" style="font-size: 110px; color: #834d9b;  text-align: center;">
+          account_circle
+        </i>
       </div>
-      <button mat-raised-button color="primary"  aria-label="Show an example snack-bar">Войти</button>
-    </form>
-    </mat-card>
-  </mat-card-content>
+      <div style=" margin: auto; text-align: center; top: 0; left: 0; bottom: 0; right: 0;">
+        <span style="font-size: 20px;">АВТОРИЗАЦИЯ</span>
+      </div>
+      <mat-card-content>
+        <mat-card style=" margin: 0; top: 0;">
+          <form id="loginForm" (submit)="login()">
+            <div class="grid__item">
+              <mat-form-field class="grid__row" style="font-family: 'Open Sans Condensed', sans-serif;">
+                <input id="username" type="text" matInput placeholder="Логин" name="username"
+                       [(ngModel)]="model.username"
+                       #username="ngModel" required/>
+              </mat-form-field>
+              <!--<div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+                <div *ngIf="username.errors.required">
+                  Введите логин
+                </div>
+              </div>-->
+              <mat-form-field class="grid__row" style="font-family: 'Open Sans Condensed', sans-serif;">
+                <input id="password" type="text" matInput placeholder="Пароль" name="password"
+                       [(ngModel)]="model.password"
+                       #password="ngModel" [type]="hide ? 'password' : 'text'" required/>
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </mat-form-field>
+              <!--<div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                <div *ngIf="password.errors.required">
+                  Введите пароль
+                </div>
+              </div>-->
+              <div class="grid__row" style="float: right">
+              </div>
+              <div *ngIf="error.message" class="alert alert-danger">
+                <span style="font-family: 'Open Sans Condensed', sans-serif; font-size: 18px;"><b>Ошибка: </b>{{error.message | json}}</span>
+              </div>
+              <div style="padding-top: 50px; margin: auto; text-align: center; top: 0; left: 0; bottom: 0; right: 0;">
+                <button
+                  style="font-size: 20px; margin:0 auto; color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif; background: linear-gradient(to right, #834d9b, #d04ed6);"
+                  mat-raised-button>ВОЙТИ
+                </button>
+              </div>
+              <div style="padding-top: 5px;margin: auto; text-align: center; top: 0; left: 0; bottom: 0; right: 0;">
+                <span
+                  style="font-family: 'Open Sans Condensed', sans-serif; font-size: 18px;">или</span>
+              </div>
+              <div style="margin: auto; text-align: center; top: 0; left: 0; bottom: 0; right: 0;">
+                <a [routerLink]="['/register']" routerLinkActive="active">
+                  <span style="font-family: 'Open Sans Condensed', sans-serif; color: #834d9b; font-size: 18px;"><b>зарегистрироваться</b></span>
+                </a>
+              </div>
+            </div>
+          </form>
+
+        </mat-card>
+      </mat-card-content>
+    </div>
+  </div>
 </div>

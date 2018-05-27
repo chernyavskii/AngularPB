@@ -130,6 +130,10 @@
   font-family: 'Open Sans Condensed', sans-serif;
 }
 
+.mat-form-field {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
 .navigation_panel {
   display: flex;
   flex-direction: row;
