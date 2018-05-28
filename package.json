@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "preinstall": "ng build --aot --target=production"
+    "@angular/cli": "1.6.8",
+    "@angular/compiler-cli": "^5.2.0",
+    "postinstall": "ng build --aot --target=production"
   },
   "private": true,
   "dependencies": {
