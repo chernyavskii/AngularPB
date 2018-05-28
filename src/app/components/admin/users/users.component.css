@@ -82,6 +82,11 @@
   }
 
 }
+.mat-card {
+  border: 0;
+  box-shadow: none !important;
+  background: #f7f7f8 !important;
+}
 
 .mat-card .mat-card-header {
   font-family: 'Open Sans Condensed', sans-serif;

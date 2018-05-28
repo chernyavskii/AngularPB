@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   model:any = {username: '', password: ''};
   returnURL:string;
   error = new Error('','',null);
-
+  hide: any;
   loginFormGroup: FormGroup;
 
 

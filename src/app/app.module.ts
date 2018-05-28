@@ -29,6 +29,7 @@ import {ChangePasswordComponent} from './components/dashboard/profile/change-pas
 import {DocumentsComponent} from './components/dashboard/documents/documents.component';
 import {DocumentService} from './services/document/document.service';
 import {PdfViewerComponent} from 'ng2-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {AgentService} from './services/agent/agent.service';
 import {AddFormComponent} from './components/dashboard/documents/add-form/add-form.component';
 import {AgentsComponent} from './components/dashboard/agents/agents.component';
@@ -57,6 +58,7 @@ import { DeleteDocumentComponent } from './components/dashboard/documents/delete
 import { DialogAgentComponent } from './components/dashboard/agents/dialog-agent/dialog-agent.component';
 import { DialogDriverComponent } from './components/dashboard/drivers/dialog-driver/dialog-driver.component';
 import {ShareService} from "./services/share/share.service";
+import { PageNotFoundComponent } from './components/index/pageNotFound/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,6 @@ import {ShareService} from "./services/share/share.service";
     ProfileComponent,
     ChangePasswordComponent,
     DocumentsComponent,
-    PdfViewerComponent,
     AddFormComponent,
     AgentsComponent,
     UpdateAgentComponent,
@@ -91,7 +92,11 @@ import {ShareService} from "./services/share/share.service";
     AdminDocumentsComponent,
     DeleteDocumentComponent,
     DialogAgentComponent,
-    DialogDriverComponent
+    DialogDriverComponent,
+    PageNotFoundComponent
+/*
+    PdfViewerComponent
+*/
   ],
   imports: [
     routing,
@@ -129,7 +134,8 @@ import {ShareService} from "./services/share/share.service";
     MatSortModule,
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatChipsModule
+    MatChipsModule,
+    PdfViewerModule
   ],
   entryComponents: [DialogAgentComponent, DialogDriverComponent],
   providers: [UserService, DriverService, ShareService, AgentService, DocumentService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],

@@ -1,10 +1,10 @@
 <ng-container>
   <div class="dashboard-main-content">
     <mat-card>
-      <mat-card-header>
+     <!-- <mat-card-header>
         <mat-card-title>Пользователи</mat-card-title>
-        <mat-card-subtitle>список всех зарегистрированных пользователей</mat-card-subtitle>
-      </mat-card-header>
+        <mat-card-subtitle>список зарегистрированных пользователей</mat-card-subtitle>
+      </mat-card-header>-->
       <mat-card-content>
         <mat-form-field class="data_filter">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Введите ...">
@@ -45,13 +45,13 @@
             </button>
 
             <button mat-button class="navigation_panel__item" (click)="deleteElements()"
-                    [disabled]="this.selection.selected.length === 0" style="float: right;  border: 1px solid red;">
+                    [disabled]="this.selection.selected.length === 0" style="float: right;">
               <mat-icon>delete</mat-icon>
               {{selection.selected.length | json}}
             </button>
           </div>
         </div>
-        <mat-table #table [dataSource]="dataSource">
+        <mat-table #table [dataSource]="dataSource" style="background: #f7f7f8;">
 
           <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef>

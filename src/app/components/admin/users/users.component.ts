@@ -16,8 +16,8 @@ export class UsersComponent implements AfterViewInit {
 
   displayedColumns = ['select', 'username', 'firstName', 'lastName', 'middleName', 'unp', 'role'];
 
-  allUsers: User[];
-  selectedUsers: User[];
+  allUsers: User[] = [];
+  selectedUsers: User[] = []
   selectedUsersForDeleted: User[];
 
   arrayOfAgents: Agent[];
@@ -45,6 +45,8 @@ export class UsersComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.allUsers = [];
+    this.dataSource = null;
     this.userService.getAllUsers()
       .then(data => {
         if (data) {
