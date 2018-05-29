@@ -10,10 +10,10 @@ import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class UserService {
-  private loginURL = 'http://localhost:8081/login';
-  private usersURL = 'http://localhost:8081/users/';
-  private resourceURL = 'http://localhost:8081/';
-  private agentsURL = 'http://localhost:8081/agents/';
+  private loginURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/login';
+  private usersURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/users/';
+  private resourceURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/';
+  private agentsURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/agents/';
 
   constructor(private http: HttpClient,
               private router: Router) {
