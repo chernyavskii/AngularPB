@@ -9,8 +9,13 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class DialogUserComponent {
 
+  
   constructor(public dialogRef: MatDialogRef<DialogUserComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  createdItem(item: any){
+    this.dialogRef.close(item);
+  }
 
   successButton() {
     this.dialogRef.close(true);

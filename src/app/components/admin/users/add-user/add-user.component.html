@@ -3,7 +3,7 @@
   </mat-icon>
 </div>-->
 <form [formGroup]="addNewUserGroup">
-  <button style="float: right;" mat-icon-button mat-dialog-close><mat-icon style="color: red;">close</mat-icon></button>
+  <button style="float: right;" matTooltip="Закрыть" mat-icon-button mat-dialog-close><mat-icon style="color: red;">close</mat-icon></button>
   <span>
   <p style="font-size: 35px;
  font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0;
@@ -59,21 +59,21 @@
       <input type="text" matInput placeholder="Банк" formControlName="bank"/>
     </mat-form-field>
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="БИК" formControlName="bik"/>
+      <input type="text" matInput placeholder="БИК" formControlName="bik" matTooltip="Банковский Идентификационный Код"/>
     </mat-form-field>
   </div>
   <div class="grid__row grid__row--md">
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="УНП" formControlName="unp"/>
+      <input type="text" matInput placeholder="УНП" formControlName="unp" matTooltip="Учётный Номер Плательщика"/>
     </mat-form-field>
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="РС" formControlName="rs"/>
+      <input type="text" matInput placeholder="РС" formControlName="rs" matTooltip="Расчетный Счет"/>
     </mat-form-field>
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="КС" formControlName="ks"/>
+      <input type="text" matInput placeholder="КС" formControlName="ks" matTooltip="Корреспондентский Счет"/>
     </mat-form-field>
   </div>
-  <button style="background: linear-gradient(to right, #8e2de2, #4a00e0);font-size: 20px; margin-left: 15px; margin-top: 10px; color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;"
+  <button style="background: green;font-size: 20px; margin-left: 15px; margin-top: 10px; color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;"
           mat-raised-button
           color="accent" (click)="addNewUser()">ДОБАВИТЬ
   </button>

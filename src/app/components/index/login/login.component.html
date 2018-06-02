@@ -59,6 +59,9 @@
 
         </mat-card>
       </mat-card-content>
+      <a *ngIf="verify" [routerLink]="['/dashboard/new']" routerLinkActive="active">
+        <span style="font-size: 18px;">Панель Управления</span>
+      </a>
     </div>
   </div>
 </div>

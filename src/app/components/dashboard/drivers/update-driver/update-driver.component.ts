@@ -2,7 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '
 import {Driver} from '../../../../models/Driver';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {DriverService} from '../../../../services/driver/driver.service';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatDialog} from '@angular/material';
+import {DialogDriverComponent} from "../dialog-driver/dialog-driver.component";
 
 @Component({
   selector: 'app-update-driver',
@@ -23,7 +24,8 @@ export class UpdateDriverComponent implements OnChanges {
 
   constructor(private fb: FormBuilder,
               private driverService: DriverService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              public dialog:MatDialog) {
     this.updateDriverForm = this.fb.group({
       items: this.fb.array([])
     });
@@ -131,45 +133,61 @@ export class UpdateDriverComponent implements OnChanges {
   }
 
   updateDriver(formValue: FormGroup) {
-    this.onLoad = true;
-    const updateDriver: Driver = {
-      id: null,
-      firstName: formValue.value.firstName,
-      middleName: formValue.value.middleName,
-      lastName: formValue.value.lastName,
-      carModel: formValue.value.carModel,
-      carNumber: formValue.value.carNumber,
-      trailerModel: formValue.value.trailerModel,
-      trailerNumber: formValue.value.trailerNumber
-    };
-    this.driverService.updateDriver(formValue.value.id, updateDriver)
-      .then(data => {
-        this.onVoted.emit(this.items.value);
-        this.onVotedDriversAdmin.emit(this.items.value);
-        this.onLoad = false;
-        this.snackBar.open('Обновление водителя успешно выполнено', 'Закрыть', {
-          duration: 3000
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const dialogRef = this.dialog.open(DialogDriverComponent, {
+      data: {updateDriver: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onLoad = true;
+        const updateDriver:Driver = {
+          id: null,
+          firstName: formValue.value.firstName,
+          middleName: formValue.value.middleName,
+          lastName: formValue.value.lastName,
+          carModel: formValue.value.carModel,
+          carNumber: formValue.value.carNumber,
+          trailerModel: formValue.value.trailerModel,
+          trailerNumber: formValue.value.trailerNumber
+        };
+        this.driverService.updateDriver(formValue.value.id, updateDriver)
+          .then(data => {
+            this.onVoted.emit(this.items.value);
+            this.onVotedDriversAdmin.emit(this.items.value);
+            this.onLoad = false;
+            this.snackBar.open('Обновление водителя успешно выполнено', 'Закрыть', {
+              duration: 3000
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   }
 
   updateAllDrivers() {
-    this.onLoad = true;
-    this.driverService.updateAllDrivers(this.items.value)
-      .then(data => {
-        this.onVoted.emit(this.items.value);
-        this.onVotedDriversAdmin.emit(this.items.value);
-        this.onLoad = false;
-        this.snackBar.open('Обновление выбранных водителей успешно выполнено', 'Закрыть', {
-          duration: 3000
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const dialogRef = this.dialog.open(DialogDriverComponent, {
+      data: {updateAllDrivers: this.drivers}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onLoad = true;
+        this.driverService.updateAllDrivers(this.items.value)
+          .then(data => {
+            this.onVoted.emit(this.items.value);
+            this.onVotedDriversAdmin.emit(this.items.value);
+            this.onLoad = false;
+            this.snackBar.open('Обновление выбранных водителей успешно выполнено', 'Закрыть', {
+              duration: 3000
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   }
 
   closeWindow(i: number) {

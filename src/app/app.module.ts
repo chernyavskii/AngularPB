@@ -146,7 +146,7 @@ import { DialogDocumentsComponent } from './components/dashboard/documents/dialo
     MatChipsModule,
     PdfViewerModule
   ],
-  entryComponents: [DialogAgentComponent, DialogDriverComponent, DialogUserComponent, DialogProfileComponent, DialogDocumentsComponent],
+  entryComponents: [DialogAgentComponent, DialogDriverComponent, DialogUserComponent, DialogProfileComponent, DialogDocumentsComponent, UtilsComponent],
   providers: [UserService, DriverService, ShareService, AgentService, DocumentService, CookieService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })

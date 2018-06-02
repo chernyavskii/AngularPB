@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AgentService} from '../../../../services/agent/agent.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Agent} from '../../../../models/Agent';
 import {MatSnackBar} from '@angular/material';
 
@@ -26,18 +26,18 @@ export class AddAgentComponent implements OnInit {
               private snackBar: MatSnackBar) {
     this.addNewAgentGroup = this.fb.group({
       id: ['', Validators.nullValidator],
-      firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      address: ['', Validators.required],
-      bank: ['', Validators.required],
-      bik: ['', Validators.required],
-      ks: ['', Validators.required],
-      organization: ['', Validators.required],
-      phone: ['', Validators.required],
-      position: ['', Validators.required],
-      unp: ['', Validators.required],
-      rs: ['', Validators.required],
+      firstName: new FormControl('', [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+      middleName: new FormControl('', [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+      lastName: new FormControl('', [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+      address: new FormControl('', [Validators.required]),
+      bank: new FormControl('', [Validators.required]),
+      bik: new FormControl('', [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+      ks: new FormControl('', [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
+      organization: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [Validators.required, Validators.pattern("(\\+375 (25|29|33|44) ([0-9]{3}( [0-9]{2}){2}))")]),
+      position: new FormControl('', [Validators.required]),
+      unp: new FormControl('', [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+      rs: new FormControl('', [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
     });
   }
 

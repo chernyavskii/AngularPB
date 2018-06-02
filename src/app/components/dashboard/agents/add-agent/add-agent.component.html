@@ -1,5 +1,5 @@
 <form [formGroup]="addNewAgentGroup">
-  <div class="product__item">
+  <div >
     <div style=" height: 40px;">
       <button matTooltip="Закрыть" mat-icon-button (click)="closeWindow()" style="float: right;">
         <mat-icon style="color: red; position: relative;">clear</mat-icon>
@@ -8,47 +8,111 @@
     <div class="grid__row grid__row--md">
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['firstName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="addNewAgentGroup.controls['firstName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Отчество" formControlName="middleName"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['middleName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="addNewAgentGroup.controls['middleName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Фамилия" formControlName="lastName"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['lastName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="addNewAgentGroup.controls['lastName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="grid__row grid__row--md">
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Организация" formControlName="organization"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['organization'].errors?.required">Обязательное поле</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Должность" formControlName="position"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['position'].errors?.required">Обязательное поле</span>
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="grid__row grid__row--md">
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Адрес" formControlName="address"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['address'].errors?.required">Обязательное поле</span>
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="grid__row grid__row--md">
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Телефон" formControlName="phone"/>
+        <mat-error>
+                        <span *ngIf="addNewAgentGroup.controls['phone'].errors?.pattern">
+                          Формат поля: +375 XX XXX XX XX
+                        </span>
+          <span *ngIf="addNewAgentGroup.controls['phone'].errors?.required">Обязательное поле</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="Банк" formControlName="bank"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['bank'].errors?.required">Обязательное поле</span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="БИК" matTooltip="Банковский Идентификационный Код" formControlName="bik"/>
+        <mat-error>
+                        <span *ngIf="addNewAgentGroup.controls['bik'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 9 символам
+                        </span>
+          <span *ngIf="addNewAgentGroup.controls['bik'].errors?.required">Обязательное поле</span>
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="grid__row grid__row--md">
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="УНП" matTooltip="Учётный Номер Плательщика" formControlName="unp"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['unp'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="addNewAgentGroup.controls['unp'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 9 символам
+                        </span>
+                        <span
+                          *ngIf="addNewAgentGroup.controls['unp'].errors?.minlength && addNewAgentGroup.controls['unp'].errors?.maxlength">
+
+                        </span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="РС" matTooltip="Расчетный Счет" formControlName="rs"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['rs'].errors?.required">Обязательное поле</span>
+                         <span *ngIf="addNewAgentGroup.controls['rs'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 20 символам
+                        </span>
+        </mat-error>
       </mat-form-field>
       <mat-form-field class="grid__item">
         <input type="text" matInput placeholder="КС" matTooltip="Корреспондентский Счет" formControlName="ks"/>
+        <mat-error>
+          <span *ngIf="addNewAgentGroup.controls['ks'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="addNewAgentGroup.controls['ks'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 20 символам
+                        </span>
+        </mat-error>
       </mat-form-field>
     </div>
     <button

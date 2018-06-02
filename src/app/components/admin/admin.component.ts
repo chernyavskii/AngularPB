@@ -6,6 +6,7 @@ import {UserService} from "../../services/user.service";
 import {Agent} from "../../models/Agent";
 import {Driver} from "../../models/Driver";
 import {DialogUserComponent} from "./users/dialog-user/dialog-user.component";
+import {UtilsComponent} from "../utils/utils.component";
 
 @Component({
   selector: 'app-admin',
@@ -36,6 +37,19 @@ export class AdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
        /* this.selectedAgentsForDeleted = this.selection.selected;*/
+      }
+    });
+  }
+
+  logOut() {
+    let dialogRef = this.dialog.open(UtilsComponent, {
+      width: '500px',
+      data: {logout: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.userService.logOut();
       }
     });
   }

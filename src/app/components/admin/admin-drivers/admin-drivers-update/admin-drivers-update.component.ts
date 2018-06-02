@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {Driver} from "../../../../models/Driver";
 import {DriverService} from "../../../../services/driver/driver.service";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DialogDriverComponent} from "../../../dashboard/drivers/dialog-driver/dialog-driver.component";
+import {MatTableDataSource, MatDialog, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-admin-drivers-update',
@@ -16,7 +18,9 @@ export class AdminDriversUpdateComponent implements OnChanges {
   updateDriverForm:FormGroup;
 
   constructor(private driverService:DriverService,
-              private _formBuilder:FormBuilder) {
+              private _formBuilder:FormBuilder,
+              public dialog:MatDialog,
+              private snackBar:MatSnackBar) {
   }
 
   ngOnChanges(changes:SimpleChanges):void {
@@ -34,29 +38,37 @@ export class AdminDriversUpdateComponent implements OnChanges {
   }
 
   updateDriver(formValue:FormGroup) {
-    const updateDriver:Driver = {
-      id: null,
-      firstName: this.updateDriverForm.value.firstName,
-      middleName: this.updateDriverForm.value.middleName,
-      lastName: this.updateDriverForm.value.lastName,
-      carModel: this.updateDriverForm.value.carModel,
-      carNumber: this.updateDriverForm.value.carNumber,
-      trailerModel: this.updateDriverForm.value.trailerModel,
-      trailerNumber: this.updateDriverForm.value.trailerNumber
-    };
-    this.driverService.updateDriver(this.driver.id, updateDriver)
-      .then(data => {
-        this.onVotedDriversAdmin.emit(data);
-        /*
-         this.onLoad = false;
-         */
-        /*this.snackBar.open('Обновление контрагента успешно выполнено', 'Закрыть', {
-         duration: 3000
-         });*/
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const dialogRef = this.dialog.open(DialogDriverComponent, {
+      data: {updateDriver: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updateDriver:Driver = {
+          id: null,
+          firstName: this.updateDriverForm.value.firstName,
+          middleName: this.updateDriverForm.value.middleName,
+          lastName: this.updateDriverForm.value.lastName,
+          carModel: this.updateDriverForm.value.carModel,
+          carNumber: this.updateDriverForm.value.carNumber,
+          trailerModel: this.updateDriverForm.value.trailerModel,
+          trailerNumber: this.updateDriverForm.value.trailerNumber
+        };
+        this.driverService.updateDriver(this.driver.id, updateDriver)
+          .then(data => {
+            this.onVotedDriversAdmin.emit(data);
+            /*
+             this.onLoad = false;
+             */
+            this.snackBar.open('Обновление водителя успешно выполнено', 'Закрыть', {
+              duration: 3000
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   }
 
   closeWindow() {

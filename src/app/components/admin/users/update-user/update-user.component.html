@@ -40,22 +40,23 @@
       <input type="text" matInput placeholder="Банк" formControlName="bank"/>
     </mat-form-field>
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="БИК" formControlName="bik"/>
+      <input type="text" matInput placeholder="БИК" formControlName="bik" matTooltip="Банковский Идентификационный Код"/>
     </mat-form-field>
   </div>
   <div class="grid__row grid__row--md">
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="УНП" formControlName="unp"/>
+      <input type="text" matInput placeholder="УНП" formControlName="unp" matTooltip="Учётный Номер Плательщика"/>
     </mat-form-field>
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="РС" formControlName="rs"/>
+      <input type="text" matInput placeholder="РС" formControlName="rs" matTooltip="Расчетный Счет"/>
     </mat-form-field>
     <mat-form-field class="grid__item">
-      <input type="text" matInput placeholder="КС" formControlName="ks"/>
+      <input type="text" matInput placeholder="КС" formControlName="ks" matTooltip="Корреспондентский Счет"/>
     </mat-form-field>
   </div>
   <div>
-    <button style="font-size: 20px; margin-left: 15px; margin-top: 10px; color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;    background: linear-gradient(to right, #8e2de2, #4a00e0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */"
+    <button style="font-size: 20px; margin-left: 15px; margin-top: 10px; color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;
+    background: green;"
             mat-raised-button (click)="updateUser()">ОБНОВИТЬ
     </button>
   </div>

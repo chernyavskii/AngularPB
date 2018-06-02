@@ -9,7 +9,9 @@ export class AddFormUtils {
       array.controls[i].get('measure').setValidators(Validators.nullValidator);
       array.controls[i].get('number').setValidators(Validators.nullValidator);
       array.controls[i].get('price').setValidators(Validators.nullValidator);
+/*
       array.controls[i].get('note').setValidators(Validators.nullValidator);
+*/
       array.controls[i].get('packageNumber').setValidators(Validators.nullValidator);
       array.controls[i].get('weight').setValidators(Validators.nullValidator);
     }
@@ -28,7 +30,9 @@ export class AddFormUtils {
       array.controls[i].get('measure').setValidators(Validators.required);
       array.controls[i].get('number').setValidators(Validators.required);
       array.controls[i].get('price').setValidators(Validators.required);
+/*
       array.controls[i].get('note').setValidators(Validators.required);
+*/
     }
   }
 
@@ -45,7 +49,9 @@ export class AddFormUtils {
       array.controls[i].get('measure').setValue('');
       array.controls[i].get('number').setValue('');
       array.controls[i].get('price').setValue('');
+/*
       array.controls[i].get('note').setValue('');
+*/
     }
   }
 

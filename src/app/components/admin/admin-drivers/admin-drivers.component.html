@@ -1,3 +1,6 @@
+<div *ngIf="drivers.length === 0" class="alert alert-danger">
+  <span style="font-family: 'Open Sans Condensed', sans-serif; font-size: 20px;">Информация: <b>Список водителей пуст.</b></span>
+</div>
 <mat-table *ngIf="drivers.length > 0" #table [dataSource]="dataSource"
            style="background: #f7f7f8; border-bottom: 1px solid #d9d9da;">
 

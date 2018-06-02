@@ -19,10 +19,10 @@ export class AgentsComponent implements AfterViewInit {
   allAgents:Agent[] = [];
   selectedAgents:Agent[] = [];
   selectedAgentsForDeleted:Agent[];
-  error = new Error('','',0);
-/*  public message: string;
-  public status: string;
-  public code: number;*/
+  error = new Error('', '', 0);
+  /*  public message: string;
+   public status: string;
+   public code: number;*/
   loadData = false;
   allSelect = false;
 
@@ -47,12 +47,12 @@ export class AgentsComponent implements AfterViewInit {
       .catch(err => {
         console.log(err);
         /*console.log(err);
-        this.loadData = false;
-        this.errorProp = true;
-        this.error.code = err.error.code;
-        this.error.message = err.error.message;
-        this.error.status = err.error.status;
-        console.log(err);*/
+         this.loadData = false;
+         this.errorProp = true;
+         this.error.code = err.error.code;
+         this.error.message = err.error.message;
+         this.error.status = err.error.status;
+         console.log(err);*/
       });
   }
 
@@ -101,7 +101,7 @@ export class AgentsComponent implements AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.selectedAgentsForDeleted = this.selection.selected;
       }
     });

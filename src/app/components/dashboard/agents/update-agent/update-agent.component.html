@@ -12,78 +12,140 @@
               <mat-icon style="color: red; position: relative;">clear</mat-icon>
             </button>
           </div>
-<div class="grid__row grid__row--md">
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Отчество" formControlName="middleName"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Фамилия" formControlName="lastName"/>
-  </mat-form-field>
-</div>
-<div class="grid__row grid__row--md">
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Организация" formControlName="organization"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Должность" formControlName="position"/>
-  </mat-form-field>
-</div>
-<div class="grid__row grid__row--md">
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Адрес" formControlName="address"/>
-  </mat-form-field>
-</div>
-<div class="grid__row grid__row--md">
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Телефон" formControlName="phone"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="Банк" formControlName="bank"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="БИК" matTooltip="Банковский Идентификационный Код" formControlName="bik"/>
-  </mat-form-field>
-</div>
-<div class="grid__row grid__row--md">
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="УНП" matTooltip="Учётный Номер Плательщика" formControlName="unp"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="РС" matTooltip="Расчетный Счет" formControlName="rs"/>
-  </mat-form-field>
-  <mat-form-field class="grid__item">
-    <input type="text" matInput placeholder="КС" matTooltip="Корреспондентский Счет" formControlName="ks"/>
-  </mat-form-field>
-</div>
-<div>
-  <!--<button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
-          mat-raised-button
-          color="accent" (click)="updateAgent(element)">Обновить
-  </button>-->
-  <button
-    style="font-size: 20px; margin-top: 20px; margin-left: 15px;  color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif; background: linear-gradient(to right, #834d9b, #d04ed6);"
-    mat-raised-button (click)="updateAgent(element)">ОБНОВИТЬ
-  </button>
-</div>
-</div>
-<div class="progress-bar">
-  <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
-</div>
-<div>
- <!-- <button
-    style="font-size: 20px; margin-top: 20px; margin-left: 15px;
-     color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;
-      background: linear-gradient(to right, #834d9b, #d04ed6);"
-    mat-raised-button (click)="updateAllAgents()">ОБНОВИТЬ ВСЕ
-  </button>-->
-  <button style="font-size: 20px; background: #E91E63; margin-top: 5px; font-family: 'Open Sans Condensed', sans-serif; color: white;
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Имя" formControlName="firstName"/>
+              <mat-error>
+                <span *ngIf="element.controls['firstName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="element.controls['firstName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Отчество" formControlName="middleName"/>
+              <mat-error>
+                <span *ngIf="element.controls['middleName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="element.controls['middleName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Фамилия" formControlName="lastName"/>
+              <mat-error>
+                <span *ngIf="element.controls['lastName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="element.controls['lastName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Организация" formControlName="organization"/>
+              <mat-error>
+                <span *ngIf="element.controls['organization'].errors?.required">Обязательное поле</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Должность" formControlName="position"/>
+              <mat-error>
+                <span *ngIf="element.controls['position'].errors?.required">Обязательное поле</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Адрес" formControlName="address"/>
+              <mat-error>
+                <span *ngIf="element.controls['address'].errors?.required">Обязательное поле</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Телефон" formControlName="phone"/>
+              <mat-error>
+                        <span *ngIf="element.controls['phone'].errors?.pattern">
+                          Формат поля: +375 XX XXX XX XX
+                        </span>
+                <span *ngIf="element.controls['phone'].errors?.required">Обязательное поле</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="Банк" formControlName="bank"/>
+              <mat-error>
+                <span *ngIf="element.controls['bank'].errors?.required">Обязательное поле</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="БИК" matTooltip="Банковский Идентификационный Код"
+                     formControlName="bik"/>
+              <mat-error>
+                        <span *ngIf="element.controls['bik'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 9 символам
+                        </span>
+                <span *ngIf="element.controls['bik'].errors?.required">Обязательное поле</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="grid__row grid__row--md">
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="УНП" matTooltip="Учётный Номер Плательщика"
+                     formControlName="unp"/>
+              <mat-error>
+                <span *ngIf="element.controls['unp'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="element.controls['unp'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 9 символам
+                        </span>
+                        <span
+                          *ngIf="element.controls['unp'].errors?.minlength && addNewAgentGroup.controls['unp'].errors?.maxlength">
+
+                        </span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="РС" matTooltip="Расчетный Счет" formControlName="rs"/>
+              <mat-error>
+                <span *ngIf="element.controls['rs'].errors?.required">Обязательное поле</span>
+                         <span *ngIf="element.controls['rs'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 20 символам
+                        </span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="grid__item">
+              <input type="text" matInput placeholder="КС" matTooltip="Корреспондентский Счет" formControlName="ks"/>
+              <mat-error>
+                <span *ngIf="element.controls['ks'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="element.controls['ks'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 20 символам
+                        </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div>
+            <button
+              style="font-size: 20px; margin-top: 20px; margin-left: 15px;  color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif; background: linear-gradient(to right, #834d9b, #d04ed6);"
+              mat-raised-button (click)="updateAgent(element)">ОБНОВИТЬ
+            </button>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
+        </div>
+        <div>
+          <!-- <button
+             style="font-size: 20px; margin-top: 20px; margin-left: 15px;
+              color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;
+               background: linear-gradient(to right, #834d9b, #d04ed6);"
+             mat-raised-button (click)="updateAllAgents()">ОБНОВИТЬ ВСЕ
+           </button>-->
+          <button style="font-size: 20px; background: #E91E63; margin-top: 5px; font-family: 'Open Sans Condensed', sans-serif; color: white;
    margin-left: 5px; float: right;" mat-raised-button (click)="updateAllAgents()">ОБНОВИТЬ ВСЕ
-  </button>
-</div>
-</div>
-</form>
-</mat-card-content>
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
 </mat-card>

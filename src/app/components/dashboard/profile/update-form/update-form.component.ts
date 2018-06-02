@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../models/User';
 import {UserService} from '../../../../services/user.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {MatSnackBar, MatDialog} from '@angular/material';
 import {DialogProfileComponent} from "../dialog-profile/dialog-profile.component";
 
@@ -29,20 +29,20 @@ export class UpdateFormComponent implements OnInit {
 
     this.firstFormGroup = this._formBuilder.group({
       id: [this.user.id, Validators.required],
-      username: [this.user.username, Validators.required],
-      password: [this.user.password, Validators.required],
-      firstName: [this.user.firstName, Validators.required],
-      middleName: [this.user.middleName, Validators.required],
-      lastName: [this.user.lastName, Validators.required],
-      unp: [this.user.unp, Validators.required],
-      organization: [this.user.organization, Validators.required],
-      position: [this.user.position, Validators.required],
-      address: [this.user.address, Validators.required],
-      rs: [this.user.rs, Validators.required],
-      ks: [this.user.ks, Validators.required],
-      bank: [this.user.bank, Validators.required],
-      bik: [this.user.bik, Validators.required],
-      phone: [this.user.phone, Validators.required],
+      username: new FormControl(this.user.username, [Validators.required, Validators.minLength(6)]),
+      password: new FormControl(this.user.password, [Validators.required, Validators.minLength(9)]),
+      firstName: new FormControl(this.user.firstName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+      middleName: new FormControl(this.user.middleName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+      lastName: new FormControl(this.user.lastName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+      unp: new FormControl(this.user.unp, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+      organization: new FormControl(this.user.organization, [Validators.required]),
+      position: new FormControl(this.user.position, [Validators.required]),
+      address: new FormControl(this.user.address, [Validators.required]),
+      rs: new FormControl(this.user.rs, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
+      ks: new FormControl(this.user.ks, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
+      bank: new FormControl(this.user.bank, [Validators.required]),
+      bik: new FormControl(this.user.bik, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+      phone: new FormControl(this.user.phone, [Validators.required, Validators.pattern("(\\+375 (25|29|33|44) ([0-9]{3}( [0-9]{2}){2}))")]),
     });
   }
 

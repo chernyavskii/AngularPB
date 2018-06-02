@@ -1,3 +1,6 @@
+<div *ngIf="agents.length === 0" class="alert alert-danger">
+  <span style="font-family: 'Open Sans Condensed', sans-serif; font-size: 20px;">Информация: <b>Список контрагентов пуст.</b></span>
+</div>
 <mat-table *ngIf="agents.length > 0"  #table [dataSource]="dataSource" style="background: #f7f7f8; border-bottom: 1px solid #d9d9da;">
 
   <ng-container matColumnDef="configuration">
@@ -36,9 +39,9 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 <app-admin-agents-update [agent]="selectedAgentForUpdate" (onVotedAgentsAdmin)="onVotedAgentsAdmin($event)"></app-admin-agents-update>
-<app-admin-shared-documents *ngIf="selectedAgentsForSharedDocuments.length > 0" [documents]="selectedAgentsForSharedDocuments"></app-admin-shared-documents>
+<app-admin-shared-documents *ngIf="sharedProp"  [documents]="selectedAgentsForSharedDocuments"></app-admin-shared-documents>
 <app-delete-agent *ngIf="selectedAgentsForDeleted.length > 0" [agents]="selectedAgentsForDeleted" (deleteArray)="deleteArray($event)"></app-delete-agent>
-
+<!--*ngIf="selectedAgentsForSharedDocuments.length > 0"-->
 <!--
 <div class="grid__item" *ngIf="selectedAgentsForDeleted">
 -->

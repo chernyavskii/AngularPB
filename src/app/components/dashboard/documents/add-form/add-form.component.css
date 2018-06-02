@@ -45,6 +45,10 @@
 
 }
 
+.container{width:100%;} /*overflow:hidden;*/
+.box{white-space:nowrap;}
+.box div{width:72px; display:inline-block;}
+
 .mat-card-main .mat-card-main-content {
   font-family: 'Open Sans Condensed', sans-serif;
 }

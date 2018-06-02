@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {Error} from "../../../models/Error";
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {Cookie} from 'ng2-cookies';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,11 @@ export class LoginComponent implements OnInit {
   hide: any;
   loginFormGroup: FormGroup;
 
+  verify = false;
 
   constructor(private userService:UserService,
-              private router:Router,
-              private route:ActivatedRoute,
+              public router:Router,
+              public route:ActivatedRoute,
               private snackBar:MatSnackBar,
               private fb: FormBuilder) {
    /* this.loginFormGroup = this.fb.group({
@@ -31,15 +33,27 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.returnURL = this.route.snapshot.queryParams['returnUrl'] || '/';
+    if(localStorage.getItem('currentUser') && Cookie.get('token')) {
+      this.verify = true;
+    }
   }
 
   login() {
     this.userService.login(this.model)
       .then(data => {
-        this.snackBar.open('Вход успешно выполнен', 'Закрыть', {
-          duration: 3000
+        this.route.queryParams.subscribe(val => {
+          if(val.returnUrl === '/admin' && data.roles[0].name === 'ROLE_USER') {
+            this.snackBar.open('Вы не имеете прав для достпа к Панели Администратора', 'Закрыть', {
+              duration: 3000
+            });
+          }
+          else {
+            this.snackBar.open('Вход успешно выполнен', 'Закрыть', {
+              duration: 3000
+            });
+            this.router.navigateByUrl(this.returnURL);
+          }
         });
-        this.router.navigateByUrl(this.returnURL);
       })
       .catch(err => {
         this.error.message = err.error.message;

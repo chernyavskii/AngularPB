@@ -28,7 +28,8 @@
               <input type="text" matInput placeholder="Марка транспортного средства" formControlName="carModel"/>
             </mat-form-field>
             <mat-form-field class="grid__item">
-              <input type="text" matInput placeholder="Номерной знак транспортного средства" formControlName="carNumber"/>
+              <input type="text" matInput placeholder="Номерной знак транспортного средства"
+                     formControlName="carNumber"/>
             </mat-form-field>
           </div>
           <div class="grid__row grid__row--md">
@@ -40,9 +41,9 @@
             </mat-form-field>
           </div>
           <div>
-            <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
-                    mat-raised-button
-                    color="accent" (click)="updateDriver(element)">Обновить
+            <button
+              style="font-size: 20px; margin-top: 20px; margin-left: 15px;  color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif; background: linear-gradient(to right, #834d9b, #d04ed6);"
+              mat-raised-button (click)="updateDriver(element)">ОБНОВИТЬ
             </button>
           </div>
         </div>
@@ -50,8 +51,8 @@
           <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
         </div>
         <div>
-          <button style=" background: linear-gradient(to right, #834d9b, #d04ed6); margin-top: 5px; margin-left: 5px; float: right;" mat-raised-button
-                  color="accent" (click)="updateAllDrivers()">Обновить всё
+          <button style="font-size: 20px; background: #E91E63; margin-top: 5px; font-family: 'Open Sans Condensed', sans-serif; color: white;
+   margin-left: 5px; float: right;" mat-raised-button (click)="updateAllDrivers()">ОБНОВИТЬ ВСЕ
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import {User} from '../../models/User';
 import {MatDialog} from '@angular/material';
 import {UtilsComponent} from '../utils/utils.component';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,8 @@ export class DashboardComponent {
 
   constructor(public dialog:MatDialog,
               private router:Router,
-              private cdRef:ChangeDetectorRef) {
+              private cdRef:ChangeDetectorRef,
+              private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.currentUser.roles[0].name === 'ROLE_ADMIN') {
       this.checkUser = true;
@@ -47,12 +49,13 @@ export class DashboardComponent {
   openDialog():void {
     let dialogRef = this.dialog.open(UtilsComponent, {
       width: '500px',
-      data: {name: this.name, animal: this.animal}
+      data: {logout: true}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+     if(result) {
+       this.userService.logOut();
+     }
     });
   }
 

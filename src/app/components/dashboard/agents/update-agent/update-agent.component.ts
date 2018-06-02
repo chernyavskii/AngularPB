@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {Agent} from '../../../../models/Agent';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AgentService} from '../../../../services/agent/agent.service';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatDialog} from '@angular/material';
+import {DialogAgentComponent} from "../dialog-agent/dialog-agent.component";
 
 @Component({
   selector: 'app-update-agent',
@@ -12,18 +13,19 @@ import {MatSnackBar} from '@angular/material';
 export class UpdateAgentComponent implements OnChanges {
 
   @Input()
-  agents: Agent[] = [];
+  agents:Agent[] = [];
 
   @Output() onVoted = new EventEmitter<Agent[]>();
   @Output() onVotedAgentsAdmin = new EventEmitter<Agent[]>();
 
-  updateAgentForm: FormGroup;
+  updateAgentForm:FormGroup;
   onLoad = false;
-  changes: SimpleChanges;
+  changes:SimpleChanges;
 
-  constructor(private fb: FormBuilder,
-              private agentService: AgentService,
-              private snackBar: MatSnackBar) {
+  constructor(private fb:FormBuilder,
+              private agentService:AgentService,
+              private snackBar:MatSnackBar,
+              public dialog:MatDialog) {
     this.updateAgentForm = this.fb.group({
       items: this.fb.array([])
     });
@@ -33,23 +35,23 @@ export class UpdateAgentComponent implements OnChanges {
     for (let i = 0; i < this.agents.length; i++) {
       this.items.push(this.fb.group({
         id: this.agents[i].id,
-        firstName: this.agents[i].firstName,
-        middleName: this.agents[i].middleName,
-        lastName: this.agents[i].lastName,
-        address: this.agents[i].address,
-        bank: this.agents[i].bank,
-        bik: this.agents[i].bik,
-        ks: this.agents[i].ks,
-        organization: this.agents[i].organization,
-        phone: this.agents[i].phone,
-        position: this.agents[i].position,
-        unp: this.agents[i].unp,
-        rs: this.agents[i].rs,
+        firstName: new FormControl(this.agents[i].firstName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+        middleName: new FormControl(this.agents[i].middleName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+        lastName: new FormControl(this.agents[i].lastName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+        address: new FormControl(this.agents[i].address, [Validators.required]),
+        bank: new FormControl(this.agents[i].bank, [Validators.required]),
+        bik: new FormControl(this.agents[i].bik, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+        ks: new FormControl(this.agents[i].ks, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
+        organization: new FormControl(this.agents[i].organization, [Validators.required]),
+        phone: new FormControl(this.agents[i].organization, [Validators.required, Validators.pattern("(\\+375 (25|29|33|44) ([0-9]{3}( [0-9]{2}){2}))")]),
+        position: new FormControl(this.agents[i].position, [Validators.required]),
+        unp: new FormControl(this.agents[i].unp, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+        rs: new FormControl(this.agents[i].rs, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)])
       }));
     }
   }
 
-  checkIdCurrent(id: number): boolean {
+  checkIdCurrent(id:number):boolean {
     for (let i = 0; i < this.changes.agents.previousValue.length; i++) {
       if (id === this.changes.agents.previousValue[i].id) {
         return true;
@@ -58,7 +60,7 @@ export class UpdateAgentComponent implements OnChanges {
     return false;
   }
 
-  checkIdPrevious(id: number): boolean {
+  checkIdPrevious(id:number):boolean {
     for (let i = 0; i < this.changes.agents.currentValue.length; i++) {
       if (id === this.changes.agents.currentValue[i].id) {
         return true;
@@ -67,7 +69,7 @@ export class UpdateAgentComponent implements OnChanges {
     return false;
   }
 
-  removeItem(array: FormArray) {
+  removeItem(array:FormArray) {
     for (let i = 0; i < array.length; i++) {
       if (this.changes.agents.currentValue[i].id !== array.at(i).value.id) {
         array.removeAt(i);
@@ -75,7 +77,15 @@ export class UpdateAgentComponent implements OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes:SimpleChanges) {
+    console.log('mmis');
+    console.log(this.items.controls);
+    console.log('mmis2');
+    console.log(this.updateAgentForm.controls['items'].controls['firstName']);
+   /* for(let i=0; i< this.updateAgentForm.controls['items'].length; i++){
+      console.log(this.updateAgentForm.controls['items'].controls[i]);
+      
+    }*/
     this.changes = changes;
     if (changes.agents.firstChange) {
       this.pushItem();
@@ -87,35 +97,35 @@ export class UpdateAgentComponent implements OnChanges {
             this.removeItem(this.items);
             this.items.push(this.fb.group({
               id: changes.agents.currentValue[i].id,
-              firstName: changes.agents.currentValue[i].firstName,
-              middleName: changes.agents.currentValue[i].middleName,
-              lastName: changes.agents.currentValue[i].lastName,
-              address: changes.agents.currentValue[i].address,
-              bank: changes.agents.currentValue[i].bank,
-              bik: changes.agents.currentValue[i].bik,
-              ks: changes.agents.currentValue[i].ks,
-              organization: changes.agents.currentValue[i].organization,
-              phone: changes.agents.currentValue[i].phone,
-              position: changes.agents.currentValue[i].position,
-              unp: changes.agents.currentValue[i].unp,
-              rs: changes.agents.currentValue[i].rs,
+              firstName: new FormControl(changes.agents.currentValue[i].firstName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+              middleName: new FormControl(changes.agents.currentValue[i].middleName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+              lastName: new FormControl(changes.agents.currentValue[i].lastName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+              address: new FormControl(changes.agents.currentValue[i].address, [Validators.required]),
+              bank: new FormControl(changes.agents.currentValue[i].bank, [Validators.required]),
+              bik: new FormControl(changes.agents.currentValue[i].bik, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+              ks: new FormControl(changes.agents.currentValue[i].ks, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
+              organization: new FormControl(changes.agents.currentValue[i].organization, [Validators.required]),
+              phone: new FormControl(changes.agents.currentValue[i].phone, [Validators.required, Validators.pattern("(\\+375 (25|29|33|44) ([0-9]{3}( [0-9]{2}){2}))")]),
+              position: new FormControl(changes.agents.currentValue[i].position, [Validators.required]),
+              unp: new FormControl(changes.agents.currentValue[i].unp, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+              rs: new FormControl(changes.agents.currentValue[i].rs, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
             }));
           } else {
             this.removeItem(this.items);
             this.items.push(this.fb.group({
               id: changes.agents.currentValue[i].id,
-              firstName: changes.agents.currentValue[i].firstName,
-              middleName: changes.agents.currentValue[i].middleName,
-              lastName: changes.agents.currentValue[i].lastName,
-              address: changes.agents.currentValue[i].address,
-              bank: changes.agents.currentValue[i].bank,
-              bik: changes.agents.currentValue[i].bik,
-              ks: changes.agents.currentValue[i].ks,
-              organization: changes.agents.currentValue[i].organization,
-              phone: changes.agents.currentValue[i].phone,
-              position: changes.agents.currentValue[i].position,
-              unp: changes.agents.currentValue[i].unp,
-              rs: changes.agents.currentValue[i].rs,
+              firstName: new FormControl(changes.agents.currentValue[i].firstName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+              middleName: new FormControl(changes.agents.currentValue[i].middleName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+              lastName: new FormControl(changes.agents.currentValue[i].lastName, [Validators.required, Validators.pattern("[А-ЯЁ][а-яё]+([-'][А-ЯЁа-яё]+)?")]),
+              address: new FormControl(changes.agents.currentValue[i].address, [Validators.required]),
+              bank: new FormControl(changes.agents.currentValue[i].bank, [Validators.required]),
+              bik: new FormControl(changes.agents.currentValue[i].bik, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+              ks: new FormControl(changes.agents.currentValue[i].ks, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
+              organization: new FormControl(changes.agents.currentValue[i].organization, [Validators.required]),
+              phone: new FormControl(changes.agents.currentValue[i].phone, [Validators.required, Validators.pattern("(\\+375 (25|29|33|44) ([0-9]{3}( [0-9]{2}){2}))")]),
+              position: new FormControl(changes.agents.currentValue[i].position, [Validators.required]),
+              unp: new FormControl(changes.agents.currentValue[i].unp, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(9), Validators.minLength(9)]),
+              rs: new FormControl(changes.agents.currentValue[i].rs, [Validators.required, Validators.pattern("\\d+"), Validators.maxLength(20), Validators.minLength(20)]),
             }));
           }
         }
@@ -141,60 +151,81 @@ export class UpdateAgentComponent implements OnChanges {
     }
   }
 
-  get items(): FormArray {
+  get items():FormArray {
     return this.updateAgentForm.get('items') as FormArray;
   }
 
-  updateAgent(formValue: FormGroup) {
-    this.onLoad = true;
-    const updateAgent: Agent = {
-      id: null,
-      firstName: formValue.value.firstName,
-      middleName: formValue.value.middleName,
-      lastName: formValue.value.lastName,
-      address: formValue.value.address,
-      bank: formValue.value.bank,
-      bik: formValue.value.bik,
-      ks: formValue.value.ks,
-      organization: formValue.value.organization,
-      phone: formValue.value.phone,
-      position: formValue.value.position,
-      unp: formValue.value.unp,
-      rs: formValue.value.rs,
-    };
-    this.agentService.updateAgent(formValue.value.id, updateAgent)
-      .then(data => {
-        this.onVoted.emit(this.items.value);
-        this.onVotedAgentsAdmin.emit(this.items.value);
-        this.onLoad = false;
-        this.snackBar.open('Обновление контрагента успешно выполнено', 'Закрыть', {
-          duration: 3000
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  updateAgent(formValue:FormGroup) {
+    const dialogRef = this.dialog.open(DialogAgentComponent, {
+      data: {updateAgent: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onLoad = true;
+        const updateAgent:Agent = {
+          id: null,
+          firstName: formValue.value.firstName,
+          middleName: formValue.value.middleName,
+          lastName: formValue.value.lastName,
+          address: formValue.value.address,
+          bank: formValue.value.bank,
+          bik: formValue.value.bik,
+          ks: formValue.value.ks,
+          organization: formValue.value.organization,
+          phone: formValue.value.phone,
+          position: formValue.value.position,
+          unp: formValue.value.unp,
+          rs: formValue.value.rs,
+        };
+        this.agentService.updateAgent(formValue.value.id, updateAgent)
+          .then(data => {
+            this.onVoted.emit(this.items.value);
+            this.onVotedAgentsAdmin.emit(this.items.value);
+            this.onLoad = false;
+            this.snackBar.open('Обновление контрагента успешно выполнено', 'Закрыть', {
+              duration: 3000
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   }
 
   updateAllAgents() {
-    this.onLoad = true;
-    this.agentService.updateAllAgents(this.items.value)
-      .then(data => {
-        this.onVoted.emit(this.items.value);
-        this.onVotedAgentsAdmin.emit(this.items.value)
-        this.onLoad = false;
-        this.snackBar.open('Обновление выбранных контрагентов успешно выполнено', 'Закрыть', {
-          duration: 3000
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const dialogRef = this.dialog.open(DialogAgentComponent, {
+      data: {updateAllAgents: this.agents}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.onLoad = true;
+        this.agentService.updateAllAgents(this.items.value)
+          .then(data => {
+            this.onVoted.emit(this.items.value);
+            this.onVotedAgentsAdmin.emit(this.items.value)
+            this.onLoad = false;
+            this.snackBar.open('Обновление выбранных контрагентов успешно выполнено', 'Закрыть', {
+              duration: 3000
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
+
   }
 
-  closeWindow(i: number) {
+  closeWindow(i:number) {
     this.items.removeAt(i);
     this.onVoted.emit(this.items.value);
     this.onVotedAgentsAdmin.emit(this.items.value);
+  }
+
+  tested(element: any) {
+    console.log(element);
   }
 }

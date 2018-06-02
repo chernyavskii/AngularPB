@@ -11,6 +11,17 @@
 </mat-dialog-actions>
 </div>
 
+<div *ngIf="data.deleteAgent">
+  <h1 mat-dialog-title>Удаление контрагента</h1>
+  <mat-dialog-content>
+    Вы действительно хотите удалить данные контрагента?
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>
+
 <div *ngIf="data.info">
 <h1 mat-dialog-title >{{data.info.lastName}} {{data.info.firstName}} {{data.info.middleName}}</h1>
 <mat-dialog-content>
@@ -29,4 +40,26 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Закрыть</button>
 </mat-dialog-actions>
+</div>
+<div *ngIf="data.updateAgent">
+  <h1 mat-dialog-title>Редактирование контрагента</h1>
+  <mat-dialog-content>
+   Вы действительно хотите обновить данные контрагента?
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>
+<div *ngIf="data.updateAllAgents">
+  <h1 mat-dialog-title>Вы действительно хотите отредактировать выбранных контрагентов?</h1>
+  <mat-dialog-content>
+    <ul *ngFor="let element of data.updateAllAgents; let i=index">
+      <li><span>{{element.lastName}} {{element.firstName}} {{element.middleName}}</span></li>
+    </ul>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
 </div>

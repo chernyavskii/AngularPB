@@ -12,20 +12,20 @@
           </div>
         </li>
         <li class="list-item-nav">
-          <button mat-icon-button (click)="openDialog()">
+          <button mat-icon-button matTooltip="Выйти" (click)="openDialog()">
             <mat-icon>power</mat-icon>
           </button>
         </li>
         <li class="list-item-nav">
           <a [routerLink]="['./profile']">
-            <button mat-icon-button>
+            <button mat-icon-button matTooltip="Мой профиль">
               <mat-icon>person</mat-icon>
             </button>
           </a>
         </li>
         <li class="list-item-nav" *ngIf="checkUser">
           <a [routerLink]="['/admin']">
-            <button mat-icon-button (click)="tested()">
+            <button mat-icon-button (click)="tested()" matTooltip="Панель администратора">
               <mat-icon>open_in_new</mat-icon>
             </button>
           </a>

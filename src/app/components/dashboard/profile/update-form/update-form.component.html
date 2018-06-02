@@ -1,11 +1,3 @@
-<!--
-<h2>Вы действительно хотите обновить ?</h2>
-<h2>Вы действительно хотите изменить пароль ?</h2>
-
-<h2>профиля успешно изменен</h2>
-<h2>пароль успешно изменен</h2>
--->
-
 <mat-card style="margin: 20px;">
   <mat-card-header>
     <mat-card-title>Мой профиль</mat-card-title>
@@ -19,15 +11,33 @@
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.firstName" formControlName="firstName" placeholder="Имя"
                  name="firstName"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['firstName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="firstFormGroup.controls['firstName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.middleName" formControlName="middleName"
                  placeholder="Отчество"
                  name="middleName"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['middleName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="firstFormGroup.controls['middleName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.lastName" formControlName="lastName" placeholder="Фамилия"
                  name="lastName"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['lastName'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="firstFormGroup.controls['lastName'].errors?.pattern">
+                          Поле должно содержать только символы кириллицы, первый символ с учётом верхнего регистра. Допустимые дополнительные символы: одинарная кавычка, дефис
+                        </span>
+          </mat-error>
         </mat-form-field>
       </div>
 
@@ -35,62 +45,99 @@
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.address" formControlName="address" placeholder="Адрес"
                  name="address"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['address'].errors?.required">Обязательное поле</span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.phone" formControlName="phone" placeholder="Телефон"
                  name="phone"/>
+          <mat-error>
+                        <span *ngIf="firstFormGroup.controls['phone'].errors?.pattern">
+                          Формат поля: +375 XX XXX XX XX
+                        </span>
+            <span *ngIf="firstFormGroup.controls['phone'].errors?.required">Обязательное поле</span>
+          </mat-error>
         </mat-form-field>
       </div>
 
       <div class="grid__row grid__row--md">
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.unp" formControlName="unp" placeholder="УНП"
-                 name="middleName"
-          />
+                 name="unp"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['unp'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="firstFormGroup.controls['unp'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 9 символам
+                        </span>
+                        <span
+                          *ngIf="firstFormGroup.controls['unp'].errors?.minlength && firstFormGroup.controls['unp'].errors?.maxlength">
+
+                        </span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.organization" formControlName="organization"
-                 placeholder="Организация" name="organization"
-          />
+                 placeholder="Организация" name="organization"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['organization'].errors?.required">Обязательное поле</span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
           <input type="text" matInput [(ngModel)]="user.position" formControlName="position" placeholder="Должность"
-                 name="position"
-          />
+                 name="position"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['position'].errors?.required">Обязательное поле</span>
+          </mat-error>
         </mat-form-field>
       </div>
 
       <div class="grid__row grid__row--md">
         <mat-form-field class="grid__item">
-          <input type="text" matInput [(ngModel)]="user.bank" formControlName="bank" placeholder="Банк" name="bank"
-          />
+          <input type="text" matInput [(ngModel)]="user.bank" formControlName="bank" placeholder="Банк" name="bank"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['bank'].errors?.required">Обязательное поле</span>
+          </mat-error>
         </mat-form-field>
       </div>
 
       <div class="grid__row grid__row--md">
         <mat-form-field class="grid__item">
-          <input type="text" matInput [(ngModel)]="user.rs" formControlName="rs" placeholder="РС" name="rs"
-          />
+          <input type="text" matInput [(ngModel)]="user.rs" formControlName="rs" placeholder="РС" name="rs"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['rs'].errors?.required">Обязательное поле</span>
+                         <span *ngIf="firstFormGroup.controls['rs'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 20 символам
+                        </span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
-          <input type="text" matInput [(ngModel)]="user.bik" formControlName="bik" placeholder="БИК" name="bik"
-          />
+          <input type="text" matInput [(ngModel)]="user.bik" formControlName="bik" placeholder="БИК" name="bik" />
+          <mat-error>
+                        <span *ngIf="firstFormGroup.controls['bik'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 9 символам
+                        </span>
+            <span *ngIf="firstFormGroup.controls['bik'].errors?.required">Обязательное поле</span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="grid__item">
-          <input type="text" matInput [(ngModel)]="user.ks" formControlName="ks" placeholder="КС" name="ks"
-          />
+          <input type="text" matInput [(ngModel)]="user.ks" formControlName="ks" placeholder="КС" name="ks"/>
+          <mat-error>
+            <span *ngIf="firstFormGroup.controls['ks'].errors?.required">Обязательное поле</span>
+                        <span *ngIf="firstFormGroup.controls['ks'].errors?.pattern">
+                          Поле должно содержать только цифры без пробелов. Размер поля должен соответствовать 20 символам
+                        </span>
+          </mat-error>
         </mat-form-field>
       </div>
       <button
         style="font-size: 20px; margin-top: 20px;  color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif; background: linear-gradient(to right, #834d9b, #d04ed6);"
         mat-raised-button>ПРИНЯТЬ
       </button>
-<!--
-      <button class="submit&#45;&#45;button" mat-raised-button type="submit">ПРИНЯТЬ</button>
--->
     </form>
     <span><p
       style="font-size: 35px; font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0; padding-bottom: 15px;">Изменение пароля</p></span>
     <app-change-password [user]="user"></app-change-password>
   </mat-card-content>
 </mat-card>
+

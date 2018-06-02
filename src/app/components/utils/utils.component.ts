@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {DashboardComponent} from '../dashboard/dashboard.component';
+import {Component, Inject, EventEmitter, Output} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-utils',
@@ -9,5 +9,10 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
 })
 export class UtilsComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<UtilsComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  successButton() {
+    this.dialogRef.close(true);
+  }
 }

@@ -13,6 +13,18 @@
   flex-direction: column;
 }
 
+.alert {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f9f786;
+  border-color: #ebccd1;
+  flex: 1;
+}
+
 .grid__item {
   flex: 1;
   padding: 10px;

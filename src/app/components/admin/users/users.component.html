@@ -1,19 +1,20 @@
-<p style="font-size: 35px;
+
+
+  <p style="font-size: 35px;
  font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E;">
-  <!--<mat-icon>done</mat-icon>-->
-  <button mat-icon-button (click)="openDialog()">
-    <mat-icon style="color: blue;">add</mat-icon>
-  </button>Зарегистрированные пользователи:
-</p>
+    <button mat-mini-fab color="warn" matTooltip="Новый пользователь" (click)="openDialog()" style="margin: 10px;font-size: 15px;">+</button>
+    Зарегистрированные пользователи:
+  </p>
+
 <mat-table #table [dataSource]="dataSource"
            style="background: #f7f7f8; border-top: 1px solid #d9d9da; border-bottom: 1px solid #d9d9da; ">
   <ng-container matColumnDef="configuration">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let element">
-      <button style="margin-right: 10px;" mat-icon-button (click)="checkAgents(element)">
+      <button style="margin-right: 10px;" mat-icon-button (click)="checkAgents(element)" matTooltip="Редактирование">
         <mat-icon style="color: #757575;">build</mat-icon>
       </button>
-      <button mat-icon-button (click)="checkAgents(element)">
+      <button mat-icon-button (click)="deleteUser(element)" matTooltip="Удалить пользователя">
         <mat-icon style="color: #757575;">delete</mat-icon>
       </button>
 
@@ -84,6 +85,9 @@
     <app-admin-drivers class="grid__item" *ngIf="arrayOfDrivers" [drivers]="arrayOfDrivers"></app-admin-drivers>
   </mat-tab>
   <mat-tab label="Документы">
-    <app-admin-documents class="grid__item" *ngIf="arrayOfDocuments" [documents]="arrayOfDocuments"></app-admin-documents>
+    <app-admin-documents class="grid__item" *ngIf="arrayOfDocuments"
+                         [documents]="arrayOfDocuments"></app-admin-documents>
   </mat-tab>
 </mat-tab-group>
+<app-delete-user *ngIf="selectedUsersForDeleted.length > 0" [users]="selectedUsersForDeleted"
+                 (deleteArray)="deleteArray($event)"></app-delete-user>

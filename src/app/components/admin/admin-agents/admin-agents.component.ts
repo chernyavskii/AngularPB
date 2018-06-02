@@ -1,8 +1,9 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Agent} from '../../../models/Agent';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatDialog, MatSnackBar} from '@angular/material';
 import {AgentService} from "../../../services/agent/agent.service";
+import {DialogAgentComponent} from "../../dashboard/agents/dialog-agent/dialog-agent.component";
 
 @Component({
   selector: 'app-admin-agents',
@@ -16,25 +17,32 @@ export class AdminAgentsComponent implements OnChanges {
   selectedAgentForUpdate:Agent;
   selectedAgentsForDeleted: Agent[] = [];
   selectedAgentsForSharedDocuments:Document[] = [];
+  
+  sharedProp = false;
 
   displayedColumns = ['configuration', 'firstName', 'lastName', 'middleName', 'unp'];
   dataSource = null;
 
-  constructor(private agentService:AgentService) {
+  constructor(private agentService:AgentService,
+              public dialog: MatDialog,
+              private snackBar:MatSnackBar) {
   }
 
   ngOnChanges(changes:SimpleChanges):void {
+    this.sharedProp = false;
     this.selectedAgentForUpdate = null;
     this.selectedAgentsForSharedDocuments = [];
     this.dataSource = new MatTableDataSource<Agent>(this.agents);
   }
 
   updateAgent(agent:Agent) {
+    this.sharedProp = false;
     this.selectedAgentsForSharedDocuments = [];
     this.selectedAgentForUpdate = agent;
   }
 
   sharedDocuments(agent:any) {
+    this.sharedProp = true;
     this.selectedAgentForUpdate = null;
     this.selectedAgentsForSharedDocuments = agent.documents;
   }
@@ -79,7 +87,15 @@ export class AdminAgentsComponent implements OnChanges {
   }
 
   deleteAgent(element: Agent) {
-    this.selectedAgentsForDeleted.push(element);
+    const dialogRef = this.dialog.open(DialogAgentComponent, {
+      data: {deleteAgent: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.selectedAgentsForDeleted.push(element);
+      }
+    });
   }
 
   deleteArray(updateDataArray: any) {

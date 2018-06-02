@@ -87,8 +87,8 @@ export class AddFormComponent {
             number: '',
             price: '',
             packageNumber: '',
-            weight: '',
-            note: ''
+            weight: ''
+            /*note: ''*/
           }
         ))]
       ),
@@ -214,8 +214,8 @@ export class AddFormComponent {
             number: ['', Validators.required],
             price: ['', Validators.required],
             packageNumber: ['', Validators.required],
-            weight: ['', Validators.required],
-            note: ['', Validators.required]
+            weight: ['', Validators.required]
+            /*note: ['', Validators.required]*/
           }
         ));
         break;
@@ -226,8 +226,8 @@ export class AddFormComponent {
             number: ['', Validators.required],
             price: ['', Validators.required],
             packageNumber: ['', Validators.nullValidator],
-            weight: ['', Validators.nullValidator],
-            note: ['', Validators.required]
+            weight: ['', Validators.nullValidator]
+            /*note: ['', Validators.required]*/
           }
         ));
         break;
@@ -238,8 +238,8 @@ export class AddFormComponent {
             number: ['', Validators.required],
             price: ['', Validators.required],
             packageNumber: ['', Validators.nullValidator],
-            weight: ['', Validators.nullValidator],
-            note: ['', Validators.required]
+            weight: ['', Validators.nullValidator]
+           /* note: ['', Validators.required]*/
           }
         ));
         break;
@@ -283,7 +283,7 @@ export class AddFormComponent {
           product.measure = this.secondStepGroup.value.products[i].measure;
           product.number = this.secondStepGroup.value.products[i].number;
           product.price = this.secondStepGroup.value.products[i].price;
-          product.note = this.secondStepGroup.value.products[i].note;
+    /*      product.note = this.secondStepGroup.value.products[i].note;*/
 
           saveArrayOfProducts.push(product);
         }

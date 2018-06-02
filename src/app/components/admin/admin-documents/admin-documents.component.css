@@ -7,6 +7,18 @@
   min-width: 300px;
 }
 
+.alert {
+  padding: 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f9f786;
+  border-color: #ebccd1;
+  flex: 1;
+}
+
 .grid__row_button {
   display: flex;
   float: none;

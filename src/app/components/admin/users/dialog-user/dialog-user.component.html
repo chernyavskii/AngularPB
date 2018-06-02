@@ -1,1 +1,23 @@
-<app-add-user></app-add-user>
+<div *ngIf="data.newUser">
+  <app-add-user (createdItem)="createdItem($event)"></app-add-user>
+</div>
+<div *ngIf="data.updateUser">
+    <h1 mat-dialog-title>Редактирование пользователя</h1>
+    <mat-dialog-content>
+      Вы действительно хотите обновить данные пользователя?
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Отмена</button>
+      <button mat-button color="warn" (click)="successButton()">Принять</button>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="data.deleteUser">
+  <h1 mat-dialog-title>Удаление пользователя</h1>
+  <mat-dialog-content>
+    Вы действительно хотите удалить данные пользователя?
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>

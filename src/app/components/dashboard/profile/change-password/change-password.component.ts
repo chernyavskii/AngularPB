@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   @Input()
   user = new User();
   changePasswordGroup:FormGroup;
+  passwords: FormGroup;
   hide:any;
 
   constructor(private fb:FormBuilder,
@@ -25,13 +26,12 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit() {
     this.changePasswordGroup = this.fb.group({
-      current_password: ['', Validators.required],
+      current_password: new FormControl('', [Validators.required, Validators.minLength(9)]),
       passwords: this.fb.group({
-        newPassword: ['', Validators.required],
-        repeat_new_password: ['', Validators.required]
+        newPassword: new FormControl('', [Validators.required, Validators.minLength(9)]),
+        repeat_new_password: new FormControl('', [Validators.required, Validators.minLength(9)])
       }, {validator: this.areEqual})
     });
-
   }
 
   areEqual(control:FormControl):ValidationErrors {

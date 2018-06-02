@@ -2,10 +2,11 @@ import {OnInit, Component} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {User} from '../../../models/User';
 import {SelectionModel} from '@angular/cdk/collections';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatDialog, MatSnackBar} from '@angular/material';
 import {Agent} from '../../../models/Agent';
 import {Driver} from '../../../models/Driver';
 import {Document} from '../../../models/Document';
+import {DialogUserComponent} from "./dialog-user/dialog-user.component";
 
 @Component({
   selector: 'app-users',
@@ -23,8 +24,11 @@ export class UsersComponent implements OnInit {
   checkButton = false;
   choiceUser:User;
   currentUser:User;
+  selectedUsersForDeleted:User[] = [];
 
-  constructor(private userService:UserService) {
+  constructor(private userService:UserService,
+              public dialog: MatDialog,
+              private snackBar:MatSnackBar) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.userService.getAllUsers()
@@ -32,7 +36,7 @@ export class UsersComponent implements OnInit {
         for (let i = 0; i < result.length; i++) {
           if (result[i].id !== this.currentUser.id) {
             this.allUsers.push(result[i]);
-            this.dataSource = new MatTableDataSource<User>(this.allUsers);
+            this.dataSource = new MatTableDataSource<any>(this.allUsers);
           }
         }
       }).catch(err => {
@@ -44,18 +48,15 @@ export class UsersComponent implements OnInit {
   }
 
   checkAgents(user:any) {
-    console.log('ioioo');
-    console.log(user);
     this.choiceUser = user;
     this.checkButton = true;
     this.arrayOfAgents = user.agents;
     this.arrayOfDrivers = user.drivers;
     this.arrayOfDocuments = user.documents;
   }
-  
+
   onVotedAdmin(updateDataArray: any) {
     const result = this.checkId(updateDataArray.id);
-    
     if (result) {
       this.updateDataSource(updateDataArray.id, updateDataArray);
     }
@@ -71,11 +72,8 @@ export class UsersComponent implements OnInit {
   }
 
   updateDataSource(id:number, data:any) {
-    console.log(data);
-    console.log('rre');
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
-        console.log('da');
         this.dataSource.data[i].firstName = data.firstName;
         this.dataSource.data[i].middleName = data.middleName;
         this.dataSource.data[i].lastName = data.lastName;
@@ -89,9 +87,64 @@ export class UsersComponent implements OnInit {
         this.dataSource.data[i].bik = data.bik;
         this.dataSource.data[i].phone = data.phone;
         this.dataSource.data[i].roles[0].name = data.roles[0].name;
-        
+
       }
     }
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(DialogUserComponent, {
+      data: {newUser: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     if(result) {
+       this.allUsers.push(result);
+       this.dataSource = new MatTableDataSource<any>(this.allUsers);
+     }
+    });
+  }
+
+  deleteUser(element: User){
+    const dialogRef = this.dialog.open(DialogUserComponent, {
+      data: {deleteUser: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.selectedUsersForDeleted.push(element);
+      }
+    });
+  }
+
+  deleteArray(updateDataArray: any) {
+ /*   console.log('mmm');
+    console.log(updateDataArray);
+    if(updateDataArray) {
+      console.log('rw');
+    }*/
+    for (let i = 0; i < this.selectedUsersForDeleted.length; i++) {
+      const result = this.checkId(this.selectedUsersForDeleted[i].id);
+      if (result) {
+        this.updateDataSourceAfterDeleted(this.selectedUsersForDeleted[i].id);
+      }
+    }
+    this.dataSource = new MatTableDataSource<any>(this.allUsers);
+
+    this.selectedUsersForDeleted = [];
+     this.choiceUser = null;
+    this.checkButton = false;
+     this.arrayOfAgents = [];
+     this.arrayOfDrivers = [];
+     this.arrayOfDocuments = [];
+     this.dataSource = new MatTableDataSource<any>(this.allUsers);
+  }
+
+  updateDataSourceAfterDeleted(id:number) {
+    for (let i = 0; i < this.dataSource.data.length; i++) {
+      if (id === this.dataSource.data[i].id) {
+        this.dataSource.data.splice(i,1);
+      }
+    }
+  }
 }

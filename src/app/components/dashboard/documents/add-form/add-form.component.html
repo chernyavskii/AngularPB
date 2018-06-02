@@ -91,8 +91,12 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i, products)"><mat-icon
-                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                    <button class="product__title_right" matTooltip="Закрыть" *ngIf="products.length > 1" mat-icon-button (click)="removeItemById(i, products)" style="float: right;">
+                      <mat-icon style="color: red; position: relative;">clear</mat-icon>
+                    </button>
+               <!--     <span class="product__title_right" *ngIf="products.length > 1"
+                          (click)="removeItemById(i, products)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>-->
                   </div>
                   <div class="grid__row grid__row--md">
                     <mat-form-field class="grid__item">
@@ -130,11 +134,11 @@
                       <span matSuffix>шт. </span>
                     </mat-form-field>
                   </div>
-                  <div class="grid__row grid__row--md">
+                  <!--<div class="grid__row grid__row&#45;&#45;md">
                     <mat-form-field class="grid__item">
                       <input matInput placeholder="Примечание" type="text" formControlName="note">
                     </mat-form-field>
-                  </div>
+                  </div>-->
                 </div>
                 <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
                   <mat-action-row style="margin: auto;">
@@ -144,7 +148,7 @@
                     <button mat-button matStepperNext>Вперёд</button>
                   </mat-action-row>
                   <mat-action-row style="margin: auto;">
-                    <button mat-fab (click)="addProduct()" style="float: right;"><span
+                    <button matTooltip="Добавить еще" mat-fab (click)="addProduct()" style="float: right;"><span
                       style="font-size: 30px;">+</span>
                     </button>
                   </mat-action-row>
@@ -183,8 +187,12 @@
                       account_box
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1" (click)="removeItemById(i, products)"><mat-icon
-                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                    <button class="product__title_right" matTooltip="Закрыть" *ngIf="products.length > 1" mat-icon-button (click)="removeItemById(i, products)" style="float: right;">
+                      <mat-icon style="color: red; position: relative;">clear</mat-icon>
+                    </button>
+                  <!--  <span class="product__title_right" *ngIf="products.length > 1"
+                          (click)="removeItemById(i, products)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>-->
                   </div>
                   <div class="grid__row grid__row--md">
                     <mat-form-field class="grid__item">
@@ -211,11 +219,11 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="grid__row grid__row--md">
+                  <!--<div class="grid__row grid__row&#45;&#45;md">
                     <mat-form-field class="grid__item">
                       <input matInput placeholder="Примечание" type="text" formControlName="note">
                     </mat-form-field>
-                  </div>
+                  </div>-->
                 </div>
                 <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
                   <mat-action-row style="margin: auto;">
@@ -225,7 +233,7 @@
                     <button mat-button matStepperNext>Вперёд</button>
                   </mat-action-row>
                   <mat-action-row style="margin: auto;">
-                    <button mat-fab (click)="addProduct()" style="float: right;"><span
+                    <button matTooltip="Добавить еще" mat-fab (click)="addProduct()" style="float: right;"><span
                       style="font-size: 30px;">+</span>
                     </button>
                   </mat-action-row>
@@ -264,8 +272,11 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Работа #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="works.length > 1" (click)="removeItemById(i, works)"><mat-icon
-                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                    <button class="product__title_right" matTooltip="Закрыть" *ngIf="works.length > 1" mat-icon-button (click)="removeItemById(i, works)" style="float: right;">
+                      <mat-icon style="color: red; position: relative;">clear</mat-icon>
+                    </button>
+                  <!--  <span class="product__title_right" *ngIf="works.length > 1" (click)="removeItemById(i, works)"><mat-icon
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>-->
                   </div>
                   <div class="grid__row grid__row--md">
                     <mat-form-field class="grid__item">
@@ -287,7 +298,7 @@
                   <button mat-button matStepperNext>Вперёд</button>
                 </mat-action-row>
                 <mat-action-row style="margin: auto;">
-                  <button mat-fab (click)="addWork()" style="float: right;"><span
+                  <button matTooltip="Добавить еще" mat-fab (click)="addWork()" style="float: right;"><span
                     style="font-size: 30px;">+</span>
                   </button>
                 </mat-action-row>
@@ -325,9 +336,12 @@
                       assignment
                     </mat-icon>
                     <span class="product__title_left"> Товар #{{i + 1}}</span>
-                    <span class="product__title_right" *ngIf="products.length > 1"
+                    <button class="product__title_right" matTooltip="Закрыть" *ngIf="products.length > 1" mat-icon-button (click)="removeItemById(i, products)" style="float: right;">
+                      <mat-icon style="color: red; position: relative;">clear</mat-icon>
+                    </button>
+                   <!-- <span class="product__title_right" *ngIf="products.length > 1"
                           (click)="removeItemById(i, products)"><mat-icon
-                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>
+                      style="color: #a9afbb; font-size: 28px; float: right; margin-right: 10px; margin-top: 11px; height: 30px; width: 30px;">delete_forever</mat-icon></span>-->
                   </div>
                   <div class="grid__row grid__row--md">
                     <mat-form-field class="grid__item">
@@ -354,11 +368,11 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="grid__row grid__row--md">
-                    <mat-form-field class="grid__item">
-                      <input matInput placeholder="Примечание" type="text" formControlName="note">
-                    </mat-form-field>
-                  </div>
+                  <!-- <div class="grid__row grid__row&#45;&#45;md">
+                     <mat-form-field class="grid__item">
+                       <input matInput placeholder="Примечание" type="text" formControlName="note">
+                     </mat-form-field>
+                   </div>-->
                 </div>
                 <div style=" border-top: 1px solid #EEEEEE; padding: 10px;">
                   <mat-action-row style="margin: auto;">
@@ -368,7 +382,7 @@
                     <button mat-button matStepperNext>Вперёд</button>
                   </mat-action-row>
                   <mat-action-row style="margin: auto;">
-                    <button mat-fab (click)="addProduct()" style="float: right;"><span
+                    <button matTooltip="Добавить еще" mat-fab (click)="addProduct()" style="float: right;"><span
                       style="font-size: 30px;">+</span>
                     </button>
                   </mat-action-row>
@@ -394,48 +408,48 @@
           <div class="progress-bar">
             <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>
           </div>
-          <div class="product__item" *ngIf="visibleDocument">
-            <div class="title__block">
-              <span class="product__title_left">
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item [matMenuTriggerFor]="download">
-                    <mat-icon>file_download</mat-icon>
-                    <span>Скачать</span>
-                  </button>
-                  <button mat-menu-item (click)="printDocument()">
-                    <mat-icon>print</mat-icon>
-                    <span>Печать</span>
-                  </button>
-                  <button mat-menu-item (click)="deleteDocument()">
-                    <mat-icon>delete</mat-icon>
-                    <span>Удалить</span>
-                  </button>
-                   <button mat-menu-item (click)="shareDocument()">
-                    <mat-icon>share</mat-icon>
-                    <span>Поделиться</span>
-                  </button>
-                </mat-menu>
-                <mat-menu #download="matMenu">
-                   <button mat-menu-item (click)="downloadDocumentInPdf()">
-                    <mat-icon>label</mat-icon>
-                    <span>.pdf</span>
-                  </button>
-                  <button mat-menu-item (click)="downloadDocumentInExcel()">
-                    <mat-icon>label</mat-icon>
-                    <span>.xlsx</span>
-                  </button>
-                </mat-menu>
-              </span>
+          <div *ngIf="visibleDocument">
+            <div class="product__item">
+              <!--<div class="container">-->
+                <div class="box">
+                  <div>
+                    <button mat-menu-item [matMenuTriggerFor]="download">
+                      <mat-icon>file_download</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button mat-menu-item (click)="printDocument()">
+                      <mat-icon>print</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button mat-menu-item (click)="deleteDocument()">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                  <div>
+                    <button mat-menu-item (click)="shareDocument()">
+                      <mat-icon>share</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              <pdf-viewer [src]="pageurl" [original-size]="true"></pdf-viewer>
+
+              <!--      </div>-->
             </div>
-            <div class="grid__row grid__row--md" style="border: 1px solid red;">
-              <div class="grid__item" style="padding: 30px; border: 1px solid green;">
-                <pdf-viewer [src]="pageurl" [original-size]="true"></pdf-viewer>
-              </div>
-            </div>
+
+            <mat-menu #download="matMenu">
+              <button mat-menu-item (click)="downloadDocumentInPdf()">
+                <mat-icon>label</mat-icon>
+                <span>.pdf</span>
+              </button>
+              <button mat-menu-item (click)="downloadDocumentInExcel()">
+                <mat-icon>label</mat-icon>
+                <span>.xlsx</span>
+              </button>
+            </mat-menu>
           </div>
+
         </form>
       </mat-step>
     </mat-vertical-stepper>

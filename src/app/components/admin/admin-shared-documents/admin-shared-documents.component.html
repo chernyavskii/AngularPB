@@ -1,3 +1,4 @@
+
 <app-document-detail *ngIf="selectedShareDocument " [document]="selectedShareDocument"
                      (deleteElement)="deleteElement($event)"></app-document-detail>
 
@@ -11,7 +12,12 @@
     <button mat-icon-button (click)="listViewShared = true"><mat-icon>list</mat-icon></button>
   </span>
   </p>
-</span><div *ngIf="listViewShared">
+  <div *ngIf="documents.length === 0" class="alert alert-danger">
+  <span style="font-family: 'Open Sans Condensed', sans-serif; font-size: 20px;">Информация: <b>Список документов пуст.</b></span>
+</div>
+</span>
+<div *ngIf="documents.length > 0">
+<div *ngIf="listViewShared">
   <mat-form-field class="data_filter">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Введите ...">
   </mat-form-field>
@@ -51,10 +57,11 @@
     <div style="height: 400px" *ngIf="!waitProp">
       <img *ngIf="!onLoad" class="zoom" style="height: 400px;" src="{{url[i]}}" width="250" height="400">
     </div>
-    <mat-card-actions style="border: 1px solid black;">
+    <mat-card-actions style="background: #f7f7f8;">
       <button mat-button class="button--next" (click)="documentInfo(document)">Подробнее</button>
     </mat-card-actions>
   </mat-card>
 </div>
 <app-document-detail *ngIf="selectedDocument " [document]="selectedDocument"
                      (deleteElement)="deleteElement($event)"></app-document-detail>
+</div>

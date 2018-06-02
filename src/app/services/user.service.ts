@@ -10,10 +10,10 @@ import {FormArray} from '@angular/forms';
 
 @Injectable()
 export class UserService {
-  private loginURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/login';
-  private usersURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/users/';
-  private resourceURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/';
-  private agentsURL = 'http://194.87.161.16:8080/blanks-1.0-SNAPSHOT/agents/';
+  private loginURL = 'http://195.133.73.1:8080/blanks/api/v1/login/';
+  private usersURL = 'http://localhost:8081/users/';
+  private resourceURL = 'http://localhost:8081/';
+  private agentsURL = 'http://localhost:8081/agents/';
 
   constructor(private http: HttpClient,
               private router: Router) {
@@ -56,6 +56,7 @@ export class UserService {
   }*/
 
   login(user: User): Promise<any> {
+    Cookie.set('token', '');
     Cookie.delete('token');
     Cookie.deleteAll();
     localStorage.clear();
@@ -128,6 +129,8 @@ export class UserService {
       ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
       ' Access-Control-Request-Headers'
     });
+    Cookie.set('token', '');
+    Cookie.deleteAll();
     Cookie.delete('token');
     localStorage.clear();
     return new Promise((resolve, reject) => {
@@ -205,6 +208,14 @@ export class UserService {
         })
         .catch(error => reject(error));
     });
+  }
+  
+  logOut() {
+    Cookie.delete('token');
+    Cookie.set('token', '');
+    Cookie.deleteAll();
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 
 }

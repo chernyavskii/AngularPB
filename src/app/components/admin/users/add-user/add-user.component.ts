@@ -19,6 +19,7 @@ export class AddUserComponent implements OnInit {
   @Output() newItem = new EventEmitter<User[]>();
   @Input() createnewprop: any;
   @Input() newUserProp: any;
+  @Output() createdItem = new EventEmitter<any>();
 
   typeOfRole = typeOfRole;
 
@@ -66,7 +67,6 @@ export class AddUserComponent implements OnInit {
         rs: this.addNewUserGroup.value.rs,
       };
 
-
       const role: string = this.addNewUserGroup.value.role;
       this.userService.addUser(newUser, role)
         .then(data => {
@@ -90,9 +90,13 @@ export class AddUserComponent implements OnInit {
               roles: [{
                 id: null,
                 name: this.addNewUserGroup.value.role
-              }]
+              }],
+              documents: [],
+              agents: [],
+              drivers: []
             };
             this.newItem.emit(newEmit);
+            this.createdItem.emit(newEmit);
             this.snackBar.open('Новый пользователь успешно добавлен', 'Закрыть', {
               duration: 3000
             });

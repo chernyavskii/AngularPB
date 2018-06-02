@@ -3,6 +3,8 @@ import {User} from '../../../../models/User';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../../services/user.service';
 import {typeOfRole} from '../../../../data/data';
+import {DialogUserComponent} from "../dialog-user/dialog-user.component";
+import {MatSnackBar, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-update-user',
@@ -17,12 +19,16 @@ export class UpdateUserComponent implements OnChanges {
   typeOfRole = typeOfRole;
 
   constructor(private _formBuilder:FormBuilder,
-              private userService:UserService) {
+              private userService:UserService,
+              public dialog: MatDialog,
+              private snackBar:MatSnackBar) {
   }
 
   ngOnChanges(changes:SimpleChanges) {
     this.updateUserForm = this._formBuilder.group({
-      id: [this.user.id, Validators.nullValidator],
+      /*
+       id: [this.user.id, Validators.nullValidator],
+       */
       username: [this.user.username, Validators.nullValidator],
       firstName: [this.user.firstName, Validators.required],
       middleName: [this.user.middleName, Validators.required],
@@ -41,29 +47,40 @@ export class UpdateUserComponent implements OnChanges {
   }
 
   updateUser() {
-    const updateUser: any = {
-      id: null,
-      username: this.user.username,
-      firstName: this.updateUserForm.value.firstName,
-      middleName: this.updateUserForm.value.middleName,
-      lastName: this.updateUserForm.value.lastName,
-      address: this.updateUserForm.value.address,
-      bank: this.updateUserForm.value.bank,
-      bik: this.updateUserForm.value.bik,
-      ks: this.updateUserForm.value.ks,
-      organization: this.updateUserForm.value.organization,
-      phone: this.updateUserForm.value.phone,
-      position: this.updateUserForm.value.position,
-      unp: this.updateUserForm.value.unp,
-      rs: this.updateUserForm.value.rs,
-    };
+    const dialogRef = this.dialog.open(DialogUserComponent, {
+      data: {updateUser: true}
+    });
 
-    this.userService.updateUser(this.updateUserForm.value.id, updateUser, this.updateUserForm.value.role)
-      .then(data => {
-        this.onVotedAdmin.emit(data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updateUser:any = {
+          id: this.user.id,
+          username: this.user.username,
+          firstName: this.updateUserForm.value.firstName,
+          middleName: this.updateUserForm.value.middleName,
+          lastName: this.updateUserForm.value.lastName,
+          address: this.updateUserForm.value.address,
+          bank: this.updateUserForm.value.bank,
+          bik: this.updateUserForm.value.bik,
+          ks: this.updateUserForm.value.ks,
+          organization: this.updateUserForm.value.organization,
+          phone: this.updateUserForm.value.phone,
+          position: this.updateUserForm.value.position,
+          unp: this.updateUserForm.value.unp,
+          rs: this.updateUserForm.value.rs,
+        };
+
+        this.userService.updateUser(this.user.id, updateUser, this.updateUserForm.value.role)
+          .then(data => {
+            this.onVotedAdmin.emit(data);
+            this.snackBar.open('Обновление пользователя успешно выполнено', 'Закрыть', {
+              duration: 3000
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    });
   }
 }

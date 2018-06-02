@@ -1,8 +1,9 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Driver} from '../../../models/Driver';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatDialog, MatSnackBar} from '@angular/material';
 import {DriverService} from "../../../services/driver/driver.service";
+import {DialogDriverComponent} from "../../dashboard/drivers/dialog-driver/dialog-driver.component";
 
 @Component({
   selector: 'app-admin-drivers',
@@ -19,7 +20,9 @@ export class AdminDriversComponent implements OnChanges {
   displayedColumns = ['configuration', 'carNumber', 'firstName', 'middleName', 'lastName' /*'more'*/];
   dataSource = null;
 
-  constructor(private driverService:DriverService) {
+  constructor(private driverService:DriverService,
+              public dialog:MatDialog,
+              private snackBar:MatSnackBar) {
   }
 
   ngOnChanges(changes:SimpleChanges):void {
@@ -69,10 +72,18 @@ export class AdminDriversComponent implements OnChanges {
   }
 
   deleteDriver(element:Driver) {
-    this.selectedDriversForDeleted.push(element);
+    const dialogRef = this.dialog.open(DialogDriverComponent, {
+      data: {deleteDriver: true}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.selectedDriversForDeleted.push(element);
+      }
+    });
   }
 
-  deleteArray(updateDataArray: any) {
+  deleteArray(updateDataArray:any) {
     for (let i = 0; i < updateDataArray.length; i++) {
       const result = this.checkId(updateDataArray[i].id);
       if (result) {
@@ -87,7 +98,7 @@ export class AdminDriversComponent implements OnChanges {
   updateDataSourceAfterDeleted(id:number) {
     for (let i = 0; i < this.dataSource.data.length; i++) {
       if (id === this.dataSource.data[i].id) {
-        this.dataSource.data.splice(i,1);
+        this.dataSource.data.splice(i, 1);
       }
     }
   }
