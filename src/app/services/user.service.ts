@@ -41,12 +41,12 @@ export class UserService {
         'X-Requested-With': 'XMLHttpRequest'
       });
       this.http
-        .get(AppComponent.API_URL + '/login', {headers: headers}) 
+        .get(AppComponent.API_URL + '/login', {headers: headers})
         .toPromise()
         .then(result => {
           Cookie.set('token', 'Basic ' + btoa(user.username + ':' + user.password));
           localStorage.setItem('currentUser', JSON.stringify(result));
-          
+
           resolve(result);
         })
         .catch(error => {
@@ -71,9 +71,9 @@ export class UserService {
         ' Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method,' +
         ' Access-Control-Request-Headers'
       });
-      
+
       this.http
-        .post(AppComponent.API_URL + '/login',user, {headers: headers})
+        .post(this.loginURL, user, {headers: headers})
         .toPromise()
         .then(result => {
           Cookie.set('token', 'Basic ' + btoa(user.username + ':' + user.password));
@@ -209,7 +209,7 @@ export class UserService {
         .catch(error => reject(error));
     });
   }
-  
+
   logOut() {
     Cookie.delete('token');
     Cookie.set('token', '');
