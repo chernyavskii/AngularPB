@@ -1,4 +1,40 @@
-<div class="dashboard-main-content">
-  <app-users></app-users>
-  <app-message style="margin: 20px;"></app-message>
-</div>
+<h2>удаление пользователя из DataSource</h2>
+<h2>добавление пользователя в DataSource</h2>
+<ng-container>
+  <mat-toolbar class="dashboard-header" style="background: linear-gradient(to right, #e52d27, #b31217);">
+    <mat-icon style="color: yellow;margin: 5px;">verified_user</mat-icon>
+    <h1 style="color: white;">Панель Администратора</h1>
+    <span class="example-fill-remaining-space"></span>
+    <div class="navigation-panel">
+      <ul class="list-items-navigation">
+        <li class="list-item-nav">
+          <button mat-icon-button (click)="openDialog()">
+            <mat-icon style="color: #E0E0E0;">power</mat-icon>
+          </button>
+        </li>
+        <li class="list-item-nav">
+          <a [routerLink]="['/dashboard']">
+            <button mat-icon-button>
+              <mat-icon style="color: #E0E0E0;">dashboard</mat-icon>
+            </button>
+          </a>
+        </li>
+        <li class="list-item-nav">
+          <button mat-icon-button (click)="openDialog()">
+            <mat-icon style="color: #E0E0E0;">add</mat-icon>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="dashboard-container">
+
+    <div class="dashboard-main-content">
+      <app-users></app-users>
+    </div>
+
+  </mat-sidenav-container>
+  <mat-toolbar class="dashboard-footer">
+  </mat-toolbar>
+</ng-container>
+

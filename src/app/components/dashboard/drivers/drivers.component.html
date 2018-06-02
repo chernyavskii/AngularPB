@@ -3,7 +3,7 @@
     <mat-card>
       <mat-card-header>
         <mat-card-title>Мои Водители</mat-card-title>
-        <mat-card-subtitle>список всех водителей</mat-card-subtitle>
+        <mat-card-subtitle>Список всех водителей</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <mat-form-field class="data_filter">
@@ -62,14 +62,14 @@
             <mat-cell *matCellDef="let element"> {{element.firstName}}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="lastName">
-            <mat-header-cell *matHeaderCellDef> Фамилия</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
-          </ng-container>
-
           <ng-container matColumnDef="middleName">
             <mat-header-cell *matHeaderCellDef> Отчество</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.middleName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef> Фамилия</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.lastName}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="more">

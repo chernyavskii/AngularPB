@@ -1,0 +1,20 @@
+<div *ngIf="data.profile">
+<h1 mat-dialog-title>Редактирование профиля</h1>
+<mat-dialog-content>
+  Вы действительно хотите обновить данные профиля?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Отмена</button>
+  <button mat-button color="warn" (click)="successButton()">Принять</button>
+</mat-dialog-actions>
+</div>
+<div *ngIf="!data.profile">
+  <h1 mat-dialog-title>Редактирование пароля</h1>
+  <mat-dialog-content>
+    Вы действительно хотите изменить пароль?
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>

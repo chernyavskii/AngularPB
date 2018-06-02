@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../models/User';
 import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatDialog} from '@angular/material';
 import {UserService} from '../../../../services/user.service';
+import {DialogProfileComponent} from "../dialog-profile/dialog-profile.component";
 
 @Component({
   selector: 'app-change-password',
@@ -13,11 +14,13 @@ export class ChangePasswordComponent implements OnInit {
 
   @Input()
   user = new User();
-  changePasswordGroup: FormGroup;
+  changePasswordGroup:FormGroup;
+  hide:any;
 
-  constructor(private fb: FormBuilder,
-              private snackBar: MatSnackBar,
-              private userService: UserService) {
+  constructor(private fb:FormBuilder,
+              private snackBar:MatSnackBar,
+              private userService:UserService,
+              public dialog:MatDialog) {
   }
 
   ngOnInit() {
@@ -31,8 +34,8 @@ export class ChangePasswordComponent implements OnInit {
 
   }
 
-  areEqual(control: FormControl): ValidationErrors {
-    const keys: string[] = Object.keys(control.value);
+  areEqual(control:FormControl):ValidationErrors {
+    const keys:string[] = Object.keys(control.value);
     for (const i in keys) {
       if (i !== '0' && control.value[keys[+i - 1]] !== control.value[keys[i]]) {
         return {areEqual: true};
@@ -41,21 +44,28 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   updatePassword() {
-    const passObject = {
-      newPassword: this.changePasswordGroup.value.passwords.newPassword,
-      oldPassword: this.changePasswordGroup.value.current_password
-    };
-    this.userService.changePassword(passObject)
-      .then(data => {
-        if (data) {
-          this.snackBar.open('Пароль успешно изменён', 'Закрыть', {
-            duration: 3000
+    const dialogRef = this.dialog.open(DialogProfileComponent, {
+      data: {profile: false}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const passObject = {
+          newPassword: this.changePasswordGroup.value.passwords.newPassword,
+          oldPassword: this.changePasswordGroup.value.current_password
+        };
+        this.userService.changePassword(passObject)
+          .then(data => {
+            if (data) {
+              this.snackBar.open('Пароль успешно изменён', 'Закрыть', {
+                duration: 3000
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
           });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      }
+    })
   }
 }
 

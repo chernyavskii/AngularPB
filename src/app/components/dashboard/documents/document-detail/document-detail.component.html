@@ -2,7 +2,32 @@
   <span>
     <p style="font-size: 35px; font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0; padding-bottom: 15px;">Информация о документе</p></span>
   <div class="product__item" *ngIf="document.info !== ''">
-    <div class="block-main">
+    <div class="block-main" *ngIf="document.action === 'share'">
+      <button style="width: 74px; float: left;" mat-menu-item [matMenuTriggerFor]="download">
+        <mat-icon style="margin-left: 8px;">file_download</mat-icon>
+      </button>
+      <button style="width: 74px; float: left;" mat-menu-item (click)="printSharedDocument()">
+        <mat-icon style="margin-left: 8px;">print</mat-icon>
+      </button>
+      <button style="width: 74px; float: left;" mat-menu-item (click)="deleteDocument()">
+        <mat-icon style="margin-left: 8px;">delete</mat-icon>
+      </button>
+      <button mat-menu-item (click)="closeWindow()" style="float: right; width: 74px;">
+        <mat-icon style="margin-left: 8px; color: red;">clear</mat-icon>
+      </button>
+      <mat-menu #download="matMenu">
+        <button mat-menu-item (click)="downloadSharedDocumentInPdf()">
+          <mat-icon>label</mat-icon>
+          <span>.pdf</span>
+        </button>
+        <button mat-menu-item (click)="downloadSharedDocumentInExcel()">
+          <mat-icon>label</mat-icon>
+          <span>.xlsx</span>
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="block-main" *ngIf="document.action !== 'share'">
       <button style="width: 74px; float: left;" mat-menu-item [matMenuTriggerFor]="download">
         <mat-icon style="margin-left: 8px;">file_download</mat-icon>
       </button>
@@ -15,20 +40,17 @@
       <button mat-menu-item (click)="closeWindow()" style="float: right; width: 74px;">
         <mat-icon style="margin-left: 8px; color: red;">clear</mat-icon>
       </button>
-      <button style="width: 74px; float: left;" mat-menu-item>
-        <mat-icon style="margin-left: 8px;">share</mat-icon>
-      </button>
+      <mat-menu #download="matMenu">
+        <button mat-menu-item (click)="downloadDocumentInPdf()">
+          <mat-icon>label</mat-icon>
+          <span>.pdf</span>
+        </button>
+        <button mat-menu-item (click)="downloadDocumentInExcel()">
+          <mat-icon>label</mat-icon>
+          <span>.xlsx</span>
+        </button>
+      </mat-menu>
     </div>
-    <mat-menu #download="matMenu">
-      <button mat-menu-item (click)="downloadDocumentInPdf()">
-        <mat-icon>label</mat-icon>
-        <span>.pdf</span>
-      </button>
-      <button mat-menu-item (click)="downloadDocumentInExcel()">
-        <mat-icon>label</mat-icon>
-        <span>.xlsx</span>
-      </button>
-    </mat-menu>
 
     <div class="progress-bar">
       <mat-progress-bar *ngIf="onLoad" mode="indeterminate"></mat-progress-bar>

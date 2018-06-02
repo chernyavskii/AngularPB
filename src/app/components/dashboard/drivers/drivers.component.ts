@@ -15,7 +15,7 @@ import {DialogDriverComponent} from '../drivers/dialog-driver/dialog-driver.comp
 export class DriversComponent implements AfterViewInit {
 
 
-  displayedColumns = ['select', 'carNumber', 'firstName', 'lastName', 'middleName', 'more'];
+  displayedColumns = ['select', 'carNumber', 'firstName', 'middleName', 'lastName', 'more'];
 
   @Input()
   user = new User();

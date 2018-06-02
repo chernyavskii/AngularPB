@@ -1,0 +1,20 @@
+<div *ngIf="data.share">
+  <h1 mat-dialog-title>Полученный документ</h1>
+  <mat-dialog-content>
+    Вы действительно хотите убрать данный документ из списка полученных?
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>
+<div *ngIf="data.document">
+  <h1 mat-dialog-title>Удаление документа</h1>
+  <mat-dialog-content>
+    Вы действительно хотите удалить данный документ?
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Отмена</button>
+    <button mat-button color="warn" (click)="successButton()">Принять</button>
+  </mat-dialog-actions>
+</div>

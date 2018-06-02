@@ -57,6 +57,7 @@ export class UserService {
 
   login(user: User): Promise<any> {
     Cookie.delete('token');
+    Cookie.deleteAll();
     localStorage.clear();
     return new Promise((resolve, reject) => {
       const headers = new HttpHeaders({

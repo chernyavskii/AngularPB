@@ -23,13 +23,10 @@ const appRoutes: Routes = [
         {path: 'drivers', component: DriversComponent}
       ]
   },
-/*
-  { path: '**', component: PageNotFoundComponent },
-*/
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+  {path: '', redirectTo: '/dashboard/new', pathMatch: 'full'}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

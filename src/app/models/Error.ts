@@ -4,7 +4,6 @@ export class Error {
     this.status = status;
     this.code = code;
   }
-
   public message:string;
   public status:string;
   public code:number;

@@ -1,0 +1,27 @@
+ul {
+  padding: 0;
+  margin-left: 25px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.ul--inf {
+  padding: 0;
+  margin-left: 25px;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.li--inf {
+  list-style-type: none;
+}
+
+.mat-dialog-title {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+li label {
+  font-weight: bold;
+  font-size: 19px;
+}

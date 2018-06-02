@@ -18,10 +18,15 @@ export class DocumentsComponent implements AfterViewInit {
   user = new User();
   allDocuments:Document[] = [];
   shareDocuments:Document[] = [];
-  share: string = 'share';
-  doc: string = 'document';
+
+  share:string = 'share';
+  doc:string = 'document';
+
   selectedDocument:any = {info: '', documentUrl: Uint8Array, action: this.doc};
   selectedShareDocument:any = {info: '', documentUrl: Uint8Array, action: this.share};
+
+  emptyListOfDocuments = false;
+  emptyListOfSharedDocuments = false;
 
 
   url:any[] = [];
@@ -51,12 +56,13 @@ export class DocumentsComponent implements AfterViewInit {
         this.listView = false;
         for (let doc of this.allDocuments) {
           this.showDocumentInPng(doc.id);
-          this.elements = this.allDocuments.concat(this.url);
         }
         this.dataSource = new MatTableDataSource<Document>(data);
       })
       .catch(err => {
-        console.log(err);
+        if (err.error.message === 'list of entities are empty') {
+          this.emptyListOfDocuments = true;
+        }
       });
 
     this.shareService.getAllSharedDocuments()
@@ -64,13 +70,14 @@ export class DocumentsComponent implements AfterViewInit {
         this.shareDocuments = data;
         this.listViewShared = false;
         for (let doc of this.shareDocuments) {
-          this.showDocumentInPng(doc.id);
-          //this.elements = this.allDocuments.concat(this.url);
+          this.showSharedDocumentInPng(doc.id);
         }
         this.dataSourceShared = new MatTableDataSource<Document>(data);
       })
       .catch(err => {
-        console.log(err);
+        if (err.error.message === 'list of entities are empty') {
+          this.emptyListOfSharedDocuments = true;
+        }
       });
   }
 
@@ -81,30 +88,39 @@ export class DocumentsComponent implements AfterViewInit {
     this.dataSourceShared = null;
     this.documentService.getAllDocuments()
       .then(data => {
-        console.log(data);
-        console.log('all');
         this.allDocuments = data;
         this.dataSource = new MatTableDataSource<Document>(data);
       })
       .catch(err => {
-        console.log(err);
+        if (err.error.message === 'list of entities are empty') {
+          this.emptyListOfDocuments = true;
+        }
       });
-
 
     this.shareService.getAllSharedDocuments()
       .then(data => {
-        console.log(data);
-        console.log('all');
         this.shareDocuments = data;
         this.dataSourceShared = new MatTableDataSource<Document>(data);
       })
       .catch(err => {
-        console.log(err);
+        if (err.error.message === 'list of entities are empty') {
+          this.emptyListOfSharedDocuments = true;
+        }
       });
   }
 
   showDocumentInPng(id:number) {
     this.documentService.showPng(id)
+      .then(res => {
+        this.url.push('data:image/png;base64,' + res);
+        this.waitProp = false;
+      })
+      .catch(err => err.toString());
+    this.onLoad = false;
+  }
+
+  showSharedDocumentInPng(id:number) {
+    this.shareService.showPng(id)
       .then(res => {
         this.url.push('data:image/png;base64,' + res);
         this.waitProp = false;
@@ -122,6 +138,8 @@ export class DocumentsComponent implements AfterViewInit {
   }
 
   documentInfo(selectDocument:any) {
+    this.selectedShareDocument.info = '';
+    this.selectedShareDocument.documentUrl = '';
     this.documentService.showPdf(selectDocument.id)
       .then(res => {
         this.pageurl = res;
@@ -131,8 +149,22 @@ export class DocumentsComponent implements AfterViewInit {
       .catch(err => err.toString());
   }
 
+  applyFilter(filterValue:string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  applyFilterShared(filterValue:string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSourceShared.filter = filterValue;
+  }
+
   documentShareInfo(selectDocument:any) {
-    this.documentService.showPdf(selectDocument.id)
+    this.selectedDocument.info = '';
+    this.selectedDocument.documentUrl = '';
+    this.shareService.showPdf(selectDocument.id)
       .then(res => {
         this.pageurl = res;
         this.selectedShareDocument.info = selectDocument;
@@ -146,6 +178,7 @@ export class DocumentsComponent implements AfterViewInit {
     document.push(event);
     for (let i = 0; i < document.length; i++) {
       const result = this.checkShareId(document[i].id);
+      console.log(result);
       if (result) {
         this.updateShareDataSourceAfterDeleted(document[i].id);
       }

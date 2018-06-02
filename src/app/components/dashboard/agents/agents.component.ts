@@ -11,7 +11,7 @@ import {DialogAgentComponent} from '../agents/dialog-agent/dialog-agent.componen
   styleUrls: ['./agents.component.css']
 })
 export class AgentsComponent implements AfterViewInit {
-  displayedColumns = ['select', 'unp', 'firstName', 'lastName', 'middleName', 'more'];
+  displayedColumns = ['select', 'unp', 'firstName', 'middleName', 'lastName', 'more'];
 
   width:number;
   height:number;

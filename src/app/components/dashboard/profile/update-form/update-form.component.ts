@@ -2,7 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../../models/User';
 import {UserService} from '../../../../services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatDialog} from '@angular/material';
+import {DialogProfileComponent} from "../dialog-profile/dialog-profile.component";
 
 @Component({
   selector: 'app-update-form',
@@ -12,13 +13,14 @@ import {MatSnackBar} from '@angular/material';
 export class UpdateFormComponent implements OnInit {
 
   /*@Input()
-  user = new User();*/
-  user = new User();
-  firstFormGroup: FormGroup;
+   user = new User();*/
+  user:any;
+  firstFormGroup:FormGroup;
 
-  constructor(private userService: UserService,
-              private snackBar: MatSnackBar,
-              private _formBuilder: FormBuilder) {
+  constructor(private userService:UserService,
+              private snackBar:MatSnackBar,
+              private _formBuilder:FormBuilder,
+              public dialog:MatDialog) {
   }
 
   ngOnInit() {
@@ -45,35 +47,43 @@ export class UpdateFormComponent implements OnInit {
   }
 
 
-  updateProfile(user: User) {
-    const updateUser: User = {
-      id: this.firstFormGroup.value.id,
-      username: this.firstFormGroup.value.username,
-      password: this.firstFormGroup.value.password,
-      firstName: this.firstFormGroup.value.firstName,
-      middleName: this.firstFormGroup.value.middleName,
-      lastName: this.firstFormGroup.value.lastName,
-      unp: this.firstFormGroup.value.unp,
-      organization: this.firstFormGroup.value.organization,
-      position: this.firstFormGroup.value.position,
-      address: this.firstFormGroup.value.address,
-      rs: this.firstFormGroup.value.rs,
-      ks: this.firstFormGroup.value.ks,
-      bank: this.firstFormGroup.value.bank,
-      bik: this.firstFormGroup.value.bik,
-      phone: this.firstFormGroup.value.phone,
-    };
-   /* this.userService.updateUser(this.firstFormGroup.value.id, updateUser)
-      .then(res => {
-        if (res) {
-          this.snackBar.open('Профиль успешно изменён', 'Закрыть', {
-            duration: 3000
+  updateProfile(user:User) {
+    const dialogRef = this.dialog.open(DialogProfileComponent, {
+       data: {profile: true}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updateUser:any = {
+          id: null,
+          username: this.firstFormGroup.value.username,
+          password: this.firstFormGroup.value.password,
+          firstName: this.firstFormGroup.value.firstName,
+          middleName: this.firstFormGroup.value.middleName,
+          lastName: this.firstFormGroup.value.lastName,
+          unp: this.firstFormGroup.value.unp,
+          organization: this.firstFormGroup.value.organization,
+          position: this.firstFormGroup.value.position,
+          address: this.firstFormGroup.value.address,
+          rs: this.firstFormGroup.value.rs,
+          ks: this.firstFormGroup.value.ks,
+          bank: this.firstFormGroup.value.bank,
+          bik: this.firstFormGroup.value.bik,
+          phone: this.firstFormGroup.value.phone,
+        };
+        this.userService.updateUser(this.firstFormGroup.value.id, updateUser, this.user.roles[0].name)
+          .then(res => {
+            if (res) {
+              this.snackBar.open('Профиль успешно изменён', 'Закрыть', {
+                duration: 3000
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
           });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });*/
+      }
+    });
+
   }
 
 }

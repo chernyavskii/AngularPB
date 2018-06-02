@@ -7,12 +7,12 @@
         </i>
       </div>
       <div style=" margin: auto; text-align: center; top: 0; left: 0; bottom: 0; right: 0;">
-        <span style="font-size: 20px;">АВТОРИЗАЦИЯ</span>
+        <span style="font-size: 20px;">РЕГИСТРАЦИЯ</span>
       </div>
     <mat-card-content >
       <mat-card style=" margin: 0; top: 0; " >
-        <mat-vertical-stepper class="tested"  style="background: #FFFFFF;  border: 1px solid black;">
-          <mat-step style="border: 1px solid black;" [stepControl]="firstFormGroup" class="tested">
+        <mat-vertical-stepper class="tested"  style="background: #FFFFFF; ">
+          <mat-step [stepControl]="firstFormGroup" class="tested">
             <form [formGroup]="firstFormGroup">
               <ng-template matStepLabel>Личные данные</ng-template>
               <div class="registration-main-form-content">
@@ -245,9 +245,13 @@
             </mat-action-row>
 
           </mat-step>
+
         </mat-vertical-stepper>
       </mat-card>
     </mat-card-content>
-  </div>
+     <span style="font-size: 18px;">Уже есть аккаунт?</span> <a [routerLink]="['/login']" routerLinkActive="active">
+      <span style="font-family: 'Open Sans Condensed', sans-serif; color: #834d9b; font-size: 18px;"><b>Войти</b></span>
+    </a>
+    </div>
 </div>
 </div>

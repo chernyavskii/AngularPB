@@ -1,8 +1,15 @@
-<div style="height: 26px;">
+<!--<div style="height: 26px; border: 1px solid black;">
   <mat-icon style="float: right; color: red; margin-left: 10px; position: relative;" (click)="closeWindow()">clear
   </mat-icon>
-</div>
+</div>-->
 <form [formGroup]="addNewUserGroup">
+  <button style="float: right;" mat-icon-button mat-dialog-close><mat-icon style="color: red;">close</mat-icon></button>
+  <span>
+  <p style="font-size: 35px;
+ font-family: 'Open Sans Condensed', sans-serif; color: #9E9E9E; border-bottom: 1px solid #E0E0E0;
+  padding-bottom: 15px;">Добавление нового пользователя
+  </p>
+</span>
   <div class="grid__row grid__row--md">
     <mat-form-field class="grid__item">
       <input type="text" matInput placeholder="Логин" formControlName="username"/>
@@ -66,8 +73,8 @@
       <input type="text" matInput placeholder="КС" formControlName="ks"/>
     </mat-form-field>
   </div>
-  <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
+  <button style="background: linear-gradient(to right, #8e2de2, #4a00e0);font-size: 20px; margin-left: 15px; margin-top: 10px; color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif;"
           mat-raised-button
-          color="accent" (click)="addNewUser()">Добавить
+          color="accent" (click)="addNewUser()">ДОБАВИТЬ
   </button>
 </form>

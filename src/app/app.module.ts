@@ -49,8 +49,6 @@ import {UsersComponent} from './components/admin/users/users.component';
 import { AddUserComponent } from './components/admin/users/add-user/add-user.component';
 import { UpdateUserComponent } from './components/admin/users/update-user/update-user.component';
 import { DeleteUserComponent } from './components/admin/users/delete-user/delete-user.component';
-import { MessageComponent } from './components/admin/message/message.component';
-import {MessageService} from './services/message/message.service';
 import { AdminAgentsComponent } from './components/admin/admin-agents/admin-agents.component';
 import { AdminDriversComponent } from './components/admin/admin-drivers/admin-drivers.component';
 import { AdminDocumentsComponent } from './components/admin/admin-documents/admin-documents.component';
@@ -59,6 +57,12 @@ import { DialogAgentComponent } from './components/dashboard/agents/dialog-agent
 import { DialogDriverComponent } from './components/dashboard/drivers/dialog-driver/dialog-driver.component';
 import {ShareService} from "./services/share/share.service";
 import { PageNotFoundComponent } from './components/index/pageNotFound/page-not-found/page-not-found.component';
+import { AdminSharedDocumentsComponent } from './components/admin/admin-shared-documents/admin-shared-documents.component';
+import { AdminAgentsUpdateComponent } from './components/admin/admin-agents/admin-agents-update/admin-agents-update.component';
+import { AdminDriversUpdateComponent } from './components/admin/admin-drivers/admin-drivers-update/admin-drivers-update.component';
+import { DialogUserComponent } from './components/admin/users/dialog-user/dialog-user.component';
+import { DialogProfileComponent } from './components/dashboard/profile/dialog-profile/dialog-profile.component';
+import { DialogDocumentsComponent } from './components/dashboard/documents/dialog-documents/dialog-documents.component';
 
 @NgModule({
   declarations: [
@@ -86,15 +90,20 @@ import { PageNotFoundComponent } from './components/index/pageNotFound/page-not-
     AddUserComponent,
     UpdateUserComponent,
     DeleteUserComponent,
-    MessageComponent,
     AdminAgentsComponent,
     AdminDriversComponent,
     AdminDocumentsComponent,
     DeleteDocumentComponent,
     DialogAgentComponent,
     DialogDriverComponent,
-    PageNotFoundComponent
-/*
+    PageNotFoundComponent,
+    AdminSharedDocumentsComponent,
+    AdminAgentsUpdateComponent,
+    AdminDriversUpdateComponent,
+    DialogUserComponent,
+    DialogProfileComponent,
+    DialogDocumentsComponent
+    /*
     PdfViewerComponent
 */
   ],
@@ -137,8 +146,8 @@ import { PageNotFoundComponent } from './components/index/pageNotFound/page-not-
     MatChipsModule,
     PdfViewerModule
   ],
-  entryComponents: [DialogAgentComponent, DialogDriverComponent],
-  providers: [UserService, DriverService, ShareService, AgentService, DocumentService, CookieService, MessageService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
+  entryComponents: [DialogAgentComponent, DialogDriverComponent, DialogUserComponent, DialogProfileComponent, DialogDocumentsComponent],
+  providers: [UserService, DriverService, ShareService, AgentService, DocumentService, CookieService, AuthGuard, AddFormUtils /*{ provide: HTTP_INTERCEPTORS /!*useClass: XhrInterceptor, multi: true*!/ }*/],
   bootstrap: [AppComponent]
 })
 

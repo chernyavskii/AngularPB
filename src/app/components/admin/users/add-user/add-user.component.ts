@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../../models/User';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar, MatDialog} from '@angular/material';
 import {UserService} from '../../../../services/user.service';
 import {typeOfRole} from '../../../../data/data';
+import {DialogUserComponent} from "../dialog-user/dialog-user.component";
+
 
 @Component({
   selector: 'app-add-user',
@@ -45,10 +47,11 @@ export class AddUserComponent implements OnInit {
 
   addNewUser() {
     if (this.addNewUserGroup.status !== 'INVALID') {
-      const newUser: User = {
+      const newUser: any = {
         id: null,
         username: this.addNewUserGroup.value.username,
         password: this.addNewUserGroup.value.password,
+        confirmPassword: this.addNewUserGroup.value.password,
         firstName: this.addNewUserGroup.value.firstName,
         middleName: this.addNewUserGroup.value.middleName,
         lastName: this.addNewUserGroup.value.lastName,
@@ -102,6 +105,7 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   closeWindow() {

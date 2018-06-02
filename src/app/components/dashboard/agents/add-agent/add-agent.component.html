@@ -51,9 +51,13 @@
         <input type="text" matInput placeholder="КС" matTooltip="Корреспондентский Счет" formControlName="ks"/>
       </mat-form-field>
     </div>
-    <button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
+    <button
+      style="font-size: 20px; margin-top: 20px; margin-left: 15px;  color: white; width: 150px; font-family: 'Open Sans Condensed', sans-serif; background: linear-gradient(to right, #834d9b, #d04ed6);"
+      mat-raised-button (click)="addNewAgent()">ПРИНЯТЬ
+    </button>
+    <!--<button style="background: linear-gradient(to right,#f83600, #fe8c00); margin-left: 20px; margin-top: 20px;"
             mat-raised-button
             color="accent" (click)="addNewAgent()">Добавить
-    </button>
+    </button>-->
   </div>
 </form>
