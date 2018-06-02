@@ -78,13 +78,9 @@ export class UpdateAgentComponent implements OnChanges {
   }
 
   ngOnChanges(changes:SimpleChanges) {
-    console.log('mmis');
-    console.log(this.items.controls);
-    console.log('mmis2');
-    console.log(this.updateAgentForm.controls['items'].controls['firstName']);
    /* for(let i=0; i< this.updateAgentForm.controls['items'].length; i++){
       console.log(this.updateAgentForm.controls['items'].controls[i]);
-      
+
     }*/
     this.changes = changes;
     if (changes.agents.firstChange) {

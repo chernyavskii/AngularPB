@@ -8,8 +8,8 @@
   padding-bottom: 15px;">Переданные документы выбранному контрагенту:
   <span style="float: right;">
     <span style="font-size: 17px;">Вид: </span>
-    <button mat-icon-button (click)="listViewShared = false"><mat-icon>view_module</mat-icon></button>
-    <button mat-icon-button (click)="listViewShared = true"><mat-icon>list</mat-icon></button>
+    <button mat-icon-button (click)="listView = false"><mat-icon>view_module</mat-icon></button>
+    <button mat-icon-button (click)="listView = true"><mat-icon>list</mat-icon></button>
   </span>
   </p>
   <div *ngIf="documents.length === 0" class="alert alert-danger">
@@ -17,7 +17,7 @@
 </div>
 </span>
 <div *ngIf="documents.length > 0">
-<div *ngIf="listViewShared">
+<div *ngIf="listView">
   <mat-form-field class="data_filter">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Введите ...">
   </mat-form-field>
@@ -45,7 +45,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-<div class="cards" *ngIf="!listViewShared">
+<div class="cards" *ngIf="!listView">
   <mat-card class="card" *ngFor="let document of documents; let i=index;" style=" margin: 10px;">
     <mat-card-header style="border-bottom: 1px solid #E0E0E0;">
       <mat-card-title style="font-size: 1.2em;">Название: {{document.name}}</mat-card-title>
